@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr" data-composition-variables='[{"id":"subtitles","type":"boolean","label":"Sous-titres incrustés","default":false}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>LLM Monitor — film promo</title>
+    <link rel="stylesheet" href="assets/brand.css" />
+    <script src="assets/vendor/gsap.min.js"></script>
+    <script src="assets/kit.js"></script>
+    <style>
+      @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #f5f6f3;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #f5f6f3;
+        font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+      }
+      .slot {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 50%;
+      }
+      #bg { z-index: 0; }
+      #a-search { z-index: 2; }
+      #b-question { z-index: 3; }
+      #d-measure { z-index: 4; }
+      #c-reveal { z-index: 5; }
+      #e-sources { z-index: 6; }
+      #f-reputation { z-index: 7; }
+      #g-audit { z-index: 8; }
+      #h-actions { z-index: 9; }
+      #i-endcard { z-index: 10; }
+      #chrome { z-index: 20; }
+
+      /* ---------- Subtitles (burned in only when the "subtitles" variable is true) ---------- */
+      #subs {
+        position: absolute;
+        inset: 0;
+        z-index: 30;
+        pointer-events: none;
+      }
+      #subs-inner {
+        position: absolute;
+        inset: 0;
+      }
+      .sub-cue {
+        position: absolute;
+        left: 50%;
+        bottom: 46px;
+        width: 1500px;
+        margin-left: -750px;
+        display: flex;
+        justify-content: center;
+        opacity: 0;
+      }
+      .sub-cue span {
+        display: block;
+        max-width: 1500px;
+        padding: 12px 30px 14px;
+        border-radius: 16px;
+        background: rgba(14, 26, 23, 0.8);
+        color: #ffffff;
+        font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+        font-weight: 500;
+        font-size: 38px;
+        line-height: 1.25;
+        letter-spacing: -0.005em;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="80" data-fps="25" data-width="1920" data-height="1080">
+      <div id="bg" class="clip slot" data-composition-id="bg" data-composition-src="compositions/bg.html"
+        data-start="0" data-duration="80" data-track-index="0" data-width="1920" data-height="1080"></div>
+
+      <div id="a-search" class="clip slot" data-composition-id="a-search" data-composition-src="compositions/a-search.html"
+        data-start="0" data-duration="11.7" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="b-question" class="clip slot" data-composition-id="b-question" data-composition-src="compositions/b-question.html"
+        data-start="11.25" data-duration="7.5" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <div id="c-reveal" class="clip slot" data-composition-id="c-reveal" data-composition-src="compositions/c-reveal.html"
+        data-start="18.75" data-duration="10.6" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="d-measure" class="clip slot" data-composition-id="d-measure" data-composition-src="compositions/d-measure.html"
+        data-start="28.75" data-duration="11.95" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <div id="e-sources" class="clip slot" data-composition-id="e-sources" data-composition-src="compositions/e-sources.html"
+        data-start="40" data-duration="9.45" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="f-reputation" class="clip slot" data-composition-id="f-reputation" data-composition-src="compositions/f-reputation.html"
+        data-start="48.75" data-duration="10.7" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <div id="g-audit" class="clip slot" data-composition-id="g-audit" data-composition-src="compositions/g-audit.html"
+        data-start="58.75" data-duration="9.45" data-track-index="1" data-width="1920" data-height="1080"></div>
+      <div id="h-actions" class="clip slot" data-composition-id="h-actions" data-composition-src="compositions/h-actions.html"
+        data-start="67.5" data-duration="7.25" data-track-index="2" data-width="1920" data-height="1080"></div>
+      <div id="i-endcard" class="clip slot" data-composition-id="i-endcard" data-composition-src="compositions/i-endcard.html"
+        data-start="74.75" data-duration="5.25" data-track-index="1" data-width="1920" data-height="1080"></div>
+
+      <div id="chrome" class="clip slot" data-composition-id="chrome" data-composition-src="compositions/chrome.html"
+        data-start="28.75" data-duration="46" data-track-index="3" data-width="1920" data-height="1080"></div>
+
+      <audio id="soundtrack" src="assets/audio/soundtrack.wav" data-start="0" data-duration="80" data-track-index="6" data-volume="1"></audio>
+
+      <div id="subs" class="clip" data-start="0" data-duration="80" data-track-index="4">
+        <div id="subs-inner"></div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+
+        /* ---------- Scene handoffs ---------- */
+        /* A → B: focus pull (the answer card carries over) */
+        tl.fromTo("#a-search", { opacity: 1, filter: "blur(0px)", scale: 1 },
+          { opacity: 0, filter: "blur(16px)", scale: 1.03, duration: 0.45, ease: "power2.in", immediateRender: false }, 11.25);
+        tl.fromTo("#b-question", { opacity: 0, filter: "blur(16px)", scale: 0.97 },
+          { opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.5, ease: "power2.out" }, 11.25);
+
+        /* C → D: C dives into the score ring; the light dashboard (already zoomed on its own ring) shows through */
+        tl.fromTo("#c-reveal", { opacity: 1 }, { opacity: 0, duration: 0.55, ease: "power1.inOut", immediateRender: false }, 28.75);
+
+        /* D → E → F → G → H: lateral travelling between product chapters, under the fixed chapter title */
+        function whip(outId, inId, T) {
+          tl.fromTo("#" + outId, { x: 0, opacity: 1, filter: "blur(0px)" },
+            { x: -1250, opacity: 0.2, filter: "blur(18px)", duration: 0.7, ease: "power3.inOut", immediateRender: false }, T);
+          tl.fromTo("#" + inId, { x: 1250, opacity: 0.2, filter: "blur(18px)" },
+            { x: 0, opacity: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.inOut" }, T);
+        }
+        whip("d-measure", "e-sources", 40.0);
+        whip("e-sources", "f-reputation", 48.75);
+        whip("f-reputation", "g-audit", 58.75);
+        whip("g-audit", "h-actions", 67.5);
+
+        /* ---------- Subtitles (version sous-titrée) ---------- */
+        const CUES = [
+          [0.6, 3.7, "Aujourd'hui, vos clients obtiennent de plus en plus souvent"],
+          [3.7, 6.5, "une réponse générée par une IA :"],
+          [6.6, 10.7, "dans Google AI Overview, ChatGPT, Gemini, Claude ou Perplexity."],
+          [11.5, 13.5, "Vous pilotez le marketing ou l'acquisition ?"],
+          [13.6, 15.1, "Votre marque apparaît-elle ?"],
+          [15.2, 18.2, "Gagne-t-elle vraiment du terrain face à ses concurrents ?"],
+          [19.1, 20.8, "En interne ou avec une agence,"],
+          [20.9, 25.4, "LLM Monitor vous donne une vision claire de votre présence dans les IA."],
+          [25.6, 27.8, "Sans expertise SEO ou GEO."],
+          [29.1, 31.0, "Vous mesurez votre visibilité,"],
+          [31.0, 34.4, "votre classement face à vos concurrents et votre part de voix."],
+          [34.6, 39.6, "Vous suivez leur évolution pour savoir si votre stratégie progresse vraiment."],
+          [40.3, 44.3, "LLM Monitor vous aide aussi à comprendre pourquoi certaines marques sont citées,"],
+          [44.4, 48.3, "en identifiant les sources qui alimentent les réponses."],
+          [49.0, 51.2, "Vous analysez également votre réputation :"],
+          [51.3, 53.6, "ce que les IA comprennent de votre marque,"],
+          [53.7, 58.3, "à travers la presse, les avis consommateurs et les sources publiques."],
+          [59.0, 61.8, "La plateforme vérifie si votre site est accessible,"],
+          [61.8, 64.2, "structuré et suffisamment clair"],
+          [64.2, 67.2, "pour que les IA puissent exploiter vos contenus."],
+          [67.8, 71.4, "Enfin, LLM Monitor transforme ces analyses en recommandations concrètes,"],
+          [71.5, 74.4, "pour savoir où agir et gagner en visibilité."],
+          [75.0, 79.2, "LLM Monitor. Mesurez. Comprenez. Agissez."],
+        ];
+        const vars = window.__hyperframes && window.__hyperframes.getVariables ? window.__hyperframes.getVariables() : {};
+        const subsOn = vars.subtitles === true || vars.subtitles === "true";
+        const inner = document.getElementById("subs-inner");
+        if (subsOn) {
+          CUES.forEach(function (c, i) {
+            const d = document.createElement("div");
+            d.className = "sub-cue";
+            d.innerHTML = "<span>" + c[2] + "</span>";
+            inner.appendChild(d);
+            tl.fromTo(d, { opacity: 0 }, { opacity: 1, duration: 0.12, ease: "none" }, c[0]);
+            tl.fromTo(d, { opacity: 1 }, { opacity: 0, duration: 0.12, ease: "none", immediateRender: false }, c[1] - 0.12);
+          });
+        }
+
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="c-reveal-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #c-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #ffffff;
+          background:
+            radial-gradient(90% 120% at 85% 95%, rgba(63, 127, 118, 0.95) 0%, rgba(63, 127, 118, 0) 62%),
+            radial-gradient(70% 90% at 8% 0%, #1e3149 0%, rgba(30, 49, 73, 0) 72%),
+            #15223a;
+        }
+        #c-glow {
+          position: absolute;
+          left: 360px;
+          top: -60px;
+          width: 1200px;
+          height: 1200px;
+          border-radius: 50%;
+          background: radial-gradient(50% 50% at 50% 50%, rgba(46, 190, 155, 0.22) 0%, rgba(46, 190, 155, 0) 65%);
+        }
+        #c-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.07;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+        }
+        #c-stage {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 0 0;
+        }
+        #c-logo {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transform-origin: 960px 540px;
+        }
+        #c-logo .lm-lockup-name {
+          will-change: clip-path;
+        }
+        #c-title {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 214px;
+          text-align: center;
+          font-family: "Instrument Serif", Georgia, serif;
+          font-size: 112px;
+          line-height: 1;
+          letter-spacing: -0.02em;
+          color: #ffffff;
+        }
+        #c-title em {
+          font-style: italic;
+          color: #2ebe9b;
+        }
+        #c-context {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 366px;
+          display: flex;
+          justify-content: center;
+          gap: 18px;
+          align-items: center;
+          font-family: "IBM Plex Mono", monospace;
+          font-size: 22px;
+          letter-spacing: 0.06em;
+          color: rgba(255, 255, 255, 0.72);
+          white-space: nowrap;
+        }
+        #c-context b {
+          font-weight: 500;
+          padding: 6px 14px;
+          border-radius: 8px;
+          background: rgba(46, 190, 155, 0.16);
+          color: #2ebe9b;
+          letter-spacing: 0.1em;
+        }
+        .c-card {
+          position: absolute;
+          top: 450px;
+          width: 500px;
+          height: 390px;
+          padding: 34px 36px;
+          border-radius: 30px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.05) 100%);
+          border: 2px solid rgba(255, 255, 255, 0.16);
+          box-shadow: 0 40px 90px rgba(5, 12, 24, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+        .c-label {
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 22px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.66);
+        }
+        .c-big {
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          letter-spacing: -0.035em;
+          color: #ffffff;
+          line-height: 1;
+        }
+        .c-sub {
+          font-size: 27px;
+          color: rgba(255, 255, 255, 0.74);
+          letter-spacing: -0.01em;
+        }
+        #c-k1 { left: 160px; }
+        #c-k2 { left: 710px; }
+        #c-k3 { left: 1260px; }
+        #c-ring {
+          position: absolute;
+          left: 36px;
+          top: 92px;
+          width: 210px;
+          height: 210px;
+        }
+        #c-ring-val {
+          position: absolute;
+          left: 36px;
+          top: 92px;
+          width: 210px;
+          height: 210px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 58px;
+        }
+        #c-k1 .c-side {
+          position: absolute;
+          left: 280px;
+          top: 120px;
+          width: 190px;
+        }
+        .c-delta {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 14px;
+          border-radius: 999px;
+          background: rgba(46, 190, 155, 0.16);
+          color: #2ebe9b;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 23px;
+          white-space: nowrap;
+        }
+        .c-delta .lm-icon {
+          width: 22px;
+          height: 22px;
+        }
+        .c-bigval {
+          position: absolute;
+          left: 36px;
+          top: 96px;
+          font-size: 150px;
+        }
+        .c-bottom {
+          position: absolute;
+          left: 36px;
+          right: 36px;
+          bottom: 34px;
+        }
+        #c-dots {
+          display: flex;
+          gap: 10px;
+          margin-top: 16px;
+        }
+        #c-dots i {
+          display: block;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.16);
+        }
+        #c-dots i.on {
+          background: #2ebe9b;
+        }
+        .c-bar {
+          position: relative;
+          margin-top: 18px;
+          height: 16px;
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.14);
+          overflow: hidden;
+        }
+        .c-bar span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          border-radius: 8px;
+          background: #2ebe9b;
+          transform-origin: 0 50%;
+        }
+        #c-nojargon {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 872px;
+          display: flex;
+          justify-content: center;
+        }
+        #c-nojargon > span {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 12px 28px 12px 18px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 2px solid rgba(46, 190, 155, 0.45);
+          font-size: 30px;
+          font-weight: 600;
+          color: #ffffff;
+          white-space: nowrap;
+        }
+        #c-nojargon .lm-icon {
+          width: 30px;
+          height: 30px;
+          color: #2ebe9b;
+        }
+        .c-cite {
+          position: absolute;
+          left: 0;
+          top: 0;
+          padding: 10px 20px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.1);
+          border: 2px solid rgba(255, 255, 255, 0.18);
+          font-size: 24px;
+          font-weight: 600;
+          color: rgba(255, 255, 255, 0.86);
+          white-space: nowrap;
+        }
+      </style>
+
+      <div id="c-root" data-composition-id="c-reveal" data-width="1920" data-height="1080" data-duration="10.6">
+        <div id="c-glow"></div>
+        <div id="c-stage">
+          <div id="c-logo"></div>
+          <div id="c-title">Votre présence IA, <em>enfin mesurable.</em></div>
+          <div id="c-context"><b>Exemple fictif</b>Question suivie : « Quelles chaussures choisir pour débuter la course ? »</div>
+          <div id="c-cites"></div>
+
+          <div class="c-card" id="c-k1">
+            <div class="c-label">Score de visibilité</div>
+            <svg id="c-ring" viewBox="0 0 210 210">
+              <circle cx="105" cy="105" r="88" fill="none" stroke="rgba(255,255,255,0.14)" stroke-width="18" />
+              <circle id="c-ring-arc" cx="105" cy="105" r="88" fill="none" stroke="#2ebe9b" stroke-width="18" stroke-linecap="round" transform="rotate(-90 105 105)" />
+            </svg>
+            <div id="c-ring-val" class="c-big">68&nbsp;%</div>
+            <div class="c-side"><span class="c-delta"><span class="lm-icon" data-icon="trending-up"></span>+7 pts</span><div class="c-sub" style="margin-top:12px">en 3 mois</div></div>
+            <div class="c-bottom c-sub">des réponses citent votre marque</div>
+          </div>
+          <div class="c-card" id="c-k2">
+            <div class="c-label">Classement</div>
+            <div class="c-bigval c-big" id="c-rank">#2</div>
+            <div class="c-bottom"><div class="c-sub">parmi 12 marques citées</div><div id="c-dots"></div></div>
+          </div>
+          <div class="c-card" id="c-k3">
+            <div class="c-label">Share of voice</div>
+            <div class="c-bigval c-big" id="c-sov">28&nbsp;%</div>
+            <div class="c-bottom"><div class="c-sub">des mentions de marques</div><div class="c-bar"><span id="c-sov-bar"></span></div></div>
+          </div>
+
+          <div id="c-nojargon"><span><span class="lm-icon" data-icon="circle-check"></span>Sans expertise SEO ou GEO</span></div>
+        </div>
+        <div id="c-grain"></div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("c-root");
+          root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
+          const dots = root.querySelector("#c-dots");
+          for (let i = 0; i < 12; i++) { const d = document.createElement("i"); if (i === 1) d.className = "on"; dots.appendChild(d); }
+
+          /* official lockup on dark: mint symbol, white name. X = 170 px visible symbol height */
+          const X = 170;
+          root.querySelector("#c-logo").innerHTML = LM.lockup(X, "dark", { id: "c-lockup" });
+          const lockup = root.querySelector("#c-lockup");
+          const sym = lockup.querySelector("svg");
+          const name = lockup.querySelector(".lm-lockup-name");
+
+          const tl = gsap.timeline({ paused: true });
+
+          /* ambient */
+          tl.fromTo("#c-glow", { scale: 0.85, opacity: 0.6 }, { scale: 1.1, opacity: 1, duration: 5, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+
+          /* 0.1 — the pupil, then the reticle traces itself around it (official "tracé") */
+          const LOCK_W = 1000; /* approx. lockup width: keep the symbol centred while the name is hidden */
+          const SHIFT = LOCK_W / 2 - (X / 0.7406) / 2 + 30;
+          tl.fromTo(lockup, { x: SHIFT }, { x: SHIFT, duration: 0.01 }, 0);
+          tl.fromTo(sym.querySelector(".lm-sym-dot"), { scale: 0.35, opacity: 0, transformOrigin: "50% 50%" }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.6)" }, 0.12);
+          tl.fromTo(sym.querySelector(".lm-sym-rect"), { strokeDasharray: "0.01 56.475", strokeDashoffset: -21.99, opacity: 0 },
+            { strokeDasharray: "34.6 21.885", strokeDashoffset: -4.7, opacity: 1, duration: 0.85, ease: "power3.inOut" }, 0.45);
+          LM.symbolQuarter(tl, sym, 1.25, 1);
+
+          /* 1.6 — the name appears as the lockup settles to centre */
+          tl.fromTo(name, { clipPath: "inset(0% 100% 0% 0%)", opacity: 0 }, { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, duration: 0.75, ease: "power3.out" }, 1.75);
+          tl.fromTo(lockup, { x: SHIFT }, { x: 0, duration: 0.75, ease: "power3.out", immediateRender: false }, 1.75);
+
+          /* 3.0 — logo rises to the top; the promise lands */
+          tl.fromTo("#c-logo", { y: 0, scale: 1 }, { y: -428, scale: 0.42, duration: 0.9, ease: "power3.inOut" }, 3.0);
+          const titleWords = LM.splitWords(root.querySelector("#c-title"));
+          LM.focusIn(tl, titleWords, 3.45, { stagger: 0.08, blur: 18, y: 20, duration: 0.8 });
+          tl.fromTo("#c-context", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 4.15);
+
+          /* 4.4 — scattered citations converge into three readings */
+          const NAMES = ["Stridea", "Kairun", "Velka", "Ondra", "Nordpace", "Stridea", "Kairun", "Velka", "Kairun", "Ondra", "Stridea", "Velka", "Nordpace", "Kairun"];
+          const rand = LM.rng(11);
+          const cites = root.querySelector("#c-cites");
+          const TARGETS = [[410, 640], [960, 640], [1510, 640]];
+          NAMES.forEach(function (n, i) {
+            const el = document.createElement("div");
+            el.className = "c-cite";
+            el.textContent = n;
+            cites.appendChild(el);
+            const ang = (i / NAMES.length) * Math.PI * 2 + rand() * 0.4;
+            const sx = 960 + Math.cos(ang) * (900 + rand() * 200) - 70;
+            const sy = 640 + Math.sin(ang) * (420 + rand() * 120) - 25;
+            const tg = TARGETS[i % 3];
+            tl.fromTo(el, { x: sx, y: sy, opacity: 0, scale: 1 },
+              { x: tg[0] - 70, y: tg[1] - 25, opacity: 0.95, scale: 0.6, duration: 0.85, ease: "power3.in" }, 4.3 + (i % 5) * 0.06);
+            tl.fromTo(el, { opacity: 0.95 }, { opacity: 0, duration: 0.15, immediateRender: false }, 5.12 + (i % 5) * 0.06);
+          });
+
+          /* 5.05 — glass KPI cards */
+          ["#c-k1", "#c-k2", "#c-k3"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, y: 50, scale: 0.92, filter: "blur(14px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, 5.0 + i * 0.12);
+          });
+          const arc = root.querySelector("#c-ring-arc");
+          const C = 2 * Math.PI * 88;
+          arc.style.strokeDasharray = C + " " + C;
+          const ringP = { v: 0 };
+          tl.fromTo(ringP, { v: 0 }, { v: 68, duration: 1.5, ease: "power3.out", onUpdate: function () {
+            arc.style.strokeDashoffset = C * (1 - ringP.v / 100);
+            root.querySelector("#c-ring-val").textContent = Math.round(ringP.v) + " %";
+          } }, 5.35);
+          LM.countUp(tl, root.querySelector("#c-rank"), 12, 2, 5.45, 1.4, function (v) { return "#" + Math.round(v); }, "power3.out");
+          LM.countUp(tl, root.querySelector("#c-sov"), 0, 28, 5.55, 1.4, LM.pct, "power3.out");
+          tl.fromTo("#c-sov-bar", { scaleX: 0 }, { scaleX: 0.28, duration: 1.4, ease: "power3.out" }, 5.55);
+          tl.fromTo("#c-dots i", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, stagger: 0.04, ease: "back.out(2)" }, 5.5);
+          tl.fromTo("#c-k1 .c-side", { opacity: 0, x: -10 }, { opacity: 1, x: 0, duration: 0.4 }, 6.6);
+
+          /* 7.2 — no expertise needed */
+          tl.fromTo("#c-nojargon > span", { opacity: 0, y: 16, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.8)" }, 7.15);
+
+          /* 9.05 — dive into the visibility ring (match cut with the dashboard ring) */
+          const stage = root.querySelector("#c-stage");
+          tl.fromTo(stage, { x: 0, y: 0, scale: 1 }, Object.assign(LM.camState(160 + 36 + 105, 450 + 92 + 105, 4.6), { duration: 1.2, ease: "power3.inOut", immediateRender: false }), 8.8);
+          tl.fromTo(["#c-title", "#c-context", "#c-logo", "#c-nojargon", "#c-k2", "#c-k3"], { opacity: 1 }, { opacity: 0, duration: 0.6, ease: "power2.in", immediateRender: false }, 8.8);
+
+          window.__timelines["c-reveal"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

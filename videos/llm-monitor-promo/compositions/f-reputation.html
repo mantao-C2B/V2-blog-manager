@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="f-reputation-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #f-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #0e1a17;
+        }
+        #f-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 960px 600px;
+        }
+        #f-links {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          overflow: visible;
+        }
+        #f-brand {
+          position: absolute;
+          left: 160px;
+          top: 266px;
+          width: 460px;
+          height: 650px;
+          border-radius: 32px;
+          color: #ffffff;
+          background:
+            radial-gradient(100% 80% at 100% 100%, rgba(63, 127, 118, 0.9) 0%, rgba(63, 127, 118, 0) 70%),
+            #15223a;
+          box-shadow: 0 44px 100px rgba(21, 34, 58, 0.32), 0 8px 24px rgba(14, 26, 23, 0.08);
+        }
+        #f-brand-name {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 46px;
+          text-align: center;
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          font-size: 66px;
+          letter-spacing: -0.035em;
+        }
+        #f-brand-sub {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 132px;
+          text-align: center;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 21px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.6);
+        }
+        #f-ring {
+          position: absolute;
+          left: 95px;
+          top: 210px;
+          width: 270px;
+          height: 270px;
+        }
+        #f-ring-val {
+          position: absolute;
+          left: 95px;
+          top: 210px;
+          width: 270px;
+          height: 270px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          font-size: 76px;
+          letter-spacing: -0.035em;
+        }
+        #f-ring-lab {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 498px;
+          text-align: center;
+          font-size: 30px;
+          color: rgba(255, 255, 255, 0.85);
+        }
+        #f-pos {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 562px;
+          display: flex;
+          justify-content: center;
+        }
+        #f-pos > span {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          padding: 8px 18px;
+          border-radius: 999px;
+          background: rgba(46, 190, 155, 0.18);
+          color: #2ebe9b;
+          font-size: 25px;
+          font-weight: 600;
+        }
+        #f-pos i {
+          display: block;
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #2ebe9b;
+        }
+        .f-card {
+          position: absolute;
+          left: 680px;
+          width: 1080px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          border-radius: 28px;
+          box-shadow: 0 30px 70px rgba(14, 26, 23, 0.09), 0 6px 18px rgba(14, 26, 23, 0.04);
+        }
+        .f-head {
+          position: absolute;
+          left: 36px;
+          top: 30px;
+          font-size: 32px;
+          font-weight: 600;
+          letter-spacing: -0.015em;
+        }
+        #f-themes { top: 266px; height: 230px; }
+        #f-chips {
+          position: absolute;
+          left: 36px;
+          top: 112px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+        }
+        .f-chip {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 14px 26px;
+          border-radius: 999px;
+          font-size: 32px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        .f-chip .lm-icon {
+          width: 30px;
+          height: 30px;
+        }
+        .f-chip.pos {
+          background: #e4f3ee;
+          color: #117d67;
+        }
+        .f-chip.neg {
+          background: #fbeae5;
+          color: #c0583f;
+          border: 2px solid #f0c3b5;
+        }
+        #f-vig {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-left: 6px;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 22px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #b04e38;
+          white-space: nowrap;
+        }
+        #f-vig .lm-icon {
+          width: 26px;
+          height: 26px;
+        }
+        #f-percep { top: 526px; height: 390px; }
+        .f-row {
+          position: absolute;
+          left: 36px;
+          right: 36px;
+          height: 80px;
+          display: flex;
+          align-items: center;
+          gap: 22px;
+        }
+        .f-row .f-ico {
+          width: 60px;
+          height: 60px;
+          flex: none;
+          border-radius: 16px;
+          background: #e4f3ee;
+          color: #117d67;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .f-row .f-ico .lm-icon {
+          width: 32px;
+          height: 32px;
+        }
+        .f-row .f-nm {
+          width: 270px;
+          font-size: 32px;
+          font-weight: 600;
+          letter-spacing: -0.015em;
+          white-space: nowrap;
+        }
+        .f-row .f-bar {
+          position: relative;
+          flex: 1;
+          height: 18px;
+          border-radius: 9px;
+          background: #eceeeb;
+          overflow: hidden;
+        }
+        .f-row .f-bar span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          border-radius: 9px;
+          background: #117d67;
+          transform-origin: 0 50%;
+        }
+        .f-row .f-v {
+          width: 110px;
+          text-align: right;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 32px;
+        }
+      </style>
+
+      <div id="f-root" data-composition-id="f-reputation" data-width="1920" data-height="1080" data-duration="10.7">
+        <div id="f-world">
+          <svg id="f-links" viewBox="0 0 1920 1080"></svg>
+          <div id="f-brand">
+            <div id="f-brand-name">KAIRUN</div>
+            <div id="f-brand-sub">Marque analysée</div>
+            <svg id="f-ring" viewBox="0 0 270 270">
+              <circle cx="135" cy="135" r="112" fill="none" stroke="rgba(255,255,255,0.13)" stroke-width="22" />
+              <circle id="f-ring-arc" cx="135" cy="135" r="112" fill="none" stroke="#2ebe9b" stroke-width="22" stroke-linecap="round" transform="rotate(-90 135 135)" />
+            </svg>
+            <div id="f-ring-val">0&nbsp;%</div>
+            <div id="f-ring-lab">de signaux positifs</div>
+            <div id="f-pos"><span><i></i>Perception positive</span></div>
+          </div>
+
+          <div class="f-card" id="f-themes">
+            <div class="f-head">Thèmes associés</div>
+            <div id="f-chips">
+              <span class="f-chip pos" id="f-c1"><span class="lm-icon" data-icon="zap"></span>Innovation</span>
+              <span class="f-chip pos" id="f-c2"><span class="lm-icon" data-icon="footprints"></span>Confort</span>
+              <span class="f-chip neg" id="f-c3"><span class="lm-icon" data-icon="triangle-alert"></span>Prix</span>
+              <span id="f-vig">Point de vigilance</span>
+            </div>
+          </div>
+
+          <div class="f-card" id="f-percep">
+            <div class="f-head">Perception par source</div>
+            <div id="f-rows"></div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("f-root");
+          root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
+
+          const ROWS = [
+            { n: "Presse", ic: "newspaper", v: 82, t: 4.95, ring: 30 },
+            { n: "Avis clients", ic: "star", v: 74, t: 5.95, ring: 55 },
+            { n: "Réseaux sociaux", ic: "messages-square", v: 61, t: 7.25, ring: 73 },
+          ];
+          const rowsWrap = root.querySelector("#f-rows");
+          const svg = root.querySelector("#f-links");
+          const NS = "http://www.w3.org/2000/svg";
+          /* ring centre in world space */
+          const RCX = 160 + 95 + 135, RCY = 266 + 210 + 135;
+
+          function bez(p, t) {
+            const u = 1 - t;
+            return [u * u * u * p[0][0] + 3 * u * u * t * p[1][0] + 3 * u * t * t * p[2][0] + t * t * t * p[3][0],
+                    u * u * u * p[0][1] + 3 * u * u * t * p[1][1] + 3 * u * t * t * p[2][1] + t * t * t * p[3][1]];
+          }
+
+          const rowEls = ROWS.map(function (r, i) {
+            const el = document.createElement("div");
+            el.className = "f-row";
+            el.style.top = 108 + i * 90 + "px";
+            el.innerHTML = '<span class="f-ico"><span class="lm-icon">' + LM.icon(r.ic, { strokeWidth: 2.2 }) + '</span></span><span class="f-nm">' + r.n +
+              '</span><span class="f-bar"><span></span></span><span class="f-v">0 %</span>';
+            rowsWrap.appendChild(el);
+            /* flow: from the row icon (world) to the ring's right edge */
+            const sy = 526 + 108 + i * 90 + 40;
+            const p = [[680 + 36, sy], [640, sy], [600, RCY], [RCX + 128, RCY]];
+            r.p = p;
+            const path = document.createElementNS(NS, "path");
+            path.setAttribute("d", "M" + p[0][0] + " " + p[0][1] + " C " + p[1][0] + " " + p[1][1] + ", " + p[2][0] + " " + p[2][1] + ", " + p[3][0] + " " + p[3][1]);
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke", "#117d67");
+            path.setAttribute("stroke-width", "3");
+            path.setAttribute("stroke-dasharray", "2 10");
+            path.setAttribute("stroke-linecap", "round");
+            path.style.opacity = "0";
+            svg.appendChild(path);
+            r.path = path;
+            const dot = document.createElementNS(NS, "circle");
+            dot.setAttribute("r", "10");
+            dot.setAttribute("fill", "#2ebe9b");
+            dot.setAttribute("stroke", "#ffffff");
+            dot.setAttribute("stroke-width", "3");
+            dot.style.opacity = "0";
+            svg.appendChild(dot);
+            r.dot = dot;
+            return el;
+          });
+
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#f-world", { scale: 0.98 }, { scale: 1.035, duration: 10.6, ease: "sine.inOut" }, 0);
+
+          /* 0.4 — the brand under analysis */
+          tl.fromTo("#f-brand", { opacity: 0, x: -60, filter: "blur(12px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.75, ease: "power3.out" }, 0.4);
+          tl.fromTo("#f-brand-name", { opacity: 0, scale: 1.18, filter: "blur(12px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.8, ease: "power3.out" }, 0.75);
+          tl.fromTo(["#f-brand-sub", "#f-ring", "#f-ring-val", "#f-ring-lab"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out" }, 1.15);
+
+          /* 2.5 — what the AIs understand: associated themes, price stands out as a watch point */
+          tl.fromTo("#f-themes", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 2.45);
+          ["#f-c1", "#f-c2", "#f-c3"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2.2)" }, 2.8 + i * 0.38);
+          });
+          tl.fromTo("#f-c3", { x: 0, y: 0, rotation: 0 }, { x: 14, y: -10, rotation: -3, duration: 0.5, ease: "back.out(2)", immediateRender: false }, 4.05);
+          tl.fromTo("#f-c3", { scale: 1 }, { scale: 1.08, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3, immediateRender: false }, 4.3);
+          tl.fromTo("#f-vig", { opacity: 0, x: -10 }, { opacity: 1, x: 14, duration: 0.45, ease: "power2.out" }, 4.25);
+
+          /* 4.7 — press, reviews, social: each source feeds the overall perception */
+          tl.fromTo("#f-percep", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 4.55);
+          const arc = root.querySelector("#f-ring-arc");
+          const CIRC = 2 * Math.PI * 112;
+          arc.style.strokeDasharray = CIRC + " " + CIRC;
+          const ringP = { v: 0 };
+          const valEl = root.querySelector("#f-ring-val");
+          function paintRing() {
+            arc.style.strokeDashoffset = CIRC * (1 - ringP.v / 100);
+            valEl.textContent = Math.round(ringP.v) + " %";
+          }
+          arc.style.strokeDashoffset = CIRC;
+          let prevRing = 0;
+          ROWS.forEach(function (r, i) {
+            const el = rowEls[i];
+            tl.fromTo(el, { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, r.t - 0.1);
+            tl.fromTo(el.querySelector(".f-bar span"), { scaleX: 0 }, { scaleX: r.v / 100, duration: 0.8, ease: "power3.out" }, r.t);
+            LM.countUp(tl, el.querySelector(".f-v"), 0, r.v, r.t, 0.8, LM.pct, "power3.out");
+            tl.fromTo(r.path, { opacity: 0 }, { opacity: 0.55, duration: 0.3 }, r.t + 0.3);
+            const pr = { t: 0 };
+            tl.fromTo(pr, { t: 0 }, { t: 1, duration: 0.6, ease: "power2.in", onUpdate: function () {
+              const q = bez(r.p, pr.t);
+              r.dot.setAttribute("cx", q[0]);
+              r.dot.setAttribute("cy", q[1]);
+              r.dot.style.opacity = pr.t <= 0 || pr.t >= 1 ? "0" : "1";
+            } }, r.t + 0.45);
+            const from = prevRing;
+            tl.fromTo(ringP, { v: from }, { v: r.ring, duration: 0.6, ease: "power3.out", onUpdate: paintRing, immediateRender: i === 0 }, r.t + 1.0);
+            prevRing = r.ring;
+          });
+          tl.fromTo("#f-ring", { scale: 1 }, { scale: 1.06, duration: 0.25, yoyo: true, repeat: 1, ease: "power2.out", transformOrigin: "50% 50%", immediateRender: false }, 8.25);
+          tl.fromTo("#f-pos > span", { opacity: 0, y: 10, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(2)" }, 8.4);
+
+          window.__timelines["f-reputation"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="b-question-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #b-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #0e1a17;
+        }
+        #b-stage {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 0 0;
+        }
+        #b-card {
+          position: absolute;
+          left: 150px;
+          top: 200px;
+          width: 980px;
+          height: 650px;
+          border-radius: 30px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          box-shadow: 0 44px 100px rgba(14, 26, 23, 0.13), 0 8px 24px rgba(14, 26, 23, 0.05);
+        }
+        #b-q {
+          position: absolute;
+          left: 44px;
+          top: 40px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          font-size: 38px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          white-space: nowrap;
+        }
+        #b-q .b-spark {
+          width: 58px;
+          height: 58px;
+          border-radius: 50%;
+          background: #0e1a17;
+          color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #b-q .b-spark .lm-icon {
+          width: 30px;
+          height: 30px;
+        }
+        #b-intro {
+          position: absolute;
+          left: 44px;
+          top: 132px;
+          font-size: 31px;
+          color: #4e5a56;
+          letter-spacing: -0.01em;
+          white-space: nowrap;
+        }
+        .b-row {
+          position: absolute;
+          left: 40px;
+          top: 0;
+          width: 896px;
+          height: 112px;
+          display: flex;
+          align-items: center;
+          gap: 24px;
+          padding: 0 26px;
+          border-radius: 22px;
+          background: #f5f6f3;
+          border: 2px solid #e8ebe7;
+        }
+        .b-badge {
+          width: 58px;
+          height: 58px;
+          flex: none;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 28px;
+          color: #ffffff;
+          background: #c9d0cb;
+        }
+        .b-name {
+          font-size: 36px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          white-space: nowrap;
+        }
+        .b-skel {
+          position: absolute;
+          left: 108px;
+          top: 44px;
+          width: 300px;
+          height: 24px;
+          border-radius: 12px;
+          background: linear-gradient(90deg, #e6eae6 0%, #f3f5f2 50%, #e6eae6 100%);
+          background-size: 200% 100%;
+        }
+        .b-trend {
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 16px;
+          border-radius: 999px;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 24px;
+          white-space: nowrap;
+        }
+        .b-trend .lm-icon {
+          width: 24px;
+          height: 24px;
+        }
+        .b-trend.up {
+          background: #e4f3ee;
+          color: #0d6654;
+        }
+        .b-trend.flat {
+          background: #fbeae5;
+          color: #c0583f;
+        }
+        #b-row-you {
+          background: #ffffff;
+          border: 2px dashed #d9785f;
+        }
+        #b-row-you .b-badge {
+          background: #d9785f;
+        }
+        #b-row-you .b-name {
+          color: #0e1a17;
+        }
+        #b-wait {
+          font-family: "IBM Plex Mono", monospace;
+          font-size: 22px;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #626c68;
+          white-space: nowrap;
+        }
+
+        /* right column: who we talk to + the question */
+        #b-profiles {
+          position: absolute;
+          left: 1230px;
+          top: 214px;
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+        }
+        .b-prof {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 12px 28px 12px 14px;
+          border-radius: 999px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          box-shadow: 0 18px 40px rgba(14, 26, 23, 0.09);
+          font-size: 30px;
+          font-weight: 600;
+          letter-spacing: -0.015em;
+          white-space: nowrap;
+          align-self: flex-start;
+        }
+        .b-prof .b-av {
+          width: 52px;
+          height: 52px;
+          border-radius: 50%;
+          background: #e4f3ee;
+          color: #117d67;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .b-prof .b-av .lm-icon {
+          width: 28px;
+          height: 28px;
+        }
+        #b-title {
+          position: absolute;
+          left: 1226px;
+          top: 520px;
+          width: 660px;
+          font-family: "Instrument Serif", Georgia, serif;
+          font-size: 118px;
+          line-height: 0.98;
+          letter-spacing: -0.02em;
+          color: #0e1a17;
+        }
+        #b-title em {
+          font-style: italic;
+          color: #117d67;
+        }
+
+        /* the lock-on reticle (official symbol) and the pupil that swallows the frame */
+        #b-mire {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 150px;
+          height: 150px;
+        }
+        #b-pupil {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background:
+            radial-gradient(90% 120% at 85% 95%, rgba(63, 127, 118, 0.95) 0%, rgba(63, 127, 118, 0) 62%),
+            radial-gradient(70% 90% at 8% 0%, #1e3149 0%, rgba(30, 49, 73, 0) 72%),
+            #15223a;
+        }
+      </style>
+
+      <div id="b-root" data-composition-id="b-question" data-width="1920" data-height="1080" data-duration="7.5">
+        <div id="b-stage">
+          <div id="b-card">
+            <div id="b-q"><span class="b-spark"><span class="lm-icon" data-icon="sparkles"></span></span><span id="b-q-text"></span></div>
+            <div id="b-intro">Les marques les plus souvent recommandées sont&nbsp;:</div>
+            <div class="b-row" id="b-row-a"><span class="b-badge">1</span><span class="b-name">Concurrent A</span><span class="b-trend up"><span class="lm-icon" data-icon="trending-up"></span>+4 pts</span></div>
+            <div class="b-row" id="b-row-b"><span class="b-badge">2</span><span class="b-name">Concurrent B</span><span class="b-trend up"><span class="lm-icon" data-icon="trending-up"></span>+2 pts</span></div>
+            <div class="b-row" id="b-row-you"><span class="b-badge">?</span><span class="b-name">Votre marque</span><span id="b-wait">En attente…</span><span class="b-trend flat"><span class="lm-icon" data-icon="minus"></span>0 pt</span></div>
+          </div>
+
+          <div id="b-profiles">
+            <div class="b-prof"><span class="b-av"><span class="lm-icon" data-icon="megaphone"></span></span>Direction marketing</div>
+            <div class="b-prof"><span class="b-av"><span class="lm-icon" data-icon="target"></span></span>Acquisition</div>
+            <div class="b-prof"><span class="b-av"><span class="lm-icon" data-icon="briefcase"></span></span>Pilotage d'agence</div>
+          </div>
+          <div id="b-title">Votre marque <em>apparaît-elle&nbsp;?</em></div>
+
+          <div id="b-mire"></div>
+          <div id="b-pupil"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("b-root");
+          root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
+          root.querySelector("#b-mire").innerHTML = LM.symbol({ color: "#117d67", size: 150 });
+          const mire = root.querySelector("#b-mire svg");
+
+          const tl = gsap.timeline({ paused: true });
+          const stage = root.querySelector("#b-stage");
+
+          /* geometry: card top 200, rows at card-relative 196 / 326 / 456 */
+          const ROW_Y = [196, 326, 456];
+          const rowA = root.querySelector("#b-row-a");
+          const rowB = root.querySelector("#b-row-b");
+          const rowY = root.querySelector("#b-row-you");
+          /* centre of the "?" badge of the brand row, in screen space (final slot) */
+          const BX = 150 + 40 + 26 + 29;
+          const BY = 200 + ROW_Y[2] + 56;
+
+          tl.fromTo(stage, { x: 0, y: 0, scale: 1 }, { x: -16, y: -6, scale: 1.01, duration: 6.4, ease: "sine.inOut" }, 0);
+
+          /* 0.0 — the question */
+          LM.typeText(tl, root.querySelector("#b-q-text"), "Quelle marque choisir pour mon besoin ?", 0.15, 40);
+          tl.fromTo("#b-intro", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 1.15);
+
+          /* 0.3 — the people this film talks to */
+          root.querySelectorAll(".b-prof").forEach(function (p, i) {
+            tl.fromTo(p, { opacity: 0, x: 60, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 0.35 + i * 0.4);
+          });
+
+          /* 1.4 — the answer generates: skeleton rows shuffle, competitors settle on top, the brand stays pending */
+          const rows = [rowA, rowB, rowY];
+          const start = [1, 2, 0];
+          rows.forEach(function (r, i) {
+            tl.fromTo(r, { opacity: 0, y: ROW_Y[start[i]] + 30 }, { opacity: 1, y: ROW_Y[start[i]], duration: 0.45, ease: "power3.out" }, 1.4 + i * 0.1);
+            tl.fromTo(r.querySelectorAll(".b-badge, .b-name"), { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.05 + i * 0.05);
+          });
+          /* shuffle 1 */
+          tl.fromTo(rowA, { y: ROW_Y[1] }, { y: ROW_Y[0], duration: 0.4, ease: "power3.inOut", immediateRender: false }, 2.45);
+          tl.fromTo(rowY, { y: ROW_Y[0] }, { y: ROW_Y[1], duration: 0.4, ease: "power3.inOut", immediateRender: false }, 2.45);
+          /* shuffle 2 → final order */
+          tl.fromTo(rowB, { y: ROW_Y[2] }, { y: ROW_Y[1], duration: 0.4, ease: "power3.inOut", immediateRender: false }, 2.95);
+          tl.fromTo(rowY, { y: ROW_Y[1] }, { y: ROW_Y[2], duration: 0.4, ease: "power3.inOut", immediateRender: false }, 2.95);
+          tl.fromTo([rowA.querySelector(".b-badge"), rowB.querySelector(".b-badge")], { backgroundColor: "#c9d0cb" },
+            { backgroundColor: function (i) { return i === 0 ? "#117d67" : "#4fa38f"; }, duration: 0.3 }, 3.35);
+          tl.fromTo("#b-wait", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 3.4);
+          LM.blink(tl, root.querySelector("#b-wait"), 3.7, 6.3, 0.6);
+
+          /* 2.4 — the question that matters */
+          const titleWords = LM.splitWords(root.querySelector("#b-title"));
+          LM.focusIn(tl, titleWords, 2.45, { stagger: 0.12, blur: 18, y: 22, duration: 0.8 });
+
+          /* 4.1 — …and are they gaining ground? */
+          [rowA, rowB, rowY].forEach(function (r, i) {
+            tl.fromTo(r.querySelector(".b-trend"), { opacity: 0, scale: 0.6, x: 20 }, { opacity: 1, scale: 1, x: 0, duration: 0.45, ease: "back.out(2)" }, 4.1 + i * 0.3);
+          });
+          tl.fromTo(rowY, { x: 0 }, { x: -8, duration: 0.07, ease: "none", yoyo: true, repeat: 5, immediateRender: false }, 5.05);
+
+          /* 5.75 — the reticle locks onto the brand */
+          const mireEl = root.querySelector("#b-mire"); mireEl.style.left = (BX - 75) + "px"; mireEl.style.top = (BY - 75) + "px";
+          tl.fromTo("#b-mire", { opacity: 0, scale: 2.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }, 5.75);
+          LM.symbolQuarter(tl, mire, 6.0, 1);
+          tl.fromTo(mire.querySelector(".lm-sym-dot"), { opacity: 1 }, { opacity: 0, duration: 0.2 }, 5.75);
+
+          /* 6.55 — dive: the pupil swallows the frame and opens on the brand world */
+          const pupilEl = root.querySelector("#b-pupil"); pupilEl.style.left = (BX - 50) + "px"; pupilEl.style.top = (BY - 50) + "px";
+          tl.fromTo("#b-pupil", { scale: 0, opacity: 1 }, { scale: 48, duration: 0.85, ease: "power3.in" }, 6.55);
+          tl.fromTo(stage, { x: -16, y: -6, scale: 1.01 }, { x: BX - BX * 2.4, y: BY - BY * 2.4, scale: 2.4, duration: 0.9, ease: "power3.in", immediateRender: false }, 6.45);
+
+          window.__timelines["b-question"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="d-measure-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #d-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #0e1a17;
+        }
+        #d-view {
+          position: absolute;
+          inset: 0;
+          -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) calc(var(--m) - 60px), #000 var(--m));
+          mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0) calc(var(--m) - 60px), #000 var(--m));
+        }
+        #d-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 0 0;
+        }
+        .d-panel {
+          position: absolute;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          border-radius: 26px;
+          box-shadow: 0 30px 70px rgba(14, 26, 23, 0.09), 0 6px 18px rgba(14, 26, 23, 0.04);
+        }
+        .d-head {
+          position: absolute;
+          left: 34px;
+          top: 28px;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          font-size: 30px;
+          font-weight: 600;
+          letter-spacing: -0.015em;
+          white-space: nowrap;
+        }
+        .d-head .d-ico {
+          width: 46px;
+          height: 46px;
+          border-radius: 12px;
+          background: #e4f3ee;
+          color: #117d67;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .d-head .d-ico .lm-icon {
+          width: 26px;
+          height: 26px;
+        }
+        .d-mono {
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #626c68;
+        }
+
+        /* ----- panel 1: visibility score ----- */
+        #d-p1 { left: 120px; top: 262px; width: 640px; height: 340px; }
+        #d-ring {
+          position: absolute;
+          left: 40px;
+          top: 106px;
+          width: 196px;
+          height: 196px;
+        }
+        #d-ring-val {
+          position: absolute;
+          left: 40px;
+          top: 106px;
+          width: 196px;
+          height: 196px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          font-size: 52px;
+          letter-spacing: -0.035em;
+        }
+        #d-curve {
+          position: absolute;
+          left: 268px;
+          top: 112px;
+          width: 340px;
+          height: 170px;
+          overflow: visible;
+        }
+        #d-curve-lab {
+          position: absolute;
+          left: 268px;
+          top: 288px;
+          width: 340px;
+          display: flex;
+          justify-content: space-between;
+          font-size: 20px;
+        }
+        #d-delta1 {
+          position: absolute;
+          right: 30px;
+          top: 30px;
+        }
+        .d-delta {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 7px 14px;
+          border-radius: 999px;
+          background: #e4f3ee;
+          color: #0d6654;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 22px;
+          white-space: nowrap;
+        }
+        .d-delta .lm-icon {
+          width: 22px;
+          height: 22px;
+        }
+        #d-scrub {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 2px;
+          height: 170px;
+          background: #117d67;
+          opacity: 0;
+        }
+        #d-tip {
+          position: absolute;
+          left: 0;
+          top: 0;
+          padding: 6px 12px;
+          border-radius: 10px;
+          background: #0e1a17;
+          color: #ffffff;
+          font-family: "IBM Plex Mono", monospace;
+          font-size: 20px;
+          white-space: nowrap;
+          opacity: 0;
+        }
+
+        /* ----- panel 2: brand ranking ----- */
+        #d-p2 { left: 800px; top: 262px; width: 1000px; height: 678px; }
+        #d-thead {
+          position: absolute;
+          left: 34px;
+          right: 34px;
+          top: 100px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          font-size: 20px;
+          border-bottom: 2px solid #eef1ed;
+        }
+        .d-row {
+          position: absolute;
+          left: 24px;
+          right: 24px;
+          height: 98px;
+          display: flex;
+          align-items: center;
+          padding: 0 10px;
+          border-radius: 16px;
+        }
+        .d-c-rank { width: 70px; font-family: "IBM Plex Mono", monospace; font-size: 26px; color: #4e5a56; padding-left: 10px; }
+        .d-c-brand { width: 470px; display: flex; align-items: center; gap: 18px; }
+        .d-c-ment { width: 130px; font-family: "IBM Plex Mono", monospace; font-size: 26px; text-align: right; padding-right: 30px; }
+        .d-c-vis { flex: 1; display: flex; align-items: center; gap: 18px; }
+        .d-av {
+          width: 56px;
+          height: 56px;
+          border-radius: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          font-size: 26px;
+          color: #ffffff;
+          flex: none;
+        }
+        .d-nm { font-size: 31px; font-weight: 600; letter-spacing: -0.015em; white-space: nowrap; }
+        .d-dom { font-family: "IBM Plex Mono", monospace; font-size: 19px; color: #626c68; }
+        .d-bar {
+          position: relative;
+          width: 170px;
+          height: 12px;
+          border-radius: 6px;
+          background: #eceeeb;
+          overflow: hidden;
+        }
+        .d-bar span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          border-radius: 6px;
+          background: #b8c4be;
+          transform-origin: 0 50%;
+        }
+        .d-val { font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: 26px; width: 70px; text-align: right; }
+        #d-row-you {
+          background: #e4f3ee;
+          box-shadow: inset 5px 0 0 #117d67;
+        }
+        #d-row-you .d-nm, #d-row-you .d-c-rank, #d-row-you .d-val { color: #117d67; }
+        #d-row-you .d-bar span { background: #117d67; }
+        .d-you-tag {
+          padding: 4px 10px;
+          border-radius: 8px;
+          background: #ffffff;
+          border: 2px solid #b9e1d4;
+          color: #117d67;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 17px;
+          letter-spacing: 0.08em;
+          white-space: nowrap;
+        }
+        #d-up {
+          position: absolute;
+          right: 34px;
+          top: 34px;
+        }
+
+        /* ----- panel 3: share of voice ----- */
+        #d-p3 { left: 120px; top: 632px; width: 640px; height: 308px; }
+        #d-sov {
+          position: absolute;
+          left: 34px;
+          right: 34px;
+          top: 100px;
+        }
+        .d-sov-row {
+          display: flex;
+          align-items: center;
+          height: 38px;
+          gap: 16px;
+          font-size: 22px;
+        }
+        .d-sov-row .d-sov-nm { width: 130px; color: #4e5a56; white-space: nowrap; }
+        .d-sov-row .d-sov-bar { position: relative; flex: 1; height: 16px; border-radius: 8px; background: #eceeeb; overflow: hidden; }
+        .d-sov-row .d-sov-bar span { position: absolute; left: 0; top: 0; bottom: 0; width: 100%; border-radius: 8px; background: #b8c4be; transform-origin: 0 50%; }
+        .d-sov-row .d-sov-v { width: 74px; text-align: right; font-family: "IBM Plex Mono", monospace; font-weight: 500; font-size: 22px; }
+        .d-sov-row.you .d-sov-nm, .d-sov-row.you .d-sov-v { color: #117d67; font-weight: 600; }
+        .d-sov-row.you .d-sov-bar span { background: #117d67; }
+        #d-delta3 {
+          position: absolute;
+          right: 30px;
+          top: 30px;
+        }
+      </style>
+
+      <div id="d-root" data-composition-id="d-measure" data-width="1920" data-height="1080" data-duration="11.95">
+        <div id="d-view">
+          <div id="d-world">
+            <div class="d-panel" id="d-p1">
+              <div class="d-head"><span class="d-ico"><span class="lm-icon" data-icon="gauge"></span></span>Score de visibilité</div>
+              <span id="d-delta1" class="d-delta"><span class="lm-icon" data-icon="trending-up"></span>+7 pts en 3 mois</span>
+              <svg id="d-ring" viewBox="0 0 196 196">
+                <circle cx="98" cy="98" r="80" fill="none" stroke="#e6eae6" stroke-width="18" />
+                <circle id="d-ring-arc" cx="98" cy="98" r="80" fill="none" stroke="#117d67" stroke-width="18" stroke-linecap="round" transform="rotate(-90 98 98)" />
+              </svg>
+              <div id="d-ring-val">68&nbsp;%</div>
+              <svg id="d-curve" viewBox="0 0 340 170">
+                <line x1="0" y1="168" x2="340" y2="168" stroke="#e6eae6" stroke-width="2" />
+                <line x1="0" y1="110" x2="340" y2="110" stroke="#f1f3f0" stroke-width="2" stroke-dasharray="4 6" />
+                <line x1="0" y1="52" x2="340" y2="52" stroke="#f1f3f0" stroke-width="2" stroke-dasharray="4 6" />
+                <path id="d-curve-area" d="M10 140 L 117 140 L 117 112 L 223 112 L 223 76 L 330 76 L 330 40 L 330 168 L 10 168 Z" fill="#e4f3ee" />
+                <path id="d-curve-line" d="M10 140 L 117 140 L 117 112 L 223 112 L 223 76 L 330 76 L 330 40" fill="none" stroke="#117d67" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+                <g id="d-curve-dots" fill="#ffffff" stroke="#117d67" stroke-width="4">
+                  <circle cx="10" cy="140" r="7" /><circle cx="117" cy="112" r="7" /><circle cx="223" cy="76" r="7" /><circle cx="330" cy="40" r="9" fill="#117d67" />
+                </g>
+              </svg>
+              <div id="d-curve-lab" class="d-mono"><span>M-3</span><span>M-2</span><span>M-1</span><span>Aujourd'hui</span></div>
+              <div id="d-scrub"></div>
+              <div id="d-tip"></div>
+            </div>
+
+            <div class="d-panel" id="d-p2">
+              <div class="d-head"><span class="d-ico"><span class="lm-icon" data-icon="award"></span></span>Classement des marques</div>
+              <span id="d-up" class="d-delta"><span class="lm-icon" data-icon="arrow-up"></span>1 place en 3 mois</span>
+              <div id="d-thead" class="d-mono"><span style="width:80px;padding-left:10px">Rang</span><span style="width:470px">Marque</span><span style="width:130px;text-align:right;padding-right:30px">Mentions</span><span>Visibilité</span></div>
+              <div id="d-rows"></div>
+            </div>
+
+            <div class="d-panel" id="d-p3">
+              <div class="d-head"><span class="d-ico"><span class="lm-icon" data-icon="chart-column"></span></span>Part de voix</div>
+              <span id="d-delta3" class="d-delta"><span class="lm-icon" data-icon="trending-up"></span>+4 pts</span>
+              <div id="d-sov"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("d-root");
+          root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
+
+          const BRANDS = [
+            { n: "Stridea", d: "stridea.com", c: "#3e6fd8", m: 62, v: 74, s: 31 },
+            { n: "Kairun", d: "kairun.fr", c: "#117d67", m: 56, v: 68, s: 28, you: true },
+            { n: "Velka", d: "velka-run.com", c: "#d9785f", m: 36, v: 52, s: 18 },
+            { n: "Ondra", d: "ondra.eu", c: "#8a6bd1", m: 26, v: 41, s: 13 },
+            { n: "Nordpace", d: "nordpace.com", c: "#b07a16", m: 20, v: 33, s: 10 },
+          ];
+          const rowsWrap = root.querySelector("#d-rows");
+          const sovWrap = root.querySelector("#d-sov");
+          const rowEls = BRANDS.map(function (b, i) {
+            const r = document.createElement("div");
+            r.className = "d-row";
+            if (b.you) r.id = "d-row-you";
+            r.style.top = 152 + i * 102 + "px";
+            r.innerHTML =
+              '<span class="d-c-rank">' + (i + 1) + "</span>" +
+              '<span class="d-c-brand"><span class="d-av" style="background:' + b.c + '">' + b.n[0] + "</span>" +
+              '<span><span class="d-nm">' + b.n + "</span>" + '<span class="d-dom" style="display:block">' + b.d + "</span></span>" +
+              (b.you ? '<span class="d-you-tag">VOTRE MARQUE</span>' : "") + "</span>" +
+              '<span class="d-c-ment">' + b.m + "</span>" +
+              '<span class="d-c-vis"><span class="d-bar"><span></span></span><span class="d-val">' + b.v + "</span></span>";
+            rowsWrap.appendChild(r);
+            const s = document.createElement("div");
+            s.className = "d-sov-row" + (b.you ? " you" : "");
+            s.innerHTML = '<span class="d-sov-nm">' + b.n + '</span><span class="d-sov-bar"><span></span></span><span class="d-sov-v">' + b.s + " %</span>";
+            sovWrap.appendChild(s);
+            return r;
+          });
+          const sovRows = Array.from(sovWrap.children);
+
+          const tl = gsap.timeline({ paused: true });
+          const world = root.querySelector("#d-world");
+          const view = root.querySelector("#d-view");
+
+          /* ring geometry in world space: panel1 (120,262) + ring box (40,106) + 98 */
+          const RX = 120 + 40 + 98, RY = 262 + 106 + 98;
+          const CAM = {
+            ring: LM.camState(RX, RY, 4.9),
+            p1: LM.camState(440, 432, 1.72, 960, 600),
+            p2: LM.camState(1300, 520, 1.32, 960, 600),
+            p3: LM.camState(440, 786, 1.72, 960, 600),
+            all: LM.camState(960, 600, 1.0, 960, 600),
+            drift: LM.camState(960, 600, 1.06, 960, 610),
+          };
+
+          /* top fade under the chapter title, opened after the match cut */
+          tl.fromTo(view, { "--m": "-200px" }, { "--m": "250px", duration: 0.9, ease: "power2.inOut" }, 0.5);
+
+          /* 0.0 — match cut: we arrive inside the ring and pull back to the score panel */
+          const arc = root.querySelector("#d-ring-arc");
+          const CIRC = 2 * Math.PI * 80;
+          arc.style.strokeDasharray = CIRC + " " + CIRC;
+          arc.style.strokeDashoffset = CIRC * (1 - 0.68);
+          tl.set(world, CAM.ring, 0);
+          tl.fromTo(world, CAM.ring, Object.assign({}, CAM.p1, { duration: 1.5, ease: "power3.inOut", immediateRender: false }), 0);
+          tl.fromTo(["#d-p2", "#d-p3"], { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.3);
+
+          /* 0.6 — the score's history climbs to today */
+          const line = root.querySelector("#d-curve-line");
+          LM.drawStroke(tl, line, 0.7, 1.4, "power2.inOut", 480);
+          tl.fromTo("#d-curve-area", { opacity: 0 }, { opacity: 1, duration: 0.8 }, 1.4);
+          tl.fromTo("#d-curve-dots circle", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, stagger: 0.36, ease: "back.out(2.5)" }, 0.75);
+          tl.fromTo("#d-curve-lab span", { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.25 }, 0.8);
+          tl.fromTo("#d-delta1", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 1.9);
+
+          /* 2.25 — ranking fills line by line */
+          tl.fromTo(world, CAM.p1, Object.assign({}, CAM.p2, { duration: 1.1, ease: "power3.inOut", immediateRender: false }), 2.15);
+          tl.fromTo("#d-thead", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 2.5);
+          rowEls.forEach(function (r, i) {
+            const t = 2.65 + i * 0.22;
+            tl.fromTo(r, { opacity: 0, y: 26, filter: "blur(6px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, t);
+            tl.fromTo(r.querySelector(".d-bar span"), { scaleX: 0 }, { scaleX: BRANDS[i].v / 100, duration: 0.7, ease: "power3.out" }, t + 0.15);
+            LM.countUp(tl, r.querySelector(".d-val"), 0, BRANDS[i].v, t + 0.15, 0.7, null, "power3.out");
+          });
+          tl.fromTo("#d-row-you", { scale: 1 }, { scale: 1.025, duration: 0.25, ease: "power2.out", yoyo: true, repeat: 1, immediateRender: false }, 3.9);
+          tl.fromTo("#d-up", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 4.0);
+
+          /* 4.35 — share of voice */
+          tl.fromTo(world, CAM.p2, Object.assign({}, CAM.p3, { duration: 1.0, ease: "power3.inOut", immediateRender: false }), 4.2);
+          sovRows.forEach(function (s, i) {
+            tl.fromTo(s, { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 4.6 + i * 0.1);
+            tl.fromTo(s.querySelector(".d-sov-bar span"), { scaleX: 0 }, { scaleX: BRANDS[i].s / 31, duration: 0.8, ease: "power3.out" }, 4.75 + i * 0.1);
+          });
+          tl.fromTo("#d-delta3", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 5.6);
+
+          /* 5.9 — pull back: the whole picture, then the trend is read point by point */
+          tl.fromTo(world, CAM.p3, Object.assign({}, CAM.all, { duration: 1.2, ease: "power3.inOut", immediateRender: false }), 5.9);
+          const PTS = [[10, 140, "M-3 · 61 %"], [117, 112, "M-2 · 63 %"], [223, 76, "M-1 · 66 %"], [330, 40, "Aujourd'hui · 68 %"]];
+          const scrub = root.querySelector("#d-scrub");
+          const tip = root.querySelector("#d-tip");
+          const OX = 268, OY = 112;
+          const tipP = { i: 0 };
+          tip.textContent = PTS[0][2];
+          tl.fromTo([scrub, tip], { opacity: 0 }, { opacity: 1, duration: 0.25 }, 7.3);
+          PTS.forEach(function (p, i) {
+            const t = 7.3 + i * 0.7;
+            const q = i ? PTS[i - 1] : p;
+            tl.fromTo(scrub, { x: OX + q[0], y: OY }, { x: OX + p[0], y: OY, duration: i ? 0.5 : 0.01, ease: "power2.inOut", immediateRender: i === 0 }, t);
+            const TOFF = [-70, -70, -150, -235];
+            const qi = i ? i - 1 : 0;
+            tl.fromTo(tip, { x: OX + q[0] + TOFF[qi], y: OY + q[1] - 60 }, { x: OX + p[0] + TOFF[i], y: OY + p[1] - 60, duration: i ? 0.5 : 0.01, ease: "power2.inOut", immediateRender: i === 0 }, t);
+            if (i) {
+              tl.fromTo(tipP, { i: i - 1 }, { i: i, duration: 0.02, ease: "none", immediateRender: false,
+                onUpdate: function () { tip.textContent = PTS[Math.round(tipP.i)][2]; } }, t + 0.3);
+            }
+          });
+          tl.fromTo(world, CAM.all, Object.assign({}, CAM.drift, { duration: 4.2, ease: "sine.inOut", immediateRender: false }), 7.1);
+
+          window.__timelines["d-measure"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

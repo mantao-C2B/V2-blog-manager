@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="h-actions-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #h-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #0e1a17;
+        }
+        #h-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 0 0;
+        }
+        #h-prio {
+          position: absolute;
+          left: 160px;
+          top: 262px;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 24px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #626c68;
+        }
+        .h-act {
+          position: absolute;
+          left: 160px;
+          width: 930px;
+          height: 134px;
+          display: flex;
+          align-items: center;
+          gap: 26px;
+          padding: 0 30px;
+          border-radius: 26px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          box-shadow: 0 26px 60px rgba(14, 26, 23, 0.09), 0 4px 12px rgba(14, 26, 23, 0.04);
+        }
+        .h-badge {
+          width: 66px;
+          height: 66px;
+          flex: none;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 26px;
+          background: #e4f3ee;
+          color: #117d67;
+        }
+        #h-a1 .h-badge {
+          background: #117d67;
+          color: #ffffff;
+        }
+        .h-nm {
+          font-size: 34px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          white-space: nowrap;
+        }
+        .h-tags {
+          margin-top: 8px;
+          display: flex;
+          gap: 10px;
+        }
+        .h-tag {
+          padding: 4px 14px;
+          border-radius: 999px;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 20px;
+          letter-spacing: 0.04em;
+          white-space: nowrap;
+          background: #f1f3f0;
+          color: #4e5a56;
+        }
+        .h-tag.hi {
+          background: #e4f3ee;
+          color: #0d6654;
+        }
+        .h-meter {
+          margin-left: auto;
+          display: flex;
+          align-items: flex-end;
+          gap: 6px;
+          height: 46px;
+        }
+        .h-meter i {
+          display: block;
+          width: 12px;
+          border-radius: 4px;
+          background: #dfe4df;
+          transform-origin: 50% 100%;
+        }
+        .h-meter i.on {
+          background: #117d67;
+        }
+
+        /* projected visibility */
+        #h-proj {
+          position: absolute;
+          left: 1160px;
+          top: 262px;
+          width: 600px;
+          height: 530px;
+          border-radius: 32px;
+          color: #ffffff;
+          background:
+            radial-gradient(100% 90% at 100% 100%, rgba(63, 127, 118, 0.95) 0%, rgba(63, 127, 118, 0) 70%),
+            #15223a;
+          box-shadow: 0 44px 100px rgba(21, 34, 58, 0.32), 0 8px 24px rgba(14, 26, 23, 0.08);
+        }
+        #h-proj-lab {
+          position: absolute;
+          left: 40px;
+          top: 36px;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 22px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #2ebe9b;
+        }
+        .h-num {
+          position: absolute;
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          letter-spacing: -0.04em;
+          line-height: 1;
+        }
+        .h-cap {
+          position: absolute;
+          font-size: 25px;
+          color: rgba(255, 255, 255, 0.72);
+          white-space: nowrap;
+        }
+        #h-now { left: 40px; top: 96px; font-size: 76px; }
+        #h-now-cap { left: 42px; top: 182px; }
+        #h-after { right: 40px; top: 300px; font-size: 104px; color: #2ebe9b; text-align: right; }
+        #h-after-cap { right: 42px; top: 414px; }
+        #h-chart {
+          position: absolute;
+          left: 40px;
+          top: 230px;
+          width: 340px;
+          height: 230px;
+          overflow: visible;
+        }
+        #h-plus {
+          position: absolute;
+          right: 40px;
+          top: 36px;
+          padding: 6px 14px;
+          border-radius: 999px;
+          background: rgba(46, 190, 155, 0.18);
+          color: #2ebe9b;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 22px;
+        }
+
+        /* the continuous loop */
+        #h-loop {
+          position: absolute;
+          left: 160px;
+          top: 830px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+        .h-step {
+          position: relative;
+          padding: 12px 26px;
+          border-radius: 999px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          font-size: 28px;
+          font-weight: 600;
+          color: #4e5a56;
+          white-space: nowrap;
+        }
+        .h-arrow {
+          width: 30px;
+          height: 30px;
+          color: #a3ada9;
+        }
+        #h-back {
+          width: 40px;
+          height: 40px;
+          color: #117d67;
+        }
+        #h-mire {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 120px;
+          height: 120px;
+        }
+        #h-pupil {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100px;
+          height: 100px;
+          border-radius: 50%;
+          background:
+            radial-gradient(90% 120% at 85% 95%, rgba(63, 127, 118, 0.95) 0%, rgba(63, 127, 118, 0) 62%),
+            radial-gradient(70% 90% at 8% 0%, #1e3149 0%, rgba(30, 49, 73, 0) 72%),
+            #15223a;
+        }
+      </style>
+
+      <div id="h-root" data-composition-id="h-actions" data-width="1920" data-height="1080" data-duration="7.25">
+        <div id="h-world">
+          <div id="h-prio">Priorités · classées par impact</div>
+          <div class="h-act" id="h-a1" style="top:310px"><span class="h-badge">01</span><span><span class="h-nm" style="display:block">Clarifier les pages produits</span><span class="h-tags"><span class="h-tag hi">Impact élevé</span><span class="h-tag">Effort moyen</span></span></span><span class="h-meter"><i class="on" style="height:22px"></i><i class="on" style="height:34px"></i><i class="on" style="height:46px"></i></span></div>
+          <div class="h-act" id="h-a2" style="top:464px"><span class="h-badge">02</span><span><span class="h-nm" style="display:block">Renforcer les comparatifs experts</span><span class="h-tags"><span class="h-tag hi">Impact élevé</span><span class="h-tag">Effort élevé</span></span></span><span class="h-meter"><i class="on" style="height:22px"></i><i class="on" style="height:34px"></i><i class="on" style="height:46px"></i></span></div>
+          <div class="h-act" id="h-a3" style="top:618px"><span class="h-badge">03</span><span><span class="h-nm" style="display:block">Structurer les preuves clients</span><span class="h-tags"><span class="h-tag">Impact moyen</span><span class="h-tag hi">Effort faible</span></span></span><span class="h-meter"><i class="on" style="height:22px"></i><i class="on" style="height:34px"></i><i style="height:46px"></i></span></div>
+
+          <div id="h-proj">
+            <div id="h-proj-lab">Visibilité projetée</div>
+            <div id="h-plus">+11 pts</div>
+            <div class="h-num" id="h-now">68&nbsp;%</div>
+            <div class="h-cap" id="h-now-cap">Aujourd'hui</div>
+            <svg id="h-chart" viewBox="0 0 340 230">
+              <path id="h-line" d="M10 200 L 120 200 L 120 140 L 230 140 L 230 70 L 330 70 L 330 20" fill="none" stroke="#2ebe9b" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+              <circle id="h-d0" cx="10" cy="200" r="9" fill="#2ebe9b" />
+              <circle id="h-d1" cx="330" cy="20" r="11" fill="#2ebe9b" stroke="#15223a" stroke-width="4" />
+            </svg>
+            <div class="h-num" id="h-after">68&nbsp;%</div>
+            <div class="h-cap" id="h-after-cap">Après mise en œuvre</div>
+          </div>
+
+          <div id="h-loop">
+            <span class="h-step" id="h-s1">Mesurer</span><span class="h-arrow lm-icon" data-icon="arrow-right"></span>
+            <span class="h-step" id="h-s2">Comprendre</span><span class="h-arrow lm-icon" data-icon="arrow-right"></span>
+            <span class="h-step" id="h-s3">Vérifier</span><span class="h-arrow lm-icon" data-icon="arrow-right"></span>
+            <span class="h-step" id="h-s4">Agir</span><span id="h-back" class="lm-icon" data-icon="rotate-cw"></span>
+          </div>
+
+          <div id="h-mire"></div>
+          <div id="h-pupil"></div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("h-root");
+          root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
+          root.querySelector("#h-mire").innerHTML = LM.symbol({ color: "#117d67", size: 120 });
+          const mire = root.querySelector("#h-mire svg");
+
+          const tl = gsap.timeline({ paused: true });
+          const world = root.querySelector("#h-world");
+          tl.fromTo(world, { x: 0, y: 0, scale: 1 }, { x: -20, y: -12, scale: 1.02, duration: 6.2, ease: "sine.inOut" }, 0);
+
+          /* 0.4 — actions arrive in priority order */
+          tl.fromTo("#h-prio", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, 0.45);
+          ["#h-a1", "#h-a2", "#h-a3"].forEach(function (id, i) {
+            const t = 0.7 + i * 0.42;
+            tl.fromTo(id, { opacity: 0, x: -80, filter: "blur(10px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, t);
+            tl.fromTo(root.querySelectorAll(id + " .h-meter i"), { scaleY: 0 }, { scaleY: 1, duration: 0.35, stagger: 0.08, ease: "back.out(2)" }, t + 0.3);
+            tl.fromTo(root.querySelectorAll(id + " .h-tag"), { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.08 }, t + 0.35);
+          });
+
+          /* 1.2 — projected visibility climbs from 68 to 79 */
+          tl.fromTo("#h-proj", { opacity: 0, x: 60, filter: "blur(12px)" }, { opacity: 1, x: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, 1.1);
+          tl.fromTo(["#h-proj-lab", "#h-now", "#h-now-cap"], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 }, 1.45);
+          LM.drawStroke(tl, root.querySelector("#h-line"), 2.1, 1.5, "power2.inOut", 620);
+          tl.fromTo("#h-d0", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.3, ease: "back.out(2.5)" }, 2.0);
+          tl.fromTo("#h-d1", { scale: 0, transformOrigin: "50% 50%" }, { scale: 1, duration: 0.35, ease: "back.out(2.5)" }, 3.5);
+          tl.fromTo(["#h-after", "#h-after-cap"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.1 }, 2.3);
+          LM.countUp(tl, root.querySelector("#h-after"), 68, 79, 2.3, 1.5, LM.pct, "power2.inOut");
+          tl.fromTo("#h-plus", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.4)" }, 3.7);
+
+          /* 4.0 — measure, understand, verify, act… and back to measure */
+          const steps = ["#h-s1", "#h-s2", "#h-s3", "#h-s4"];
+          tl.fromTo(root.querySelectorAll("#h-loop > *"), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, stagger: 0.12, ease: "power2.out" }, 4.0);
+          steps.forEach(function (id, i) {
+            const t = 4.55 + i * 0.32;
+            tl.fromTo(id, { backgroundColor: "#ffffff", color: "#4e5a56", borderColor: "#e1e5e0" },
+              { backgroundColor: "#117d67", color: "#ffffff", borderColor: "#117d67", duration: 0.2, immediateRender: false }, t);
+            if (i < 3) tl.fromTo(id, { backgroundColor: "#117d67", color: "#ffffff", borderColor: "#117d67" },
+              { backgroundColor: "#e4f3ee", color: "#117d67", borderColor: "#b9e1d4", duration: 0.25, immediateRender: false }, t + 0.32);
+          });
+          tl.fromTo("#h-back", { rotation: 0 }, { rotation: 360, duration: 0.6, ease: "power3.inOut" }, 5.75);
+          tl.fromTo("#h-s4", { backgroundColor: "#117d67", color: "#ffffff" }, { backgroundColor: "#e4f3ee", color: "#117d67", duration: 0.25, immediateRender: false }, 5.95);
+          tl.fromTo("#h-s1", { backgroundColor: "#e4f3ee", color: "#117d67" }, { backgroundColor: "#117d67", color: "#ffffff", duration: 0.25, immediateRender: false }, 6.05);
+
+          /* 6.1 — the mark settles on "Mesurer", its pupil opens onto the brand world */
+          const MX = 160 + 76, MY = 830 + 30; /* centre of the "Mesurer" chip */
+          const mireEl = root.querySelector("#h-mire");
+          mireEl.style.left = MX - 60 + "px";
+          mireEl.style.top = MY - 60 + "px";
+          tl.fromTo(mireEl, { opacity: 0, scale: 2.2 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, 6.1);
+          LM.symbolQuarter(tl, mire, 6.25, 1);
+          const pupilEl = root.querySelector("#h-pupil");
+          pupilEl.style.left = MX - 50 + "px";
+          pupilEl.style.top = MY - 50 + "px";
+          tl.fromTo(pupilEl, { scale: 0 }, { scale: 50, duration: 0.75, ease: "power3.in" }, 6.5);
+
+          window.__timelines["h-actions"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

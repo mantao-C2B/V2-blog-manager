@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="bg-template">
+      <style>
+        /* Light product canvas (sable, like the app) with slow mint/teal light and a faint data grid.
+           Every drift is periodic over 80 s so the loop point is invisible. */
+        #bg-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          background: #f5f6f3;
+        }
+        .bg-glow {
+          position: absolute;
+          border-radius: 50%;
+          will-change: transform;
+        }
+        #bg-glow-a {
+          left: 1050px;
+          top: -520px;
+          width: 1500px;
+          height: 1300px;
+          background: radial-gradient(50% 50% at 50% 50%, rgba(46, 190, 155, 0.2) 0%, rgba(46, 190, 155, 0) 70%);
+        }
+        #bg-glow-b {
+          left: -560px;
+          top: 420px;
+          width: 1500px;
+          height: 1200px;
+          background: radial-gradient(50% 50% at 50% 50%, rgba(63, 127, 118, 0.16) 0%, rgba(63, 127, 118, 0) 70%);
+        }
+        #bg-glow-c {
+          left: 360px;
+          top: 40px;
+          width: 1200px;
+          height: 1000px;
+          background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+        #bg-streak {
+          left: -200px;
+          top: 380px;
+          width: 2400px;
+          height: 300px;
+          background: radial-gradient(50% 50% at 50% 50%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0) 70%);
+        }
+        #bg-grid {
+          position: absolute;
+          left: -80px;
+          top: -80px;
+          width: 2080px;
+          height: 1240px;
+          background-image: radial-gradient(circle, rgba(14, 26, 23, 0.12) 1.6px, rgba(14, 26, 23, 0) 2.2px);
+          background-size: 40px 40px;
+          -webkit-mask-image: radial-gradient(60% 65% at 50% 50%, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+          mask-image: radial-gradient(60% 65% at 50% 50%, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+          opacity: 0.55;
+        }
+        #bg-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.05;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05  0 0 0 0 0.1  0 0 0 0 0.09  0 0 0 0.9 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+        }
+      </style>
+
+      <div id="bg-root" data-composition-id="bg" data-width="1920" data-height="1080" data-duration="80">
+        <div id="bg-grid"></div>
+        <div id="bg-glow-c" class="bg-glow"></div>
+        <div id="bg-glow-a" class="bg-glow"></div>
+        <div id="bg-glow-b" class="bg-glow"></div>
+        <div id="bg-streak" class="bg-glow"></div>
+        <div id="bg-grain"></div>
+      </div>
+
+      <script>
+        (function () {
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#bg-glow-a", { x: 0, y: 0, scale: 1 }, { x: -260, y: 120, scale: 1.12, duration: 20, ease: "sine.inOut", yoyo: true, repeat: 3 }, 0);
+          tl.fromTo("#bg-glow-b", { x: 0, y: 0, scale: 1 }, { x: 300, y: -140, scale: 1.1, duration: 40, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+          tl.fromTo("#bg-glow-c", { x: -120, y: 0 }, { x: 140, y: 40, duration: 16, ease: "sine.inOut", yoyo: true, repeat: 4 }, 0);
+          tl.fromTo("#bg-streak", { x: -300, y: -60, rotation: -14 }, { x: 260, y: 40, rotation: -9, duration: 10, ease: "sine.inOut", yoyo: true, repeat: 7 }, 0);
+          tl.fromTo("#bg-grid", { x: 0, y: 0 }, { x: 40, y: 40, duration: 20, ease: "none", repeat: 3 }, 0);
+          window.__timelines["bg"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

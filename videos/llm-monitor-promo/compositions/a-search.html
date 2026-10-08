@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="a-search-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #a-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #0e1a17;
+        }
+        #a-stage {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 960px 600px;
+        }
+
+        /* ---------- Search page ---------- */
+        #a-browser {
+          position: absolute;
+          left: 210px;
+          top: 230px;
+          width: 1500px;
+          height: 760px;
+          border-radius: 28px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          box-shadow: 0 40px 100px rgba(14, 26, 23, 0.12), 0 8px 24px rgba(14, 26, 23, 0.05);
+          overflow: hidden;
+        }
+        #a-bar {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 116px;
+          display: flex;
+          align-items: center;
+          gap: 30px;
+          padding: 0 44px;
+          border-bottom: 2px solid #eef1ed;
+        }
+        #a-bar .a-g {
+          width: 48px;
+          height: 48px;
+          flex: none;
+        }
+        #a-pill {
+          width: 1060px;
+          height: 74px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 0 30px;
+          border-radius: 40px;
+          border: 2px solid #dfe4df;
+          background: #ffffff;
+          box-shadow: 0 6px 18px rgba(14, 26, 23, 0.06);
+          font-size: 31px;
+          letter-spacing: -0.01em;
+          color: #0e1a17;
+          white-space: nowrap;
+        }
+        #a-pill .lm-icon {
+          width: 30px;
+          height: 30px;
+          color: #626c68;
+        }
+        #a-bar .a-avatar {
+          margin-left: auto;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background: #e4f3ee;
+        }
+        #a-results {
+          position: absolute;
+          left: 64px;
+          top: 150px;
+          width: 1000px;
+          transform-origin: 50% 0%;
+        }
+        .a-res {
+          height: 112px;
+          padding-top: 6px;
+        }
+        .a-res-src {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-family: "IBM Plex Mono", monospace;
+          font-size: 20px;
+          color: #626c68;
+        }
+        .a-res-src i {
+          display: block;
+          width: 26px;
+          height: 26px;
+          border-radius: 50%;
+          background: #e6eae6;
+        }
+        .a-res-title {
+          margin-top: 6px;
+          font-size: 30px;
+          font-weight: 500;
+          letter-spacing: -0.01em;
+          color: #2f55b8;
+        }
+        .a-res-line {
+          margin-top: 10px;
+          width: 760px;
+          height: 12px;
+          border-radius: 6px;
+          background: #eceeeb;
+        }
+
+        /* ---------- AI Overview block ---------- */
+        #a-aio {
+          position: absolute;
+          left: 300px;
+          top: 360px;
+          width: 1320px;
+          height: 370px;
+          padding: 40px 50px;
+          border-radius: 28px;
+          background: #ffffff;
+          border: 3px solid #117d67;
+          box-shadow: 0 40px 90px rgba(17, 125, 103, 0.18), 0 6px 18px rgba(14, 26, 23, 0.05);
+          transform-origin: 50% 0%;
+        }
+        #a-aio-head {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-size: 32px;
+          font-weight: 600;
+          letter-spacing: -0.015em;
+        }
+        #a-aio-head .a-g {
+          width: 40px;
+          height: 40px;
+        }
+        #a-aio-head .lm-icon {
+          width: 32px;
+          height: 32px;
+          color: #117d67;
+        }
+        #a-aio-text {
+          margin-top: 26px;
+          width: 1180px;
+          font-size: 36px;
+          line-height: 1.35;
+          letter-spacing: -0.012em;
+          color: #0e1a17;
+        }
+        #a-aio-chips {
+          margin-top: 30px;
+          display: flex;
+          gap: 18px;
+        }
+        .a-chip {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 12px 24px;
+          border-radius: 999px;
+          background: #e4f3ee;
+          color: #0e1a17;
+          font-size: 28px;
+          font-weight: 600;
+        }
+        .a-chip i {
+          display: block;
+          width: 14px;
+          height: 14px;
+          border-radius: 50%;
+          background: #117d67;
+        }
+
+        /* ---------- Platform answer cards (fan) ---------- */
+        .a-card {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 500px;
+          height: 330px;
+          padding: 30px 34px;
+          border-radius: 28px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          box-shadow: 0 34px 80px rgba(14, 26, 23, 0.14), 0 6px 18px rgba(14, 26, 23, 0.05);
+        }
+        .a-card-head {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-size: 34px;
+          font-weight: 600;
+          letter-spacing: -0.02em;
+          white-space: nowrap;
+        }
+        .a-card-head .a-logo {
+          width: 50px;
+          height: 50px;
+          flex: none;
+        }
+        .a-card-line {
+          margin-top: 18px;
+          height: 14px;
+          border-radius: 7px;
+          background: #eceeeb;
+        }
+        .a-card-chips {
+          position: absolute;
+          left: 34px;
+          bottom: 30px;
+          display: flex;
+          gap: 10px;
+        }
+        .a-card-chips span {
+          display: block;
+          padding: 8px 16px;
+          border-radius: 999px;
+          background: #f1f3f0;
+          font-size: 22px;
+          font-weight: 600;
+          color: #4e5a56;
+        }
+        #a-card-aio {
+          border: 3px solid #117d67;
+        }
+        .a-card--right .a-card-head {
+          flex-direction: row-reverse;
+        }
+        .a-card--right .a-card-line {
+          margin-left: auto;
+        }
+        .a-card--right .a-card-chips {
+          left: auto;
+          right: 34px;
+          flex-direction: row-reverse;
+        }
+
+        /* ---------- Headline ---------- */
+        #a-title {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 64px;
+          text-align: center;
+          font-family: "Instrument Serif", Georgia, serif;
+          font-size: 112px;
+          line-height: 1;
+          letter-spacing: -0.02em;
+          color: #0e1a17;
+        }
+        #a-title em {
+          font-style: italic;
+          color: #117d67;
+        }
+
+        /* ---------- Iris (loop-in from the end card) ---------- */
+        #a-iris {
+          position: absolute;
+          inset: 0;
+          background:
+            radial-gradient(90% 120% at 85% 95%, rgba(63, 127, 118, 0.95) 0%, rgba(63, 127, 118, 0) 62%),
+            radial-gradient(70% 90% at 8% 0%, #1e3149 0%, rgba(30, 49, 73, 0) 72%),
+            #15223a;
+          -webkit-mask-image: radial-gradient(circle at 960px 540px, transparent var(--r), #000 calc(var(--r) + 1.5px));
+          mask-image: radial-gradient(circle at 960px 540px, transparent var(--r), #000 calc(var(--r) + 1.5px));
+        }
+        #a-iris-ring {
+          position: absolute;
+          left: 960px;
+          top: 540px;
+          width: 40px;
+          height: 40px;
+          margin-left: -20px;
+          margin-top: -20px;
+          border-radius: 50%;
+          background: #2ebe9b;
+        }
+      </style>
+
+      <div id="a-root" data-composition-id="a-search" data-width="1920" data-height="1080" data-duration="11.7">
+        <div id="a-stage">
+          <div id="a-browser">
+            <div id="a-bar">
+              <span class="a-g" data-logo="google"></span>
+              <div id="a-pill">
+                <span class="lm-icon" data-icon="search"></span>
+                <span><span id="a-typed"></span><span id="a-caret" class="lm-caret"></span></span>
+              </div>
+              <span class="a-avatar"></span>
+            </div>
+            <div id="a-results"></div>
+          </div>
+
+          <div id="a-aio">
+            <div id="a-aio-head"><span class="a-g" data-logo="google"></span>AI Overview<span class="lm-icon" data-icon="sparkles"></span></div>
+            <div id="a-aio-text">Pour débuter, privilégiez une chaussure amortie et stable. Les marques les plus recommandées&nbsp;:</div>
+            <div id="a-aio-chips">
+              <span class="a-chip"><i></i>Stridea</span>
+              <span class="a-chip"><i></i>Velka</span>
+              <span class="a-chip"><i></i>Ondra</span>
+            </div>
+          </div>
+
+          <div id="a-fan"></div>
+        </div>
+
+        <div id="a-title">La recherche devient <em>une&nbsp;réponse.</em></div>
+
+        <div id="a-iris"></div>
+        <div id="a-iris-ring"></div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("a-root");
+          root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
+          root.querySelectorAll("[data-logo]").forEach(function (el) { el.innerHTML = LM.logo(el.getAttribute("data-logo")); });
+
+          /* classic links */
+          const RES = [
+            ["runners-mag.fr", "Bien choisir ses premières chaussures de running"],
+            ["guide-course.com", "Débuter la course : le guide complet du matériel"],
+            ["forum-running.fr", "Quelle paire pour commencer ? Vos avis"],
+            ["test-chaussures.pro", "Comparatif 2026 : 12 modèles testés"],
+            ["sport-sante.org", "Course à pied : éviter les blessures au démarrage"],
+          ];
+          const resWrap = root.querySelector("#a-results");
+          RES.forEach(function (r) {
+            const d = document.createElement("div");
+            d.className = "a-res";
+            d.innerHTML = '<div class="a-res-src"><i></i>' + r[0] + '</div><div class="a-res-title">' + r[1] + '</div><div class="a-res-line"></div>';
+            resWrap.appendChild(d);
+          });
+          const resEls = Array.from(resWrap.children);
+
+          /* the five answer engines, in the order the voice-over names them */
+          const PLAT = [
+            { id: "aio", logo: "google", name: "AI Overview", k: 0 },
+            { id: "chatgpt", logo: "chatgpt", name: "ChatGPT", k: -1 },
+            { id: "gemini", logo: "gemini", name: "Gemini", k: 1 },
+            { id: "claude", logo: "claude", name: "Claude", k: -2 },
+            { id: "perplexity", logo: "perplexity", name: "Perplexity", k: 2 },
+          ];
+          const CHIPS = [["Stridea", "Velka", "Ondra"], ["Velka", "Stridea", "Nordpace"], ["Stridea", "Ondra", "Velka"], ["Ondra", "Stridea", "Velka"], ["Stridea", "Nordpace", "Velka"]];
+          const fan = root.querySelector("#a-fan");
+          const cards = PLAT.map(function (p, i) {
+            const c = document.createElement("div");
+            c.className = "a-card" + (p.k > 0 ? " a-card--right" : "");
+            c.id = "a-card-" + p.id;
+            c.innerHTML =
+              '<div class="a-card-head"><span class="a-logo">' + LM.logo(p.logo) + "</span>" + p.name + "</div>" +
+              '<div class="a-card-line" style="width:92%;margin-top:30px"></div><div class="a-card-line" style="width:78%"></div><div class="a-card-line" style="width:60%"></div>' +
+              '<div class="a-card-chips">' + CHIPS[i].map(function (n) { return "<span>" + n + "</span>"; }).join("") + "</div>";
+            fan.appendChild(c);
+            return { el: c, p: p };
+          });
+          /* fan order back-to-front: outer cards first so the centre card sits on top */
+          [3, 4, 1, 2, 0].forEach(function (i) { fan.appendChild(cards[i].el); });
+
+          const titleWords = LM.splitWords(root.querySelector("#a-title"));
+          const aioWords = LM.splitWords(root.querySelector("#a-aio-text"));
+
+          const tl = gsap.timeline({ paused: true });
+          const stage = root.querySelector("#a-stage");
+
+          /* 0.0 — loop-in: the brand's pupil opens like an iris onto the everyday search page */
+          tl.fromTo("#a-iris", { "--r": "0px" }, { "--r": "1300px", duration: 0.95, ease: "power3.in" }, 0.1);
+          tl.fromTo("#a-iris-ring", { scale: 1, opacity: 1 }, { scale: 3.2, opacity: 0, duration: 0.5, ease: "power2.in" }, 0.1);
+          tl.set("#a-iris", { opacity: 0 }, 1.06);
+          tl.fromTo(stage, { scale: 1.2, y: -10 }, { scale: 1, y: 0, duration: 5.0, ease: "power2.inOut" }, 0.2);
+          tl.fromTo("#a-browser", { opacity: 0, filter: "blur(14px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.8, ease: "power2.out" }, 0.4);
+
+          /* 1.2 — the question types itself */
+          const typed = root.querySelector("#a-typed");
+          const caret = root.querySelector("#a-caret");
+          const tq = LM.typeText(tl, typed, "Quelles chaussures choisir pour débuter la course ?", 1.2, 27);
+          LM.blink(tl, caret, 0.5, 1.2, 0.35);
+          const tEnter = 1.2 + tq + 0.15;
+          tl.fromTo("#a-pill", { scale: 1, borderColor: "#dfe4df" }, { scale: 0.985, borderColor: "#117d67", duration: 0.1, ease: "power2.in" }, tEnter);
+          tl.fromTo("#a-pill", { scale: 0.985 }, { scale: 1, duration: 0.35, ease: "back.out(3)", immediateRender: false }, tEnter + 0.1);
+          tl.set(caret, { opacity: 0 }, tEnter);
+
+          /* 3.3 — ten blue links… */
+          resEls.forEach(function (r, i) {
+            tl.fromTo(r, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, tEnter + 0.15 + i * 0.09);
+          });
+
+          /* 4.5 — …contract, while the AI answer takes the centre */
+          const tAio = 4.5;
+          tl.fromTo(resWrap, { y: 0, scaleY: 1, opacity: 1, filter: "blur(0px)" },
+            { y: 330, scaleY: 0.45, opacity: 0, filter: "blur(6px)", duration: 1.0, ease: "power3.inOut", immediateRender: false }, tAio);
+          tl.fromTo("#a-aio", { opacity: 0, scaleY: 0.12, scaleX: 0.9, filter: "blur(10px)" },
+            { opacity: 1, scaleY: 1, scaleX: 1, filter: "blur(0px)", duration: 0.9, ease: "power3.out" }, tAio + 0.15);
+          tl.fromTo("#a-aio-head", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, tAio + 0.5);
+          LM.focusIn(tl, aioWords, tAio + 0.65, { stagger: 0.035, blur: 8, y: 6, duration: 0.4 });
+          tl.fromTo("#a-aio-chips .a-chip", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2.2)", stagger: 0.1 }, tAio + 1.35);
+
+          /* 5.0 — the line of the scene */
+          LM.focusIn(tl, titleWords, 5.0, { stagger: 0.09, blur: 18, y: 20, duration: 0.8 });
+
+          /* 6.3 — the page dissolves; the answer becomes one card among the answer engines */
+          const tFan = 6.3;
+          tl.fromTo("#a-browser", { opacity: 1, filter: "blur(0px)", scale: 1 },
+            { opacity: 0, filter: "blur(12px)", scale: 0.96, duration: 0.6, ease: "power2.in", immediateRender: false }, tFan);
+          tl.fromTo("#a-aio", { opacity: 1, scale: 1, x: 0, y: 0, filter: "blur(0px)" },
+            { opacity: 0, scale: 0.42, x: 0, y: 70, filter: "blur(8px)", duration: 0.65, ease: "power3.inOut", immediateRender: false }, tFan + 0.1);
+
+          /* fan geometry (screen space): centre card front, the others spread in an arc behind it */
+          const CX = 960, CY = 560, DX = 372;
+          const at = { aio: 6.75, chatgpt: 7.95, gemini: 8.5, claude: 9.1, perplexity: 9.65 };
+          cards.forEach(function (c) {
+            const k = c.p.k;
+            const ak = Math.abs(k);
+            const x = CX + k * DX - 250;
+            const y = CY + ak * ak * 16 - 165;
+            const s = k === 0 ? 1.1 : 1 - ak * 0.1;
+            const t = at[c.p.id];
+            if (k === 0) {
+              tl.fromTo(c.el, { x: x, y: y + 20, scale: 0.5, opacity: 0, filter: "blur(10px)", rotation: 0 },
+                { x: x, y: y, scale: s, opacity: 1, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, t);
+            } else {
+              tl.fromTo(c.el, { x: CX - 250, y: CY - 165, scale: 0.8, opacity: 0, filter: "blur(10px)", rotation: 0 },
+                { x: x, y: y, scale: s, opacity: 1, filter: "blur(" + (ak === 2 ? 1.2 : 0) + "px)", rotation: k * 2.2, duration: 0.75, ease: "power3.out" }, t);
+            }
+            tl.fromTo(c.el.querySelectorAll(".a-card-chips span"), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.07, ease: "power2.out" }, t + 0.35);
+          });
+          tl.fromTo(stage, { scale: 1 }, { scale: 1.035, duration: 4.6, ease: "sine.inOut", immediateRender: false }, 7.0);
+
+          window.__timelines["a-search"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

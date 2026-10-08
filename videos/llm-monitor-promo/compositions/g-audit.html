@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="g-audit-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #g-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #0e1a17;
+        }
+        #g-world {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 1920px;
+          height: 1080px;
+          transform-origin: 960px 600px;
+        }
+        #g-url {
+          position: absolute;
+          left: 360px;
+          top: 262px;
+          width: 1200px;
+          height: 96px;
+          display: flex;
+          align-items: center;
+          gap: 18px;
+          padding: 0 26px 0 30px;
+          border-radius: 48px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          box-shadow: 0 24px 60px rgba(14, 26, 23, 0.09), 0 4px 12px rgba(14, 26, 23, 0.04);
+          font-size: 34px;
+          font-weight: 500;
+          letter-spacing: -0.01em;
+        }
+        #g-url > .lm-icon {
+          width: 34px;
+          height: 34px;
+          color: #626c68;
+        }
+        #g-status {
+          margin-left: auto;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 22px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #117d67;
+          white-space: nowrap;
+        }
+        #g-loader {
+          width: 50px;
+          height: 50px;
+        }
+        #g-st-run, #g-st-done, #g-st-fix {
+          position: absolute;
+          right: 96px;
+          top: 50%;
+          margin-top: -16px;
+          white-space: nowrap;
+        }
+        #g-st-done { color: #117d67; }
+        #g-st-fix {
+          margin-top: -24px;
+          padding: 8px 16px;
+          border-radius: 999px;
+          background: #fbeae5;
+          color: #c0583f;
+        }
+        .g-card {
+          position: absolute;
+          top: 392px;
+          width: 500px;
+          height: 530px;
+          padding: 34px 36px;
+          border-radius: 28px;
+          background: #ffffff;
+          border: 2px solid #e1e5e0;
+          box-shadow: 0 30px 70px rgba(14, 26, 23, 0.09), 0 6px 18px rgba(14, 26, 23, 0.04);
+          overflow: hidden;
+        }
+        #g-k1 { left: 160px; }
+        #g-k2 { left: 710px; }
+        #g-k3 { left: 1260px; }
+        .g-num {
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 26px;
+          letter-spacing: 0.08em;
+          color: #117d67;
+        }
+        .g-ttl {
+          margin-top: 10px;
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          font-size: 44px;
+          letter-spacing: -0.035em;
+        }
+        .g-score {
+          margin-top: 14px;
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+        }
+        .g-score b {
+          font-family: "Sora", sans-serif;
+          font-weight: 600;
+          font-size: 108px;
+          letter-spacing: -0.04em;
+          line-height: 1;
+          color: #117d67;
+        }
+        .g-score span {
+          font-family: "IBM Plex Mono", monospace;
+          font-size: 28px;
+          color: #626c68;
+        }
+        .g-bar {
+          position: relative;
+          margin-top: 22px;
+          height: 16px;
+          border-radius: 8px;
+          background: #eceeeb;
+          overflow: hidden;
+        }
+        .g-bar span {
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          border-radius: 8px;
+          background: #117d67;
+          transform-origin: 0 50%;
+        }
+        .g-list {
+          margin-top: 30px;
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .g-it {
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 8px 12px;
+          margin: 0 -12px;
+          border-radius: 14px;
+          font-size: 29px;
+          white-space: nowrap;
+        }
+        .g-it .g-ck {
+          width: 34px;
+          height: 34px;
+          flex: none;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: #117d67;
+          color: #ffffff;
+        }
+        .g-it .g-ck .lm-icon {
+          width: 22px;
+          height: 22px;
+        }
+        .g-it.warn .g-ck {
+          background: #d9785f;
+        }
+        .g-scan {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          height: 140px;
+          background: linear-gradient(180deg, rgba(46, 190, 155, 0) 0%, rgba(46, 190, 155, 0.16) 80%, rgba(17, 125, 103, 0.75) 100%);
+          border-bottom: 3px solid #117d67;
+          opacity: 0;
+        }
+      </style>
+
+      <div id="g-root" data-composition-id="g-audit" data-width="1920" data-height="1080" data-duration="9.45">
+        <div id="g-world">
+          <div id="g-url">
+            <span class="lm-icon" data-icon="globe"></span>
+            <span><span id="g-typed"></span><span id="g-caret" class="lm-caret"></span></span>
+            <div id="g-status">
+              <span id="g-st-run">Analyse en cours…</span>
+              <span id="g-st-done">Analyse terminée</span>
+              <span id="g-st-fix">2 points à corriger</span>
+              <span id="g-loader"></span>
+            </div>
+          </div>
+
+          <div class="g-card" id="g-k1">
+            <div class="g-scan"></div>
+            <div class="g-num">01</div>
+            <div class="g-ttl">Accès</div>
+            <div class="g-score"><b>0</b><span>/100</span></div>
+            <div class="g-bar"><span></span></div>
+            <div class="g-list">
+              <div class="g-it"><span class="g-ck"></span>Robots.txt</div>
+              <div class="g-it"><span class="g-ck"></span>Sitemap</div>
+              <div class="g-it"><span class="g-ck"></span>Accès des bots</div>
+            </div>
+          </div>
+          <div class="g-card" id="g-k2">
+            <div class="g-scan"></div>
+            <div class="g-num">02</div>
+            <div class="g-ttl">Compréhension</div>
+            <div class="g-score"><b>0</b><span>/100</span></div>
+            <div class="g-bar"><span style="background:#4fa38f"></span></div>
+            <div class="g-list">
+              <div class="g-it"><span class="g-ck"></span>Titres HTML</div>
+              <div class="g-it"><span class="g-ck"></span>Données structurées</div>
+              <div class="g-it warn"><span class="g-ck"></span>Architecture des pages</div>
+            </div>
+          </div>
+          <div class="g-card" id="g-k3">
+            <div class="g-scan"></div>
+            <div class="g-num">03</div>
+            <div class="g-ttl">Extraction</div>
+            <div class="g-score"><b>0</b><span>/100</span></div>
+            <div class="g-bar"><span style="background:#d9785f"></span></div>
+            <div class="g-list">
+              <div class="g-it"><span class="g-ck"></span>Réponses courtes</div>
+              <div class="g-it"><span class="g-ck"></span>Faits clés visibles</div>
+              <div class="g-it warn"><span class="g-ck"></span>Tableaux comparatifs</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("g-root");
+          root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
+          root.querySelectorAll(".g-it").forEach(function (it) {
+            it.querySelector(".g-ck").innerHTML = '<span class="lm-icon">' + LM.icon(it.classList.contains("warn") ? "minus" : "check", { strokeWidth: 3.2 }) + "</span>";
+          });
+          root.querySelector("#g-loader").innerHTML = LM.symbol({ color: "#117d67", size: 50 });
+          const loader = root.querySelector("#g-loader svg");
+
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#g-world", { scale: 0.98 }, { scale: 1.035, duration: 9.4, ease: "sine.inOut" }, 0);
+
+          /* 0.3 — the site under audit; the official loader sweeps while the scan runs */
+          tl.fromTo("#g-url", { opacity: 0, y: -20, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 0.3);
+          LM.typeText(tl, root.querySelector("#g-typed"), "kairun.fr", 0.55, 20);
+          LM.blink(tl, root.querySelector("#g-caret"), 0.3, 1.1, 0.35);
+          tl.set("#g-caret", { opacity: 0 }, 1.1);
+          tl.fromTo("#g-st-run", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.7);
+          gsap.set(["#g-st-done", "#g-st-fix"], { opacity: 0 });
+          LM.symbolScan(tl, loader, 0.7, 4.8, 6);
+          LM.symbolPulse(tl, loader, 0.7, 3, 1.6);
+          tl.fromTo("#g-st-run", { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 5.5);
+          tl.fromTo("#g-st-done", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 5.6);
+          tl.fromTo("#g-st-done", { opacity: 1 }, { opacity: 0, duration: 0.25, immediateRender: false }, 6.5);
+          tl.fromTo("#g-st-fix", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, 6.6);
+
+          /* cards: access first, then understanding and extraction, on "accessible / structuré / clair" */
+          const CARDS = [
+            { id: "#g-k1", t: 0.9, score: 92, bar: 0.92 },
+            { id: "#g-k2", t: 2.6, score: 76, bar: 0.76 },
+            { id: "#g-k3", t: 4.0, score: 64, bar: 0.64 },
+          ];
+          CARDS.forEach(function (c) {
+            const card = root.querySelector(c.id);
+            tl.fromTo(card, { opacity: 0, y: 40, scale: 0.95, filter: "blur(10px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }, c.t);
+            const scan = card.querySelector(".g-scan");
+            tl.fromTo(scan, { y: -140, opacity: 1 }, { y: 530, opacity: 1, duration: 1.05, ease: "power1.inOut" }, c.t + 0.3);
+            tl.set(scan, { opacity: 0 }, c.t + 1.36);
+            LM.countUp(tl, card.querySelector(".g-score b"), 0, c.score, c.t + 0.45, 1.0, null, "power2.out");
+            tl.fromTo(card.querySelector(".g-bar span"), { scaleX: 0 }, { scaleX: c.bar, duration: 1.0, ease: "power2.out" }, c.t + 0.45);
+            card.querySelectorAll(".g-it").forEach(function (it, j) {
+              tl.fromTo(it, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, c.t + 0.5 + j * 0.28);
+              tl.fromTo(it.querySelector(".g-ck"), { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(3)" }, c.t + 0.58 + j * 0.28);
+            });
+          });
+
+          /* 6.0 — the weak points stay on screen */
+          const warns = root.querySelectorAll(".g-it.warn");
+          const oks = root.querySelectorAll(".g-it:not(.warn)");
+          tl.fromTo(warns, { backgroundColor: "rgba(251,234,229,0)" }, { backgroundColor: "rgba(251,234,229,1)", duration: 0.45, ease: "power2.out" }, 6.0);
+          tl.fromTo(warns, { scale: 1 }, { scale: 1.05, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3, immediateRender: false }, 6.1);
+          tl.fromTo(oks, { opacity: 1 }, { opacity: 0.5, duration: 0.5, immediateRender: false }, 6.0);
+
+          window.__timelines["g-audit"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>

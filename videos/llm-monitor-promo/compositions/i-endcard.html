@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <body>
+    <template id="i-endcard-template">
+      <style>
+        @font-face { font-family: "Sora"; font-weight: 300 700; src: url("assets/fonts/Sora-normal-300-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Sans"; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; src: url("assets/fonts/InstrumentSerif-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; src: url("assets/fonts/InstrumentSerif-italic-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 400; src: url("assets/fonts/IBMPlexMono-normal-400-latin.woff2") format("woff2"); }
+        @font-face { font-family: "IBM Plex Mono"; font-weight: 500; src: url("assets/fonts/IBMPlexMono-normal-500-latin.woff2") format("woff2"); }
+        #i-root {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          font-family: "Instrument Sans", "Helvetica Neue", sans-serif;
+          color: #ffffff;
+          background:
+            radial-gradient(90% 120% at 85% 95%, rgba(63, 127, 118, 0.95) 0%, rgba(63, 127, 118, 0) 62%),
+            radial-gradient(70% 90% at 8% 0%, #1e3149 0%, rgba(30, 49, 73, 0) 72%),
+            #15223a;
+        }
+        #i-glow {
+          position: absolute;
+          left: 460px;
+          top: 40px;
+          width: 1000px;
+          height: 1000px;
+          border-radius: 50%;
+          background: radial-gradient(50% 50% at 50% 50%, rgba(46, 190, 155, 0.2) 0%, rgba(46, 190, 155, 0) 65%);
+        }
+        #i-grain {
+          position: absolute;
+          inset: 0;
+          opacity: 0.07;
+          background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.55 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>");
+        }
+        #i-content {
+          position: absolute;
+          inset: 0;
+        }
+        #i-logo {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 140px;
+          display: flex;
+          justify-content: center;
+        }
+        #i-words {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 292px;
+          text-align: center;
+          font-family: "Instrument Serif", Georgia, serif;
+          font-size: 136px;
+          line-height: 1.02;
+          letter-spacing: -0.02em;
+        }
+        .i-w {
+          display: block;
+        }
+        #i-w2 {
+          font-style: italic;
+          color: #2ebe9b;
+        }
+        #i-rule {
+          position: absolute;
+          left: 810px;
+          top: 732px;
+          width: 300px;
+          height: 5px;
+          border-radius: 5px;
+          background: #2ebe9b;
+          transform-origin: 50% 50%;
+        }
+        #i-tag {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 770px;
+          text-align: center;
+          font-size: 42px;
+          font-weight: 500;
+          letter-spacing: -0.015em;
+          color: rgba(255, 255, 255, 0.9);
+        }
+        #i-url {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 850px;
+          text-align: center;
+          font-family: "IBM Plex Mono", monospace;
+          font-weight: 500;
+          font-size: 32px;
+          letter-spacing: 0.04em;
+          color: #2ebe9b;
+        }
+        #i-pupil {
+          position: absolute;
+          left: 940px;
+          top: 520px;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: #2ebe9b;
+        }
+      </style>
+
+      <div id="i-root" data-composition-id="i-endcard" data-width="1920" data-height="1080" data-duration="5.25">
+        <div id="i-glow"></div>
+        <div id="i-content">
+          <div id="i-logo"></div>
+          <div id="i-words"><span class="i-w" id="i-w1">Mesurez.</span><span class="i-w" id="i-w2">Comprenez.</span><span class="i-w" id="i-w3">Agissez.</span></div>
+          <div id="i-rule"></div>
+          <div id="i-tag">Maîtrisez votre présence dans les IA</div>
+          <div id="i-url">llm-monitor.com</div>
+        </div>
+        <div id="i-pupil"></div>
+        <div id="i-grain"></div>
+      </div>
+
+      <script>
+        (function () {
+          const LM = window.LM;
+          const root = document.getElementById("i-root");
+          root.querySelector("#i-logo").innerHTML = LM.lockup(78, "dark", { id: "i-lockup" });
+          const lockup = root.querySelector("#i-lockup");
+          const sym = lockup.querySelector("svg");
+          const name = lockup.querySelector(".lm-lockup-name");
+
+          const tl = gsap.timeline({ paused: true });
+          tl.fromTo("#i-glow", { scale: 0.8, opacity: 0.5 }, { scale: 1.1, opacity: 1, duration: 4.5, ease: "sine.inOut" }, 0);
+
+          /* 0.1 — the mark traces itself, the name follows ("LLM Monitor.") */
+          LM.symbolDraw(tl, sym, 0.1, 0.75);
+          tl.fromTo(name, { clipPath: "inset(0% 100% 0% 0%)", opacity: 0 }, { clipPath: "inset(0% 0% 0% 0%)", opacity: 1, duration: 0.6, ease: "power3.out" }, 0.55);
+
+          /* 1.2 — Mesurez. Comprenez. Agissez. — one word per beat of the voice-over */
+          ["#i-w1", "#i-w2", "#i-w3"].forEach(function (id, i) {
+            tl.fromTo(id, { opacity: 0, y: 34, filter: "blur(16px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.7, ease: "power3.out" }, 1.2 + i * 0.62);
+          });
+          tl.fromTo("#i-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power3.inOut" }, 2.9);
+          tl.fromTo("#i-tag", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 3.05);
+          tl.fromTo("#i-url", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 3.25);
+
+          /* 4.55 — everything defocuses back to the pupil: the first frame of the film (seamless loop) */
+          tl.fromTo("#i-content", { opacity: 1, filter: "blur(0px)", scale: 1 }, { opacity: 0, filter: "blur(18px)", scale: 0.97, duration: 0.55, ease: "power2.in", immediateRender: false }, 4.55);
+          tl.fromTo("#i-pupil", { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2)" }, 4.75);
+          tl.fromTo("#i-glow", { opacity: 1 }, { opacity: 0, duration: 0.6, immediateRender: false }, 4.6);
+
+          window.__timelines["i-endcard"] = tl;
+        })();
+      </script>
+    </template>
+  </body>
+</html>
