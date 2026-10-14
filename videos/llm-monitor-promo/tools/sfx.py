@@ -109,10 +109,6 @@ for i in range(9):
     cue(59.33 + i * 0.05, "key-press", 0.12 + 0.02 * (i % 3))
 for t in (60.0, 61.7, 63.1):
     cue(t, "whoosh-short", 0.14)                # scan lines
-for t in (60.23, 60.51, 60.79, 61.93, 62.21, 63.33, 63.61):
-    cue(t, "click", 0.19)                       # checks
-for t in (62.49, 63.89):
-    cue(t, "error", 0.11)                       # weak points
 cue(64.4, "chime", 0.24)                        # analysis done
 cue(65.4, "notification", 0.22)                 # 2 points to fix
 cue(67.75, "whoosh", 0.42)                      # travelling → H

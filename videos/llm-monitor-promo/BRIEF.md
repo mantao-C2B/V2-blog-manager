@@ -39,6 +39,6 @@ Ton : simple et factuel, rassurant, jamais professoral, aucun jargon non expliqu
 ## Notes
 
 - Durée : la couverture du storyboard dit « 1 min 20 max » et l'utilisateur a demandé 1:10–1:20 ; le découpage du CEO fait 90 s. Le film fait 80 s, la voix off du CEO est resserrée de ~15 % (version d'origine conservée dans VOICEOVER.md).
-- Exemple : marché des téléviseurs (demande de l'utilisateur, 14/10 : « ça parlera plus à tout le monde »), à la place des chaussures de running du CEO. Marques fictives : Lumetra, Orvia (= « votre marque »), Vistane, Kalyx, Pixeo, pour ne pas attribuer des chiffres inventés à de vraies marques. Question suivie : « Quel téléviseur 4K choisir pour un salon lumineux ? ».
+- Exemple : marché des téléviseurs (demande de l'utilisateur, 14/10 : « ça parlera plus à tout le monde »), à la place des chaussures de running du CEO. Vraies marques connues du grand public (demande de l'utilisateur, 14/10) : Samsung, LG (= « votre marque »), Sony, Philips, TCL ; les chiffres restent des données de démonstration. Question suivie : « Quel téléviseur 4K choisir pour un salon lumineux ? ».
 - Cohérence des chiffres : le CEO affiche 68 % de visibilité aux plans 3–4 puis « 54 % aujourd'hui → 68 % » au plan 8. Harmonisé : 68 % aujourd'hui → 79 % projeté.
 - Ne pas promettre de « temps réel ».

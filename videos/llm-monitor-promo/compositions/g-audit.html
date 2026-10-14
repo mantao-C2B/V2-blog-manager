@@ -30,7 +30,7 @@
         #g-url {
           position: absolute;
           left: 360px;
-          top: 262px;
+          top: 342px;
           width: 1200px;
           height: 96px;
           display: flex;
@@ -84,9 +84,9 @@
         }
         .g-card {
           position: absolute;
-          top: 392px;
+          top: 472px;
           width: 500px;
-          height: 530px;
+          height: 330px;
           padding: 34px 36px;
           border-radius: 28px;
           background: #ffffff;
@@ -148,40 +148,6 @@
           background: #117d67;
           transform-origin: 0 50%;
         }
-        .g-list {
-          margin-top: 30px;
-          display: flex;
-          flex-direction: column;
-          gap: 14px;
-        }
-        .g-it {
-          display: flex;
-          align-items: center;
-          gap: 14px;
-          padding: 8px 12px;
-          margin: 0 -12px;
-          border-radius: 14px;
-          font-size: 29px;
-          white-space: nowrap;
-        }
-        .g-it .g-ck {
-          width: 34px;
-          height: 34px;
-          flex: none;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #117d67;
-          color: #ffffff;
-        }
-        .g-it .g-ck .lm-icon {
-          width: 22px;
-          height: 22px;
-        }
-        .g-it.warn .g-ck {
-          background: #d9785f;
-        }
         .g-scan {
           position: absolute;
           left: 0;
@@ -213,11 +179,6 @@
             <div class="g-ttl">Accès</div>
             <div class="g-score"><b>0</b><span>/100</span></div>
             <div class="g-bar"><span></span></div>
-            <div class="g-list">
-              <div class="g-it"><span class="g-ck"></span>Robots.txt</div>
-              <div class="g-it"><span class="g-ck"></span>Sitemap</div>
-              <div class="g-it"><span class="g-ck"></span>Accès des bots</div>
-            </div>
           </div>
           <div class="g-card" id="g-k2">
             <div class="g-scan"></div>
@@ -225,11 +186,6 @@
             <div class="g-ttl">Compréhension</div>
             <div class="g-score"><b>0</b><span>/100</span></div>
             <div class="g-bar"><span style="background:#4fa38f"></span></div>
-            <div class="g-list">
-              <div class="g-it"><span class="g-ck"></span>Titres HTML</div>
-              <div class="g-it"><span class="g-ck"></span>Données structurées</div>
-              <div class="g-it warn"><span class="g-ck"></span>Architecture des pages</div>
-            </div>
           </div>
           <div class="g-card" id="g-k3">
             <div class="g-scan"></div>
@@ -237,11 +193,6 @@
             <div class="g-ttl">Extraction</div>
             <div class="g-score"><b>0</b><span>/100</span></div>
             <div class="g-bar"><span style="background:#d9785f"></span></div>
-            <div class="g-list">
-              <div class="g-it"><span class="g-ck"></span>Réponses courtes</div>
-              <div class="g-it"><span class="g-ck"></span>Faits clés visibles</div>
-              <div class="g-it warn"><span class="g-ck"></span>Tableaux comparatifs</div>
-            </div>
           </div>
         </div>
       </div>
@@ -251,9 +202,6 @@
           const LM = window.LM;
           const root = document.getElementById("g-root");
           root.querySelectorAll("[data-icon]").forEach(function (el) { el.innerHTML = LM.icon(el.getAttribute("data-icon"), { strokeWidth: 2.4 }); });
-          root.querySelectorAll(".g-it").forEach(function (it) {
-            it.querySelector(".g-ck").innerHTML = '<span class="lm-icon">' + LM.icon(it.classList.contains("warn") ? "minus" : "check", { strokeWidth: 3.2 }) + "</span>";
-          });
           root.querySelector("#g-loader").innerHTML = LM.symbol({ color: "#117d67", size: 50 });
           const loader = root.querySelector("#g-loader svg");
 
@@ -262,7 +210,7 @@
 
           /* 0.3 — the site under audit; the official loader sweeps while the scan runs */
           tl.fromTo("#g-url", { opacity: 0, y: -20, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 0.3);
-          LM.typeText(tl, root.querySelector("#g-typed"), "orvia.fr", 0.55, 20);
+          LM.typeText(tl, root.querySelector("#g-typed"), "lg.com/fr", 0.55, 20);
           LM.blink(tl, root.querySelector("#g-caret"), 0.3, 1.1, 0.35);
           tl.set("#g-caret", { opacity: 0 }, 1.1);
           tl.fromTo("#g-st-run", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.7);
@@ -284,22 +232,11 @@
             const card = root.querySelector(c.id);
             tl.fromTo(card, { opacity: 0, y: 40, scale: 0.95, filter: "blur(10px)" }, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }, c.t);
             const scan = card.querySelector(".g-scan");
-            tl.fromTo(scan, { y: -140, opacity: 1 }, { y: 530, opacity: 1, duration: 1.05, ease: "power1.inOut" }, c.t + 0.3);
+            tl.fromTo(scan, { y: -140, opacity: 1 }, { y: 330, opacity: 1, duration: 1.05, ease: "power1.inOut" }, c.t + 0.3);
             tl.set(scan, { opacity: 0 }, c.t + 1.36);
             LM.countUp(tl, card.querySelector(".g-score b"), 0, c.score, c.t + 0.45, 1.0, null, "power2.out");
             tl.fromTo(card.querySelector(".g-bar span"), { scaleX: 0 }, { scaleX: c.bar, duration: 1.0, ease: "power2.out" }, c.t + 0.45);
-            card.querySelectorAll(".g-it").forEach(function (it, j) {
-              tl.fromTo(it, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }, c.t + 0.5 + j * 0.28);
-              tl.fromTo(it.querySelector(".g-ck"), { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(3)" }, c.t + 0.58 + j * 0.28);
-            });
           });
-
-          /* 6.0 — the weak points stay on screen */
-          const warns = root.querySelectorAll(".g-it.warn");
-          const oks = root.querySelectorAll(".g-it:not(.warn)");
-          tl.fromTo(warns, { backgroundColor: "rgba(251,234,229,0)" }, { backgroundColor: "rgba(251,234,229,1)", duration: 0.45, ease: "power2.out" }, 6.0);
-          tl.fromTo(warns, { scale: 1 }, { scale: 1.05, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3, immediateRender: false }, 6.1);
-          tl.fromTo(oks, { opacity: 1 }, { opacity: 0.5, duration: 0.5, immediateRender: false }, 6.0);
 
           window.__timelines["g-audit"] = tl;
         })();
