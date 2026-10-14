@@ -312,11 +312,11 @@
 
           <div id="a-aio">
             <div id="a-aio-head"><span class="a-g" data-logo="google"></span>AI Overview<span class="lm-icon" data-icon="sparkles"></span></div>
-            <div id="a-aio-text">Pour débuter, privilégiez une chaussure amortie et stable. Les marques les plus recommandées&nbsp;:</div>
+            <div id="a-aio-text">Pour un salon lumineux, privilégiez une dalle 4K très lumineuse. Les marques les plus recommandées&nbsp;:</div>
             <div id="a-aio-chips">
-              <span class="a-chip"><i></i>Stridea</span>
-              <span class="a-chip"><i></i>Velka</span>
-              <span class="a-chip"><i></i>Ondra</span>
+              <span class="a-chip"><i></i>Lumetra</span>
+              <span class="a-chip"><i></i>Vistane</span>
+              <span class="a-chip"><i></i>Kalyx</span>
             </div>
           </div>
 
@@ -338,11 +338,11 @@
 
           /* classic links */
           const RES = [
-            ["runners-mag.fr", "Bien choisir ses premières chaussures de running"],
-            ["guide-course.com", "Débuter la course : le guide complet du matériel"],
-            ["forum-running.fr", "Quelle paire pour commencer ? Vos avis"],
-            ["test-chaussures.pro", "Comparatif 2026 : 12 modèles testés"],
-            ["sport-sante.org", "Course à pied : éviter les blessures au démarrage"],
+            ["tv-mag.fr", "Bien choisir son téléviseur 4K en 2026"],
+            ["guide-hightech.com", "OLED, QLED, LED : quelle technologie choisir ?"],
+            ["forum-hifi.fr", "Quelle TV pour un salon très lumineux ? Vos avis"],
+            ["test-tv.pro", "Comparatif 2026 : 15 téléviseurs testés"],
+            ["conso-pratique.org", "TV : les erreurs à éviter avant d'acheter"],
           ];
           const resWrap = root.querySelector("#a-results");
           RES.forEach(function (r) {
@@ -361,7 +361,7 @@
             { id: "claude", logo: "claude", name: "Claude", k: -2 },
             { id: "perplexity", logo: "perplexity", name: "Perplexity", k: 2 },
           ];
-          const CHIPS = [["Stridea", "Velka", "Ondra"], ["Velka", "Stridea", "Nordpace"], ["Stridea", "Ondra", "Velka"], ["Ondra", "Stridea", "Velka"], ["Stridea", "Nordpace", "Velka"]];
+          const CHIPS = [["Lumetra", "Vistane", "Kalyx"], ["Vistane", "Lumetra", "Pixeo"], ["Lumetra", "Kalyx", "Vistane"], ["Kalyx", "Lumetra", "Vistane"], ["Lumetra", "Pixeo", "Vistane"]];
           const fan = root.querySelector("#a-fan");
           const cards = PLAT.map(function (p, i) {
             const c = document.createElement("div");
@@ -393,7 +393,7 @@
           /* 1.2 — the question types itself */
           const typed = root.querySelector("#a-typed");
           const caret = root.querySelector("#a-caret");
-          const tq = LM.typeText(tl, typed, "Quelles chaussures choisir pour débuter la course ?", 1.2, 27);
+          const tq = LM.typeText(tl, typed, "Quel téléviseur 4K choisir pour un salon lumineux ?", 1.2, 27);
           LM.blink(tl, caret, 0.5, 1.2, 0.35);
           const tEnter = 1.2 + tq + 0.15;
           tl.fromTo("#a-pill", { scale: 1, borderColor: "#dfe4df" }, { scale: 0.985, borderColor: "#117d67", duration: 0.1, ease: "power2.in" }, tEnter);

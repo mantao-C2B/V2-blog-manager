@@ -152,15 +152,15 @@
           top: 112px;
           display: flex;
           align-items: center;
-          gap: 18px;
+          gap: 14px;
         }
         .f-chip {
           display: flex;
           align-items: center;
-          gap: 12px;
-          padding: 14px 26px;
+          gap: 10px;
+          padding: 14px 22px;
           border-radius: 999px;
-          font-size: 32px;
+          font-size: 30px;
           font-weight: 600;
           white-space: nowrap;
         }
@@ -257,7 +257,7 @@
         <div id="f-world">
           <svg id="f-links" viewBox="0 0 1920 1080"></svg>
           <div id="f-brand">
-            <div id="f-brand-name">KAIRUN</div>
+            <div id="f-brand-name">ORVIA</div>
             <div id="f-brand-sub">Marque analysée</div>
             <svg id="f-ring" viewBox="0 0 270 270">
               <circle cx="135" cy="135" r="112" fill="none" stroke="rgba(255,255,255,0.13)" stroke-width="22" />
@@ -272,7 +272,7 @@
             <div class="f-head">Thèmes associés</div>
             <div id="f-chips">
               <span class="f-chip pos" id="f-c1"><span class="lm-icon" data-icon="zap"></span>Innovation</span>
-              <span class="f-chip pos" id="f-c2"><span class="lm-icon" data-icon="footprints"></span>Confort</span>
+              <span class="f-chip pos" id="f-c2"><span class="lm-icon" data-icon="eye"></span>Qualité d’image</span>
               <span class="f-chip neg" id="f-c3"><span class="lm-icon" data-icon="triangle-alert"></span>Prix</span>
               <span id="f-vig">Point de vigilance</span>
             </div>
@@ -355,7 +355,7 @@
           });
           tl.fromTo("#f-c3", { x: 0, y: 0, rotation: 0 }, { x: 14, y: -10, rotation: -3, duration: 0.5, ease: "back.out(2)", immediateRender: false }, 4.05);
           tl.fromTo("#f-c3", { scale: 1 }, { scale: 1.08, duration: 0.3, ease: "sine.inOut", yoyo: true, repeat: 3, immediateRender: false }, 4.3);
-          tl.fromTo("#f-vig", { opacity: 0, x: -10 }, { opacity: 1, x: 14, duration: 0.45, ease: "power2.out" }, 4.25);
+          tl.fromTo("#f-vig", { opacity: 0, x: -10 }, { opacity: 1, x: 6, duration: 0.45, ease: "power2.out" }, 4.25);
 
           /* 4.7 — press, reviews, social: each source feeds the overall perception */
           tl.fromTo("#f-percep", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 4.55);

@@ -45,7 +45,7 @@ transitions: "Iris de la pupille du logo (clair ↔ sombre), plongée dans l'ann
 
 ## Frame 4 — 01 Mesurer : visibilité, classement et part de voix (0:28.75–0:40)
 
-- scene: Dashboard clair. Zooms successifs : la courbe du score monte jusqu'à 68 %, le classement se remplit ligne par ligne (Kairun #2, surlignée), les barres de part de voix s'étendent ; recul final avec les évolutions.
+- scene: Dashboard clair. Zooms successifs : la courbe du score monte jusqu'à 68 %, le classement se remplit ligne par ligne (Orvia #2, surlignée), les barres de part de voix s'étendent ; recul final avec les évolutions.
 - duration: 11.25s
 - transition_in: match cut anneau → anneau
 - status: outline
@@ -67,7 +67,7 @@ transitions: "Iris de la pupille du logo (clair ↔ sombre), plongée dans l'ann
 
 ## Frame 6 — 02 Comprendre : réputation IA (0:48.75–0:58.75)
 
-- scene: Carte de marque Kairun ; la perception par source se remplit (presse 82 %, avis clients 74 %, réseaux sociaux 61 %) et chaque source alimente la note globale jusqu'à 73 %. Thèmes associés : Innovation, Confort, puis « Prix » se détache en point de vigilance.
+- scene: Carte de marque Orvia ; la perception par source se remplit (presse 82 %, avis clients 74 %, réseaux sociaux 61 %) et chaque source alimente la note globale jusqu'à 73 %. Thèmes associés : Innovation, Qualité d'image, puis « Prix » se détache en point de vigilance.
 - duration: 10s
 - transition_in: travelling latéral
 - status: outline
@@ -78,7 +78,7 @@ transitions: "Iris de la pupille du logo (clair ↔ sombre), plongée dans l'ann
 
 ## Frame 7 — 03 Vérifier : le socle technique (0:58.75–1:07.5)
 
-- scene: Barre d'URL kairun.fr avec le loader officiel en balayage ; le scan valide l'accès (92), puis la compréhension (76) et l'extraction (64) ; les points faibles restent affichés.
+- scene: Barre d'URL orvia.fr avec le loader officiel en balayage ; le scan valide l'accès (92), puis la compréhension (76) et l'extraction (64) ; les points faibles restent affichés.
 - duration: 8.75s
 - transition_in: travelling latéral
 - status: outline

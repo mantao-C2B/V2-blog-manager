@@ -47,7 +47,7 @@ Deux mondes, comme le site : le monde de la marque, sombre (dégradé navy → v
 - Les grandes phrases d'émotion en Instrument Serif (comme « Pilotez votre visibilité dans les IA. ») ; les titres de chapitre en Sora 600 ; les interfaces en Instrument Sans ; les libellés et chiffres techniques en IBM Plex Mono.
 - La mire (le symbole) est l'outil de mise au point du film : elle se verrouille sur ce qui compte, puis la caméra plonge dedans.
 - Zone sous-titres réservée en bas (y ≥ 960 px) : aucun contenu clé dedans.
-- Toutes les données sont des exemples fictifs, signalés par une pastille « EXEMPLE FICTIF ».
+- Données de démonstration (marques fictives du marché TV), sans mention « exemple fictif » à l'écran.
 
 ## Do / Don't
 
