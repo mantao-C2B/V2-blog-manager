@@ -199,7 +199,9 @@ window.buildEdit = function (E) {
     };
     tl.fromTo(card, { opacity: 0, y: 40, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, o.start);
     tl.fromTo(lab, { opacity: 0 }, { opacity: 1, duration: 0.4 }, o.start + 0.2);
-    LM.countUp(tl, num, 0, o.value, o.start + 0.2, o.countDur || 1.4, fmt, "power3.out");
+    const from = o.countFrom == null ? 0 : o.countFrom;
+    LM.countUp(tl, num, from, o.value, o.start + 0.2, o.countDur || 1.4, fmt, "power3.out");
+    if (from === o.value) tl.fromTo(num, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(2.2)", transformOrigin: "0% 60%" }, o.start + 0.2);
     tl.fromTo(txt, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, o.start + 0.5);
     out(card, { opacity: 0, y: 24, duration: 0.35, ease: "power2.in" }, o.start + o.dur - 0.35);
   };

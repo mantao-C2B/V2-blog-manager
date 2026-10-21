@@ -450,7 +450,7 @@ def v3():
         o.append(dict(type="chapter", start=c.t("i2card"), dur=1.75, num="02", title="Les réponses bougent vite"))
         sfx.append((c.t("i2card"), "whoosh-cinematic", 0.28))
         tq = c.word("quatre", 200)
-        o.append(dict(type="counter", start=tq - 0.35, dur=c.end("i2b") - tq + 0.3, value=4, prefix="", suffix=" jours",
+        o.append(dict(type="counter", start=tq - 0.35, dur=c.end("i2b") - tq + 0.3, value=4, prefix="", suffix=" jours", countFrom=4,
                       kicker="Guillaume Fraybin", label="« Tous les quatre jours, ça change. »", pos="center", countDur=0.6))
         sfx.append((tq - 0.35, "ping", 0.25))
         # insight 3
