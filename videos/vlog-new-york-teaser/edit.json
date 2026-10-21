@@ -1,0 +1,666 @@
+{
+ "source": "VLOG NEW YORK GOOD.mp4",
+ "fps": 30,
+ "end": 56.9,
+ "music": {
+  "song": "Frank Sinatra - New York, New York",
+  "segments": [
+   {
+    "from": 0.3,
+    "to": 25.47
+   },
+   {
+    "silence": 0.55
+   },
+   {
+    "from": 174.27,
+    "to": 205.45
+   }
+  ],
+  "crossfade": 0.02,
+  "fade_out": 1.0
+ },
+ "video_fade_out_frames": 0,
+ "shots": [
+  {
+   "clip": 12,
+   "start": 0.0,
+   "label": "Flash : écrans géants de Times Square",
+   "song": 0.3,
+   "src": 15.383
+  },
+  {
+   "clip": 31,
+   "start": 0.23,
+   "label": "Flash : Empire State illuminé",
+   "song": 0.53,
+   "src": 43.383
+  },
+  {
+   "clip": 23,
+   "start": 0.38,
+   "label": "Flash : Statue de la Liberté",
+   "song": 0.68,
+   "src": 31.567
+  },
+  {
+   "clip": 70,
+   "start": 0.58,
+   "label": "Flash : taxi jaune dans la vapeur",
+   "song": 0.88,
+   "src": 110.0
+  },
+  {
+   "clip": 30,
+   "start": 1.16,
+   "label": "Times Square de nuit, la foule",
+   "song": 1.46,
+   "src": 40.12
+  },
+  {
+   "clip": 20,
+   "start": 3.39,
+   "label": "Pont de Brooklyn",
+   "song": 3.69,
+   "src": 27.617
+  },
+  {
+   "clip": 25,
+   "start": 4.47,
+   "label": "DUMBO, Manhattan Bridge",
+   "song": 4.77,
+   "src": 33.8
+  },
+  {
+   "clip": 70,
+   "start": 5.57,
+   "label": "Hot-dog, vapeur, taxi jaune",
+   "song": 5.87,
+   "src": 109.0
+  },
+  {
+   "clip": 27,
+   "start": 6.65,
+   "label": "Top of the Rock",
+   "song": 6.95,
+   "src": 36.317
+  },
+  {
+   "clip": 32,
+   "start": 7.75,
+   "label": "School bus jaune",
+   "song": 8.05,
+   "src": 44.4
+  },
+  {
+   "clip": 46,
+   "start": 8.82,
+   "label": "Camion de pompiers FDNY",
+   "song": 9.12,
+   "src": 64.95
+  },
+  {
+   "clip": 59,
+   "start": 9.92,
+   "label": "Saxophoniste dans le métro",
+   "song": 10.22,
+   "src": 90.2
+  },
+  {
+   "clip": 35,
+   "start": 10.45,
+   "label": "Métro, ses cheveux dans le souffle de la rame",
+   "song": 10.75,
+   "src": 46.6
+  },
+  {
+   "clip": 69,
+   "start": 10.98,
+   "label": "Grand Central",
+   "song": 11.28,
+   "src": 106.0
+  },
+  {
+   "clip": 24,
+   "start": 11.53,
+   "label": "Vapeur qui sort de la rue",
+   "song": 11.83,
+   "src": 32.6
+  },
+  {
+   "clip": 11,
+   "start": 12.07,
+   "label": "Times Square sous la pluie, il lève les yeux",
+   "song": 12.37,
+   "src": 12.9
+  },
+  {
+   "clip": 29,
+   "start": 12.62,
+   "label": "Times Square, elle lève les yeux",
+   "song": 12.92,
+   "src": 39.2
+  },
+  {
+   "clip": 64,
+   "start": 13.18,
+   "label": "Selfie à Times Square",
+   "song": 13.48,
+   "src": 99.117
+  },
+  {
+   "clip": 12,
+   "start": 13.71,
+   "label": "Affiches géantes",
+   "song": 14.01,
+   "src": 15.6
+  },
+  {
+   "clip": 26,
+   "start": 14.25,
+   "label": "Top of the Rock, Central Park",
+   "song": 14.55,
+   "src": 35.417
+  },
+  {
+   "clip": 28,
+   "start": 14.52,
+   "label": "Malle Louis Vuitton géante",
+   "song": 14.82,
+   "src": 38.05
+  },
+  {
+   "clip": 21,
+   "start": 14.78,
+   "label": "Muséum d'histoire naturelle",
+   "song": 15.08,
+   "src": 29.267
+  },
+  {
+   "clip": 19,
+   "start": 15.06,
+   "label": "Taqueria, les cuisiniers",
+   "song": 15.36,
+   "src": 26.517
+  },
+  {
+   "clip": 16,
+   "start": 15.33,
+   "label": "Van NYPD",
+   "song": 15.63,
+   "src": 22.634
+  },
+  {
+   "clip": 47,
+   "start": 15.6,
+   "label": "Club de jazz",
+   "song": 15.9,
+   "src": 67.217
+  },
+  {
+   "clip": 45,
+   "start": 15.86,
+   "label": "Église gospel pleine",
+   "song": 16.16,
+   "src": 63.633
+  },
+  {
+   "clip": 60,
+   "start": 16.12,
+   "label": "Match de softball à Central Park",
+   "song": 16.42,
+   "src": 93.567
+  },
+  {
+   "clip": 41,
+   "start": 16.39,
+   "label": "Ferry, il regarde Manhattan",
+   "song": 16.69,
+   "src": 55.0
+  },
+  {
+   "clip": 9,
+   "start": 18.64,
+   "label": "Grand Central, il montre le hall",
+   "song": 18.94,
+   "src": 8.36
+  },
+  {
+   "clip": 13,
+   "start": 19.76,
+   "label": "Métro, la rame arrive",
+   "song": 20.06,
+   "src": 16.8
+  },
+  {
+   "clip": 22,
+   "start": 20.85,
+   "label": "Water taxi",
+   "song": 21.15,
+   "src": 30.0
+  },
+  {
+   "clip": 69,
+   "start": 21.93,
+   "label": "Grand Central, il s'avance",
+   "song": 22.23,
+   "src": 107.2
+  },
+  {
+   "clip": 18,
+   "start": 23.04,
+   "label": "Bras ouverts devant la Statue",
+   "song": 23.34,
+   "src": 24.6
+  },
+  {
+   "clip": 74,
+   "start": 24.13,
+   "label": "Il court et saute par-dessus la caméra",
+   "song": 24.43,
+   "src": 128.433
+  },
+  {
+   "clip": null,
+   "start": 25.17,
+   "label": "Noir, silence",
+   "song": 25.47
+  },
+  {
+   "clip": 42,
+   "start": 25.72,
+   "label": "Jumelles au sommet de l'Empire State",
+   "song": 174.27,
+   "src": 57.867
+  },
+  {
+   "clip": 36,
+   "start": 27.31,
+   "label": "Vélo dans Central Park",
+   "song": 175.86,
+   "src": 48.7
+  },
+  {
+   "clip": 44,
+   "start": 28.12,
+   "label": "Gospel",
+   "song": 176.67,
+   "src": 61.7
+  },
+  {
+   "clip": 56,
+   "start": 29.2,
+   "label": "Broadway",
+   "song": 177.75,
+   "src": 85.317
+  },
+  {
+   "clip": 7,
+   "start": 30.27,
+   "label": "Pluie de confettis",
+   "song": 178.82,
+   "src": 5.7
+  },
+  {
+   "clip": 8,
+   "start": 30.75,
+   "label": "Fous rires sous les confettis",
+   "song": 179.3,
+   "src": 7.7
+  },
+  {
+   "clip": 66,
+   "start": 31.3,
+   "label": "Supporters du PSG au bar",
+   "song": 179.85,
+   "src": 101.4
+  },
+  {
+   "clip": 68,
+   "start": 31.8,
+   "label": "Supporters du PSG à Times Square",
+   "song": 180.35,
+   "src": 104.0
+  },
+  {
+   "clip": 48,
+   "start": 32.33,
+   "label": "Acrobates dans le parc",
+   "song": 180.88,
+   "src": 69.2
+  },
+  {
+   "clip": 15,
+   "start": 32.96,
+   "label": "Yankee Stadium",
+   "song": 181.51,
+   "src": 20.4
+  },
+  {
+   "clip": 63,
+   "start": 33.46,
+   "label": "Elle croque une part de pizza",
+   "song": 182.01,
+   "src": 98.0
+  },
+  {
+   "clip": 43,
+   "start": 33.95,
+   "label": "Pizzaïolos qui lancent la pâte",
+   "song": 182.5,
+   "src": 60.167
+  },
+  {
+   "clip": 54,
+   "start": 34.45,
+   "label": "Lui dans l'hélico",
+   "song": 183.0,
+   "src": 80.4
+  },
+  {
+   "clip": 53,
+   "start": 37.23,
+   "label": "Hélico : Midtown",
+   "song": 185.78,
+   "src": 77.9
+  },
+  {
+   "clip": 52,
+   "start": 38.49,
+   "label": "Hélico : Downtown",
+   "song": 187.04,
+   "src": 75.2
+  },
+  {
+   "clip": 50,
+   "start": 39.71,
+   "label": "Hélico : la Statue vue du ciel",
+   "song": 188.26,
+   "src": 72.2
+  },
+  {
+   "clip": 55,
+   "start": 40.96,
+   "label": "L'hélico au-dessus de Central Park",
+   "song": 189.51,
+   "src": 83.717
+  },
+  {
+   "clip": 10,
+   "start": 42.2,
+   "label": "Times Square sous la pluie",
+   "song": 190.75,
+   "src": 10.483
+  },
+  {
+   "clip": 58,
+   "start": 43.5,
+   "label": "Elle sur le pont de Brooklyn",
+   "song": 192.05,
+   "src": 88.283
+  },
+  {
+   "clip": 76,
+   "start": 44.76,
+   "label": "Lui sur le pont de Brooklyn",
+   "song": 193.31,
+   "src": 134.633
+  },
+  {
+   "clip": 0,
+   "start": 46.0,
+   "label": "Central Park, il montre la skyline",
+   "song": 194.55,
+   "src": 0.2
+  },
+  {
+   "clip": 38,
+   "start": 47.22,
+   "label": "Elle à vélo, la skyline derrière",
+   "song": 195.77,
+   "src": 50.2
+  },
+  {
+   "clip": 73,
+   "start": 48.49,
+   "label": "Ferry : il présente la skyline",
+   "song": 197.04,
+   "src": 124.7
+  },
+  {
+   "clip": 75,
+   "start": 49.83,
+   "label": "Vue panoramique depuis l'Empire State",
+   "song": 198.38,
+   "src": 129.583
+  },
+  {
+   "clip": null,
+   "start": 54.47,
+   "label": "Noir",
+   "song": 203.02
+  }
+ ],
+ "clips": {
+  "0": [
+   0.0,
+   1.633
+  ],
+  "7": [
+   5.533,
+   7.0
+  ],
+  "10": [
+   10.1,
+   12.167
+  ],
+  "19": [
+   25.867,
+   27.433
+  ],
+  "38": [
+   49.967,
+   51.7
+  ],
+  "43": [
+   59.667,
+   61.167
+  ],
+  "45": [
+   62.833,
+   64.7
+  ],
+  "60": [
+   92.5,
+   94.9
+  ],
+  "63": [
+   97.8,
+   98.667
+  ],
+  "8": [
+   7.0,
+   8.333
+  ],
+  "9": [
+   8.333,
+   10.1
+  ],
+  "11": [
+   12.167,
+   14.5
+  ],
+  "12": [
+   14.5,
+   16.5
+  ],
+  "13": [
+   16.5,
+   18.167
+  ],
+  "15": [
+   19.767,
+   22.167
+  ],
+  "16": [
+   22.167,
+   23.367
+  ],
+  "18": [
+   24.433,
+   25.867
+  ],
+  "20": [
+   27.433,
+   28.867
+  ],
+  "21": [
+   28.867,
+   29.967
+  ],
+  "22": [
+   29.967,
+   31.267
+  ],
+  "23": [
+   31.267,
+   32.067
+  ],
+  "24": [
+   32.067,
+   33.667
+  ],
+  "25": [
+   33.667,
+   35.033
+  ],
+  "26": [
+   35.033,
+   36.067
+  ],
+  "27": [
+   36.067,
+   37.667
+  ],
+  "28": [
+   37.667,
+   38.667
+  ],
+  "29": [
+   38.667,
+   40.1
+  ],
+  "30": [
+   40.1,
+   42.533
+  ],
+  "31": [
+   42.533,
+   44.367
+  ],
+  "32": [
+   44.367,
+   45.933
+  ],
+  "35": [
+   45.933,
+   48.333
+  ],
+  "36": [
+   48.333,
+   49.967
+  ],
+  "41": [
+   54.967,
+   57.633
+  ],
+  "42": [
+   57.633,
+   59.667
+  ],
+  "44": [
+   61.167,
+   62.833
+  ],
+  "46": [
+   64.7,
+   66.3
+  ],
+  "47": [
+   66.3,
+   68.4
+  ],
+  "48": [
+   68.4,
+   70.367
+  ],
+  "50": [
+   72.133,
+   73.767
+  ],
+  "52": [
+   75.0,
+   77.733
+  ],
+  "53": [
+   77.733,
+   80.3
+  ],
+  "54": [
+   80.3,
+   83.567
+  ],
+  "55": [
+   83.567,
+   85.1
+  ],
+  "56": [
+   85.1,
+   86.6
+  ],
+  "58": [
+   88.2,
+   89.633
+  ],
+  "59": [
+   89.633,
+   92.5
+  ],
+  "64": [
+   98.667,
+   100.1
+  ],
+  "66": [
+   101.267,
+   102.467
+  ],
+  "68": [
+   103.767,
+   105.767
+  ],
+  "69": [
+   105.767,
+   108.567
+  ],
+  "70": [
+   108.567,
+   111.467
+  ],
+  "73": [
+   122.967,
+   127.5
+  ],
+  "74": [
+   127.5,
+   129.5
+  ],
+  "75": [
+   129.5,
+   134.3
+  ],
+  "76": [
+   134.3,
+   136.2
+  ]
+ }
+}

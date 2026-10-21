@@ -125,7 +125,7 @@ def edit_music(path, edit, duration):
     return out, sr
 
 
-def write_edl(rows, edit, path):
+def write_edl(rows, edit, path, title="INTRO NEW YORK"):
     fps = edit["fps"]
 
     def tc(frame):
@@ -134,7 +134,7 @@ def write_edl(rows, edit, path):
         h, m = divmod(m, 60)
         return f"{h:02d}:{m:02d}:{s:02d}:{f:02d}"
 
-    lines = ["TITLE: INTRO NEW YORK", "FCM: NON-DROP FRAME", ""]
+    lines = [f"TITLE: {title}", "FCM: NON-DROP FRAME", ""]
     for r in rows:
         rec_in = r["out_in"] + 3600 * fps  # record timeline starts at 01:00:00:00
         lines.append(
