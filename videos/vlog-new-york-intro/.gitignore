@@ -1,0 +1,5 @@
+renders/
+*.mp4
+*.wav
+*.onnx
+__pycache__/

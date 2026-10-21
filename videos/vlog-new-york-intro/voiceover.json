@@ -1,0 +1,115 @@
+{
+  "note": "Voix off v1 « Comme dans les films ». start = départ conseillé (s), end = fin à ne pas dépasser.",
+  "lines": [
+    {
+      "start": 0.2,
+      "end": 1.35,
+      "text": "New York."
+    },
+    {
+      "start": 1.6,
+      "end": 4.2,
+      "text": "La ville qu'on a tous déjà vue… mille fois."
+    },
+    {
+      "start": 4.35,
+      "end": 6.2,
+      "text": "Dans les films, dans les séries…"
+    },
+    {
+      "start": 6.45,
+      "end": 8.25,
+      "text": "mais jamais en vrai."
+    },
+    {
+      "start": 9.0,
+      "end": 11.2,
+      "text": "Alors cette fois, on y est allés."
+    },
+    {
+      "start": 11.6,
+      "end": 12.9,
+      "text": "Pour de vrai."
+    },
+    {
+      "start": 19.9,
+      "end": 21.1,
+      "text": "Les taxis jaunes…"
+    },
+    {
+      "start": 21.2,
+      "end": 22.5,
+      "text": "la vapeur dans les rues…"
+    },
+    {
+      "start": 22.65,
+      "end": 23.8,
+      "text": "les sirènes…"
+    },
+    {
+      "start": 24.05,
+      "end": 25.2,
+      "text": "Tout est vrai."
+    },
+    {
+      "start": 25.5,
+      "end": 28.1,
+      "text": "Mais New York, c'est surtout tout le reste."
+    },
+    {
+      "start": 28.25,
+      "end": 29.55,
+      "text": "Des écureuils,"
+    },
+    {
+      "start": 29.7,
+      "end": 30.95,
+      "text": "les Yankees,"
+    },
+    {
+      "start": 31.1,
+      "end": 32.4,
+      "text": "une messe gospel,"
+    },
+    {
+      "start": 32.55,
+      "end": 33.7,
+      "text": "du jazz…"
+    },
+    {
+      "start": 33.9,
+      "end": 35.6,
+      "text": "et beaucoup trop de pizzas."
+    },
+    {
+      "start": 36.85,
+      "end": 38.8,
+      "text": "On dit que New York ne dort jamais…"
+    },
+    {
+      "start": 39.0,
+      "end": 40.8,
+      "text": "et franchement, nous non plus."
+    },
+    {
+      "start": 42.5,
+      "end": 43.9,
+      "text": "Et puis il y a ce moment…"
+    },
+    {
+      "start": 44.1,
+      "end": 45.6,
+      "text": "où tu la vois d'en haut."
+    },
+    {
+      "start": 46.0,
+      "end": 47.6,
+      "text": "Et là, tu comprends."
+    },
+    {
+      "start": 48.3,
+      "end": 50.0,
+      "text": "Bienvenue à New York."
+    }
+  ]
+}
