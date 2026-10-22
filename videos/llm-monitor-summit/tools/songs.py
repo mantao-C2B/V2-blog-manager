@@ -9,7 +9,8 @@ spec = {
   "stops": [t, ...],                    # one beat of silence ending on t (pre-drop)
   "fills": [t, ...]                     # snare roll during the beat before t
 }
-Usage: python3 tools/songs.py spec.json out.wav
+Usage: python3 tools/songs.py spec.json out.wav [--music-only]
+  --music-only  instruments only: no risers, impacts, sub drops, downlifters or swells (the "fx" bus)
 """
 
 import json
@@ -161,7 +162,7 @@ def arrange_bar(song, st, style, t0, bar_len, E, nextE, b, K, CL, stopped, spec)
 
 
 
-def arrange(spec):
+def arrange(spec, music_only=False):
     st = STYLES[spec["style"]]
     song = Song(st["bpm"], spec["duration"], st["seed"])
     beat, bar = song.beat, song.bar
@@ -186,6 +187,9 @@ def arrange(spec):
             bar_count += 1
             arrange_bar(song, st, style, t0, bar_len, E, nextE if last_bar else E, bar_count - 1, K, CL, stopped, spec)
 
+    if music_only:
+        song.bus["fx"][:] = 0.0
+        return song, st
     # ---- explicit accents ---------------------------------------------------------
     for t in spec.get("risers", []):
         ln = min(2 * bar, max(bar, 3.0))
@@ -203,7 +207,7 @@ def arrange(spec):
 
 def main():
     spec = json.load(open(sys.argv[1]))
-    song, st = arrange(spec)
+    song, st = arrange(spec, music_only="--music-only" in sys.argv)
     mix = master(song, fade_out=spec.get("fade_out", 1.8), levels=st.get("levels"))
     sf.write(sys.argv[2], mix, SR, subtype="PCM_24")
     print("wrote", sys.argv[2], f"{spec['duration']:.2f}s", st["bpm"], "bpm")
