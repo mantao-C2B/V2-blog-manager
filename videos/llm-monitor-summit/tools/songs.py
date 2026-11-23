@@ -176,7 +176,7 @@ def arrange(spec, music_only=False):
     def stopped(t):
         return any(s - beat - 1e-6 <= t < s - 1e-6 for s in stops)
 
-    bar_count = 0
+    bar_count = spec.get("bar_offset", 0)  # lets a partial render keep the full song's chord positions
     for si, (s_t0, s_t1, E) in enumerate(sections):
         nextE = sections[si + 1][2] if si + 1 < len(sections) else -1
         nb = int(np.ceil((s_t1 - s_t0) / bar - 1e-6))
