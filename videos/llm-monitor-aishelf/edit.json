@@ -1,0 +1,844 @@
+{
+ "version": 1,
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 25
+ },
+ "segments": [
+  {
+   "in": 0.0,
+   "out": 1.76,
+   "zoom": 1.0,
+   "push": 0.04,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 1.76,
+   "out": 5.89,
+   "zoom": 1.12,
+   "push": 0.03,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 5.89,
+   "out": 8.29,
+   "zoom": 1.0,
+   "push": 0.04,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 8.29,
+   "out": 11.75,
+   "zoom": 1.15,
+   "push": 0.03,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 11.75,
+   "out": 15.91,
+   "zoom": 1.0,
+   "push": 0.04,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 15.91,
+   "out": 19.38,
+   "zoom": 1.12,
+   "push": 0.03,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 19.38,
+   "out": 24.02,
+   "zoom": 1.0,
+   "push": 0.05,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 24.02,
+   "out": 26.2,
+   "zoom": 1.15,
+   "push": 0.02,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 26.2,
+   "out": 29.85,
+   "zoom": 1.05,
+   "push": 0.06,
+   "fx": 50,
+   "fy": 30
+  }
+ ],
+ "captions": [
+  {
+   "start": 0.0,
+   "end": 1.02,
+   "words": [
+    {
+     "w": "Salut",
+     "t": 0.0,
+     "hl": false
+    },
+    {
+     "w": "c'est",
+     "t": 0.38,
+     "hl": false
+    },
+    {
+     "w": "Guillaume",
+     "t": 0.72,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 1.02,
+   "end": 1.82,
+   "words": [
+    {
+     "w": "de",
+     "t": 1.02,
+     "hl": false
+    },
+    {
+     "w": "LLM",
+     "t": 1.14,
+     "hl": true
+    },
+    {
+     "w": "Monitor",
+     "t": 1.4,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 1.88,
+   "end": 2.94,
+   "words": [
+    {
+     "w": "Chez",
+     "t": 1.88,
+     "hl": false
+    },
+    {
+     "w": "LLM",
+     "t": 2.22,
+     "hl": true
+    },
+    {
+     "w": "Monitor",
+     "t": 2.5,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 3.02,
+   "end": 3.48,
+   "words": [
+    {
+     "w": "vous",
+     "t": 3.02,
+     "hl": false
+    },
+    {
+     "w": "le",
+     "t": 3.12,
+     "hl": false
+    },
+    {
+     "w": "savez",
+     "t": 3.24,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 3.48,
+   "end": 4.16,
+   "words": [
+    {
+     "w": "nous",
+     "t": 3.48,
+     "hl": false
+    },
+    {
+     "w": "mesurons",
+     "t": 3.58,
+     "hl": false
+    },
+    {
+     "w": "votre",
+     "t": 3.98,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 4.16,
+   "end": 5.3,
+   "words": [
+    {
+     "w": "visibilité",
+     "t": 4.16,
+     "hl": true
+    },
+    {
+     "w": "dans",
+     "t": 4.92,
+     "hl": false
+    },
+    {
+     "w": "les",
+     "t": 5.02,
+     "hl": false
+    },
+    {
+     "w": "IA",
+     "t": 5.08,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 5.3,
+   "end": 5.9,
+   "words": [
+    {
+     "w": "au",
+     "t": 5.3,
+     "hl": false
+    },
+    {
+     "w": "quotidien",
+     "t": 5.38,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 5.9,
+   "end": 7.02,
+   "words": [
+    {
+     "w": "que",
+     "t": 5.9,
+     "hl": false
+    },
+    {
+     "w": "ce",
+     "t": 6.26,
+     "hl": false
+    },
+    {
+     "w": "soit",
+     "t": 6.36,
+     "hl": false
+    },
+    {
+     "w": "Claude",
+     "t": 6.56,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 7.02,
+   "end": 8.32,
+   "words": [
+    {
+     "w": "Gemini",
+     "t": 7.02,
+     "hl": true
+    },
+    {
+     "w": "ou",
+     "t": 7.28,
+     "hl": false
+    },
+    {
+     "w": "ChatGPT",
+     "t": 7.68,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 8.32,
+   "end": 9.02,
+   "words": [
+    {
+     "w": "Mais",
+     "t": 8.32,
+     "hl": false
+    },
+    {
+     "w": "aujourd'hui",
+     "t": 8.58,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 9.02,
+   "end": 9.74,
+   "words": [
+    {
+     "w": "vos",
+     "t": 9.02,
+     "hl": false
+    },
+    {
+     "w": "clients",
+     "t": 9.3,
+     "hl": true
+    },
+    {
+     "w": "sont",
+     "t": 9.58,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 9.74,
+   "end": 10.48,
+   "words": [
+    {
+     "w": "également",
+     "t": 9.74,
+     "hl": false
+    },
+    {
+     "w": "présents",
+     "t": 9.92,
+     "hl": false
+    },
+    {
+     "w": "sur",
+     "t": 10.32,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 10.48,
+   "end": 11.1,
+   "words": [
+    {
+     "w": "les",
+     "t": 10.48,
+     "hl": false
+    },
+    {
+     "w": "chatbots",
+     "t": 10.6,
+     "hl": true
+    },
+    {
+     "w": "de",
+     "t": 10.88,
+     "hl": false
+    },
+    {
+     "w": "vos",
+     "t": 11.0,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 11.1,
+   "end": 11.78,
+   "words": [
+    {
+     "w": "distributeurs",
+     "t": 11.1,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 11.78,
+   "end": 12.7,
+   "words": [
+    {
+     "w": "Et",
+     "t": 11.78,
+     "hl": false
+    },
+    {
+     "w": "pour",
+     "t": 12.08,
+     "hl": false
+    },
+    {
+     "w": "savoir",
+     "t": 12.22,
+     "hl": false
+    },
+    {
+     "w": "ce",
+     "t": 12.48,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 12.7,
+   "end": 13.36,
+   "words": [
+    {
+     "w": "que",
+     "t": 12.7,
+     "hl": false
+    },
+    {
+     "w": "ces",
+     "t": 12.88,
+     "hl": false
+    },
+    {
+     "w": "chatbots",
+     "t": 13.0,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 13.36,
+   "end": 14.2,
+   "words": [
+    {
+     "w": "leur",
+     "t": 13.36,
+     "hl": false
+    },
+    {
+     "w": "racontent",
+     "t": 13.7,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 14.2,
+   "end": 15.22,
+   "words": [
+    {
+     "w": "le",
+     "t": 14.2,
+     "hl": false
+    },
+    {
+     "w": "positionnement",
+     "t": 14.6,
+     "hl": true
+    },
+    {
+     "w": "de",
+     "t": 15.18,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 15.22,
+   "end": 16.0,
+   "words": [
+    {
+     "w": "votre",
+     "t": 15.22,
+     "hl": false
+    },
+    {
+     "w": "marque",
+     "t": 15.48,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 16.0,
+   "end": 16.92,
+   "words": [
+    {
+     "w": "les",
+     "t": 16.0,
+     "hl": false
+    },
+    {
+     "w": "concurrents",
+     "t": 16.26,
+     "hl": true
+    },
+    {
+     "w": "qui",
+     "t": 16.76,
+     "hl": false
+    },
+    {
+     "w": "sont",
+     "t": 16.8,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 16.92,
+   "end": 17.56,
+   "words": [
+    {
+     "w": "en",
+     "t": 16.92,
+     "hl": false
+    },
+    {
+     "w": "face",
+     "t": 17.08,
+     "hl": false
+    },
+    {
+     "w": "de",
+     "t": 17.22,
+     "hl": false
+    },
+    {
+     "w": "vous",
+     "t": 17.38,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 17.56,
+   "end": 18.16,
+   "words": [
+    {
+     "w": "nous",
+     "t": 17.56,
+     "hl": false
+    },
+    {
+     "w": "avons",
+     "t": 17.68,
+     "hl": false
+    },
+    {
+     "w": "mis",
+     "t": 17.82,
+     "hl": false
+    },
+    {
+     "w": "au",
+     "t": 17.92,
+     "hl": false
+    },
+    {
+     "w": "point",
+     "t": 18.0,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 18.16,
+   "end": 19.46,
+   "words": [
+    {
+     "w": "l'outil",
+     "t": 18.16,
+     "hl": false
+    },
+    {
+     "w": "AI",
+     "t": 18.62,
+     "hl": true
+    },
+    {
+     "w": "Shelf",
+     "t": 18.94,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 19.46,
+   "end": 20.16,
+   "words": [
+    {
+     "w": "AI",
+     "t": 19.46,
+     "hl": true
+    },
+    {
+     "w": "Shelf",
+     "t": 19.74,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 20.16,
+   "end": 20.54,
+   "words": [
+    {
+     "w": "nous",
+     "t": 20.16,
+     "hl": false
+    },
+    {
+     "w": "vous",
+     "t": 20.32,
+     "hl": false
+    },
+    {
+     "w": "le",
+     "t": 20.44,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 20.54,
+   "end": 21.46,
+   "words": [
+    {
+     "w": "présenterons",
+     "t": 20.54,
+     "hl": false
+    },
+    {
+     "w": "lors",
+     "t": 21.16,
+     "hl": false
+    },
+    {
+     "w": "du",
+     "t": 21.32,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 21.46,
+   "end": 22.52,
+   "words": [
+    {
+     "w": "salon",
+     "t": 21.46,
+     "hl": false
+    },
+    {
+     "w": "Tech4Retail",
+     "t": 21.66,
+     "hl": true
+    },
+    {
+     "w": "sur",
+     "t": 22.32,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 22.52,
+   "end": 24.1,
+   "words": [
+    {
+     "w": "notre",
+     "t": 22.52,
+     "hl": false
+    },
+    {
+     "w": "stand",
+     "t": 22.7,
+     "hl": true
+    },
+    {
+     "w": "V19",
+     "t": 23.02,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 24.14,
+   "end": 25.52,
+   "words": [
+    {
+     "w": "les",
+     "t": 24.14,
+     "hl": false
+    },
+    {
+     "w": "30",
+     "t": 24.36,
+     "hl": true
+    },
+    {
+     "w": "novembre",
+     "t": 24.88,
+     "hl": true
+    },
+    {
+     "w": "et",
+     "t": 25.32,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 25.52,
+   "end": 26.28,
+   "words": [
+    {
+     "w": "1er",
+     "t": 25.52,
+     "hl": true
+    },
+    {
+     "w": "décembre",
+     "t": 25.82,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 26.28,
+   "end": 27.26,
+   "words": [
+    {
+     "w": "Venez",
+     "t": 26.28,
+     "hl": false
+    },
+    {
+     "w": "nous",
+     "t": 26.5,
+     "hl": false
+    },
+    {
+     "w": "rendre",
+     "t": 26.66,
+     "hl": false
+    },
+    {
+     "w": "visite",
+     "t": 26.8,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 27.26,
+   "end": 27.84,
+   "words": [
+    {
+     "w": "il",
+     "t": 27.26,
+     "hl": false
+    },
+    {
+     "w": "nous",
+     "t": 27.42,
+     "hl": false
+    },
+    {
+     "w": "reste",
+     "t": 27.48,
+     "hl": false
+    },
+    {
+     "w": "quelques",
+     "t": 27.64,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 27.84,
+   "end": 28.5,
+   "words": [
+    {
+     "w": "badges",
+     "t": 27.84,
+     "hl": true
+    },
+    {
+     "w": "à",
+     "t": 28.08,
+     "hl": false
+    },
+    {
+     "w": "offrir",
+     "t": 28.2,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 28.5,
+   "end": 29.26,
+   "words": [
+    {
+     "w": "le",
+     "t": 28.5,
+     "hl": false
+    },
+    {
+     "w": "lien",
+     "t": 28.84,
+     "hl": false
+    },
+    {
+     "w": "est",
+     "t": 29.06,
+     "hl": false
+    },
+    {
+     "w": "en",
+     "t": 29.14,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 29.26,
+   "end": 29.85,
+   "words": [
+    {
+     "w": "commentaire",
+     "t": 29.26,
+     "hl": true
+    }
+   ]
+  }
+ ],
+ "style": {
+  "captions": "ligne",
+  "size": 70,
+  "y": 0.665,
+  "green": "#2EBE9B",
+  "box": "#117D67"
+ },
+ "music": {
+  "enabled": true,
+  "volume": 0.14
+ },
+ "outro": {
+  "enabled": true,
+  "duration": 6.067
+ }
+}

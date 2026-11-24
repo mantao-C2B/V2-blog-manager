@@ -1,0 +1,10 @@
+assets/footage.mp4
+assets/*.wav
+assets/music.mp3
+renders/
+snapshots/
+.hyperframes/
+node_modules/
+tools/__pycache__/
+editor/index.html
+editor/media/

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr" data-composition-variables='[{"id": "captionStyle", "type": "enum", "label": "Style des sous-titres", "default": "ligne", "options": [{"value": "ligne", "label": "Ligne blanche, mots clés en vert"}, {"value": "surlignage", "label": "Mots clés surlignés en vert"}, {"value": "karaoke", "label": "Mot prononcé surligné"}]}]'>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>LLM Monitor — AI Shelf au salon Tech4Retail</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+
+@font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0e1a17; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0e1a17; font-family: "Instrument Sans", sans-serif; }
+      .shot { position: absolute; inset: 0; overflow: hidden; }
+      .shot .inner { position: absolute; inset: 0; }
+      .shot video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      #outro { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      #whiteout { position: absolute; inset: 0; background: #ffffff; opacity: 0; }
+      /* Captions: one line, Instrument Sans (brand text face), white; key words in brand green. */
+      .cap { position: absolute; left: 0; right: 0; top: 1277px; height: 0; }
+      .cap-fit { position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: center; }
+      .cap-line { display: flex; gap: 0 0.1em; align-items: center; transform-origin: 50% 50%; white-space: nowrap;
+                  font-weight: 700; font-size: 70px; line-height: 1; letter-spacing: -0.005em; color: #ffffff; margin-top: -0.6em; }
+      .w { position: relative; display: inline-block; padding: 0.08em 0.1em 0.12em; }
+      .w .tx { position: relative; -webkit-text-stroke: 0.09em rgba(14, 26, 23, 0.62); paint-order: stroke fill;
+                text-shadow: 0 0.04em 0.12em rgba(14, 26, 23, 0.5), 0 0 0.5em rgba(14, 26, 23, 0.35); }
+      .w .bx { position: absolute; inset: 0; border-radius: 0.18em; background: #117D67; opacity: 0; transform-origin: 0% 50%; }
+      .s-ligne .w.hl .tx, .s-karaoke .w.hl .tx { color: #2EBE9B; }
+      .s-surlignage .w.hl .tx { -webkit-text-stroke: 0; text-shadow: none; }
+      .s-karaoke .w .tx { -webkit-text-stroke-color: rgba(14, 26, 23, 0.62); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="35.917" data-width="1080" data-height="1920" data-fps="25">
+      <div class="shot" id="w-c0" data-layout-allow-overflow><div class="inner" id="i-c0" data-layout-allow-overflow><video id="c0" class="clip" src="assets/footage.mp4" data-start="0.0" data-duration="1.76" data-media-start="0.0" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c1" data-layout-allow-overflow><div class="inner" id="i-c1" data-layout-allow-overflow><video id="c1" class="clip" src="assets/footage.mp4" data-start="1.76" data-duration="4.13" data-media-start="1.76" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c2" data-layout-allow-overflow><div class="inner" id="i-c2" data-layout-allow-overflow><video id="c2" class="clip" src="assets/footage.mp4" data-start="5.89" data-duration="2.4" data-media-start="5.89" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c3" data-layout-allow-overflow><div class="inner" id="i-c3" data-layout-allow-overflow><video id="c3" class="clip" src="assets/footage.mp4" data-start="8.29" data-duration="3.46" data-media-start="8.29" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c4" data-layout-allow-overflow><div class="inner" id="i-c4" data-layout-allow-overflow><video id="c4" class="clip" src="assets/footage.mp4" data-start="11.75" data-duration="4.16" data-media-start="11.75" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c5" data-layout-allow-overflow><div class="inner" id="i-c5" data-layout-allow-overflow><video id="c5" class="clip" src="assets/footage.mp4" data-start="15.91" data-duration="3.47" data-media-start="15.91" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c6" data-layout-allow-overflow><div class="inner" id="i-c6" data-layout-allow-overflow><video id="c6" class="clip" src="assets/footage.mp4" data-start="19.38" data-duration="4.64" data-media-start="19.38" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c7" data-layout-allow-overflow><div class="inner" id="i-c7" data-layout-allow-overflow><video id="c7" class="clip" src="assets/footage.mp4" data-start="24.02" data-duration="2.18" data-media-start="24.02" data-track-index="0" muted playsinline></video></div></div>
+      <div class="shot" id="w-c8" data-layout-allow-overflow><div class="inner" id="i-c8" data-layout-allow-overflow><video id="c8" class="clip" src="assets/footage.mp4" data-start="26.2" data-duration="3.65" data-media-start="26.2" data-track-index="0" muted playsinline></video></div></div>
+      <div class="cap clip" id="cap0" data-start="0.0" data-duration="1.02" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="0.0"><span class="bx"></span><span class="tx">Salut</span></span> <span class="w" data-t="0.38"><span class="bx"></span><span class="tx">c'est</span></span> <span class="w" data-t="0.72"><span class="bx"></span><span class="tx">Guillaume</span></span></div></div></div>
+      <div class="cap clip" id="cap1" data-start="1.02" data-duration="0.8" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="1.02"><span class="bx"></span><span class="tx">de</span></span> <span class="w hl" data-t="1.14"><span class="bx"></span><span class="tx">LLM</span></span> <span class="w hl" data-t="1.4"><span class="bx"></span><span class="tx">Monitor</span></span></div></div></div>
+      <div class="cap clip" id="cap2" data-start="1.88" data-duration="1.06" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="1.88"><span class="bx"></span><span class="tx">Chez</span></span> <span class="w hl" data-t="2.22"><span class="bx"></span><span class="tx">LLM</span></span> <span class="w hl" data-t="2.5"><span class="bx"></span><span class="tx">Monitor</span></span></div></div></div>
+      <div class="cap clip" id="cap3" data-start="3.02" data-duration="0.46" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="3.02"><span class="bx"></span><span class="tx">vous</span></span> <span class="w" data-t="3.12"><span class="bx"></span><span class="tx">le</span></span> <span class="w" data-t="3.24"><span class="bx"></span><span class="tx">savez</span></span></div></div></div>
+      <div class="cap clip" id="cap4" data-start="3.48" data-duration="0.68" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="3.48"><span class="bx"></span><span class="tx">nous</span></span> <span class="w" data-t="3.58"><span class="bx"></span><span class="tx">mesurons</span></span> <span class="w" data-t="3.98"><span class="bx"></span><span class="tx">votre</span></span></div></div></div>
+      <div class="cap clip" id="cap5" data-start="4.16" data-duration="1.14" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w hl" data-t="4.16"><span class="bx"></span><span class="tx">visibilité</span></span> <span class="w" data-t="4.92"><span class="bx"></span><span class="tx">dans</span></span> <span class="w" data-t="5.02"><span class="bx"></span><span class="tx">les</span></span> <span class="w hl" data-t="5.08"><span class="bx"></span><span class="tx">IA</span></span></div></div></div>
+      <div class="cap clip" id="cap6" data-start="5.3" data-duration="0.6" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="5.3"><span class="bx"></span><span class="tx">au</span></span> <span class="w" data-t="5.38"><span class="bx"></span><span class="tx">quotidien</span></span></div></div></div>
+      <div class="cap clip" id="cap7" data-start="5.9" data-duration="1.12" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="5.9"><span class="bx"></span><span class="tx">que</span></span> <span class="w" data-t="6.26"><span class="bx"></span><span class="tx">ce</span></span> <span class="w" data-t="6.36"><span class="bx"></span><span class="tx">soit</span></span> <span class="w hl" data-t="6.56"><span class="bx"></span><span class="tx">Claude</span></span></div></div></div>
+      <div class="cap clip" id="cap8" data-start="7.02" data-duration="1.3" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w hl" data-t="7.02"><span class="bx"></span><span class="tx">Gemini</span></span> <span class="w" data-t="7.28"><span class="bx"></span><span class="tx">ou</span></span> <span class="w hl" data-t="7.68"><span class="bx"></span><span class="tx">ChatGPT</span></span></div></div></div>
+      <div class="cap clip" id="cap9" data-start="8.32" data-duration="0.7" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="8.32"><span class="bx"></span><span class="tx">Mais</span></span> <span class="w" data-t="8.58"><span class="bx"></span><span class="tx">aujourd'hui</span></span></div></div></div>
+      <div class="cap clip" id="cap10" data-start="9.02" data-duration="0.72" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="9.02"><span class="bx"></span><span class="tx">vos</span></span> <span class="w hl" data-t="9.3"><span class="bx"></span><span class="tx">clients</span></span> <span class="w" data-t="9.58"><span class="bx"></span><span class="tx">sont</span></span></div></div></div>
+      <div class="cap clip" id="cap11" data-start="9.74" data-duration="0.74" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="9.74"><span class="bx"></span><span class="tx">également</span></span> <span class="w" data-t="9.92"><span class="bx"></span><span class="tx">présents</span></span> <span class="w" data-t="10.32"><span class="bx"></span><span class="tx">sur</span></span></div></div></div>
+      <div class="cap clip" id="cap12" data-start="10.48" data-duration="0.62" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="10.48"><span class="bx"></span><span class="tx">les</span></span> <span class="w hl" data-t="10.6"><span class="bx"></span><span class="tx">chatbots</span></span> <span class="w" data-t="10.88"><span class="bx"></span><span class="tx">de</span></span> <span class="w" data-t="11.0"><span class="bx"></span><span class="tx">vos</span></span></div></div></div>
+      <div class="cap clip" id="cap13" data-start="11.1" data-duration="0.68" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w hl" data-t="11.1"><span class="bx"></span><span class="tx">distributeurs</span></span></div></div></div>
+      <div class="cap clip" id="cap14" data-start="11.78" data-duration="0.92" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="11.78"><span class="bx"></span><span class="tx">Et</span></span> <span class="w" data-t="12.08"><span class="bx"></span><span class="tx">pour</span></span> <span class="w" data-t="12.22"><span class="bx"></span><span class="tx">savoir</span></span> <span class="w" data-t="12.48"><span class="bx"></span><span class="tx">ce</span></span></div></div></div>
+      <div class="cap clip" id="cap15" data-start="12.7" data-duration="0.66" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="12.7"><span class="bx"></span><span class="tx">que</span></span> <span class="w" data-t="12.88"><span class="bx"></span><span class="tx">ces</span></span> <span class="w hl" data-t="13.0"><span class="bx"></span><span class="tx">chatbots</span></span></div></div></div>
+      <div class="cap clip" id="cap16" data-start="13.36" data-duration="0.84" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="13.36"><span class="bx"></span><span class="tx">leur</span></span> <span class="w" data-t="13.7"><span class="bx"></span><span class="tx">racontent</span></span></div></div></div>
+      <div class="cap clip" id="cap17" data-start="14.2" data-duration="1.02" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="14.2"><span class="bx"></span><span class="tx">le</span></span> <span class="w hl" data-t="14.6"><span class="bx"></span><span class="tx">positionnement</span></span> <span class="w" data-t="15.18"><span class="bx"></span><span class="tx">de</span></span></div></div></div>
+      <div class="cap clip" id="cap18" data-start="15.22" data-duration="0.78" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="15.22"><span class="bx"></span><span class="tx">votre</span></span> <span class="w hl" data-t="15.48"><span class="bx"></span><span class="tx">marque</span></span></div></div></div>
+      <div class="cap clip" id="cap19" data-start="16.0" data-duration="0.92" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="16.0"><span class="bx"></span><span class="tx">les</span></span> <span class="w hl" data-t="16.26"><span class="bx"></span><span class="tx">concurrents</span></span> <span class="w" data-t="16.76"><span class="bx"></span><span class="tx">qui</span></span> <span class="w" data-t="16.8"><span class="bx"></span><span class="tx">sont</span></span></div></div></div>
+      <div class="cap clip" id="cap20" data-start="16.92" data-duration="0.64" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="16.92"><span class="bx"></span><span class="tx">en</span></span> <span class="w" data-t="17.08"><span class="bx"></span><span class="tx">face</span></span> <span class="w" data-t="17.22"><span class="bx"></span><span class="tx">de</span></span> <span class="w" data-t="17.38"><span class="bx"></span><span class="tx">vous</span></span></div></div></div>
+      <div class="cap clip" id="cap21" data-start="17.56" data-duration="0.6" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="17.56"><span class="bx"></span><span class="tx">nous</span></span> <span class="w" data-t="17.68"><span class="bx"></span><span class="tx">avons</span></span> <span class="w" data-t="17.82"><span class="bx"></span><span class="tx">mis</span></span> <span class="w" data-t="17.92"><span class="bx"></span><span class="tx">au</span></span> <span class="w" data-t="18.0"><span class="bx"></span><span class="tx">point</span></span></div></div></div>
+      <div class="cap clip" id="cap22" data-start="18.16" data-duration="1.3" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="18.16"><span class="bx"></span><span class="tx">l'outil</span></span> <span class="w hl" data-t="18.62"><span class="bx"></span><span class="tx">AI</span></span> <span class="w hl" data-t="18.94"><span class="bx"></span><span class="tx">Shelf</span></span></div></div></div>
+      <div class="cap clip" id="cap23" data-start="19.46" data-duration="0.7" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w hl" data-t="19.46"><span class="bx"></span><span class="tx">AI</span></span> <span class="w hl" data-t="19.74"><span class="bx"></span><span class="tx">Shelf</span></span></div></div></div>
+      <div class="cap clip" id="cap24" data-start="20.16" data-duration="0.38" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="20.16"><span class="bx"></span><span class="tx">nous</span></span> <span class="w" data-t="20.32"><span class="bx"></span><span class="tx">vous</span></span> <span class="w" data-t="20.44"><span class="bx"></span><span class="tx">le</span></span></div></div></div>
+      <div class="cap clip" id="cap25" data-start="20.54" data-duration="0.92" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="20.54"><span class="bx"></span><span class="tx">présenterons</span></span> <span class="w" data-t="21.16"><span class="bx"></span><span class="tx">lors</span></span> <span class="w" data-t="21.32"><span class="bx"></span><span class="tx">du</span></span></div></div></div>
+      <div class="cap clip" id="cap26" data-start="21.46" data-duration="1.06" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="21.46"><span class="bx"></span><span class="tx">salon</span></span> <span class="w hl" data-t="21.66"><span class="bx"></span><span class="tx">Tech4Retail</span></span> <span class="w" data-t="22.32"><span class="bx"></span><span class="tx">sur</span></span></div></div></div>
+      <div class="cap clip" id="cap27" data-start="22.52" data-duration="1.58" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="22.52"><span class="bx"></span><span class="tx">notre</span></span> <span class="w hl" data-t="22.7"><span class="bx"></span><span class="tx">stand</span></span> <span class="w hl" data-t="23.02"><span class="bx"></span><span class="tx">V19</span></span></div></div></div>
+      <div class="cap clip" id="cap28" data-start="24.14" data-duration="1.38" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="24.14"><span class="bx"></span><span class="tx">les</span></span> <span class="w hl" data-t="24.36"><span class="bx"></span><span class="tx">30</span></span> <span class="w hl" data-t="24.88"><span class="bx"></span><span class="tx">novembre</span></span> <span class="w" data-t="25.32"><span class="bx"></span><span class="tx">et</span></span></div></div></div>
+      <div class="cap clip" id="cap29" data-start="25.52" data-duration="0.76" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w hl" data-t="25.52"><span class="bx"></span><span class="tx">1er</span></span> <span class="w hl" data-t="25.82"><span class="bx"></span><span class="tx">décembre</span></span></div></div></div>
+      <div class="cap clip" id="cap30" data-start="26.28" data-duration="0.98" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="26.28"><span class="bx"></span><span class="tx">Venez</span></span> <span class="w" data-t="26.5"><span class="bx"></span><span class="tx">nous</span></span> <span class="w" data-t="26.66"><span class="bx"></span><span class="tx">rendre</span></span> <span class="w" data-t="26.8"><span class="bx"></span><span class="tx">visite</span></span></div></div></div>
+      <div class="cap clip" id="cap31" data-start="27.26" data-duration="0.58" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="27.26"><span class="bx"></span><span class="tx">il</span></span> <span class="w" data-t="27.42"><span class="bx"></span><span class="tx">nous</span></span> <span class="w" data-t="27.48"><span class="bx"></span><span class="tx">reste</span></span> <span class="w" data-t="27.64"><span class="bx"></span><span class="tx">quelques</span></span></div></div></div>
+      <div class="cap clip" id="cap32" data-start="27.84" data-duration="0.66" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w hl" data-t="27.84"><span class="bx"></span><span class="tx">badges</span></span> <span class="w" data-t="28.08"><span class="bx"></span><span class="tx">à</span></span> <span class="w" data-t="28.2"><span class="bx"></span><span class="tx">offrir</span></span></div></div></div>
+      <div class="cap clip" id="cap33" data-start="28.5" data-duration="0.76" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w" data-t="28.5"><span class="bx"></span><span class="tx">le</span></span> <span class="w" data-t="28.84"><span class="bx"></span><span class="tx">lien</span></span> <span class="w" data-t="29.06"><span class="bx"></span><span class="tx">est</span></span> <span class="w" data-t="29.14"><span class="bx"></span><span class="tx">en</span></span></div></div></div>
+      <div class="cap clip" id="cap34" data-start="29.26" data-duration="0.59" data-track-index="2"><div class="cap-fit"><div class="cap-line"><span class="w hl" data-t="29.26"><span class="bx"></span><span class="tx">commentaire</span></span></div></div></div>
+      <div id="whiteout"></div>
+      <video id="outro" class="clip" src="assets/outro.mp4" data-start="29.85" data-duration="6.067" data-track-index="1" muted playsinline></video>
+      <audio id="soundtrack" src="assets/soundtrack.wav" data-start="0" data-duration="35.917" data-track-index="3" data-volume="1"></audio>
+    </div>
+    <script>
+      (function () {
+        const E = {"clips":[{"id":"c0","start":0.0,"dur":1.76,"zoom":1.0,"push":0.04,"fx":50,"fy":30},{"id":"c1","start":1.76,"dur":4.13,"zoom":1.12,"push":0.03,"fx":50,"fy":30},{"id":"c2","start":5.89,"dur":2.4,"zoom":1.0,"push":0.04,"fx":50,"fy":30},{"id":"c3","start":8.29,"dur":3.46,"zoom":1.15,"push":0.03,"fx":50,"fy":30},{"id":"c4","start":11.75,"dur":4.16,"zoom":1.0,"push":0.04,"fx":50,"fy":30},{"id":"c5","start":15.91,"dur":3.47,"zoom":1.12,"push":0.03,"fx":50,"fy":30},{"id":"c6","start":19.38,"dur":4.64,"zoom":1.0,"push":0.05,"fx":50,"fy":30},{"id":"c7","start":24.02,"dur":2.18,"zoom":1.15,"push":0.02,"fx":50,"fy":30},{"id":"c8","start":26.2,"dur":3.65,"zoom":1.05,"push":0.06,"fx":50,"fy":30}],"end":29.85,"fadeWhite":0.3};
+        const vars = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+        const style = vars.captionStyle || "ligne";
+        const root = document.getElementById("root");
+        root.classList.add("s-" + style);
+        const tl = gsap.timeline({ paused: true });
+
+        // Light zooms: each clip holds its framing and pushes in slowly.
+        E.clips.forEach(function (c) {
+          const inner = document.getElementById("i-" + c.id);
+          gsap.set(inner, { transformOrigin: c.fx + "% " + c.fy + "%" });
+          tl.fromTo(inner, { scale: c.zoom }, { scale: c.zoom * (1 + c.push), duration: c.dur, ease: "none" }, c.start);
+        });
+
+        // Captions: fit on one line, soft entrance, style-specific word treatment.
+        document.querySelectorAll(".cap").forEach(function (cap) {
+          const line = cap.querySelector(".cap-line");
+          const max = 1080 - 2 * 70;
+          const w = line.scrollWidth;
+          if (w > max) cap.querySelector(".cap-fit").style.transform = "scale(" + (max / w).toFixed(3) + ")";
+          const t0 = parseFloat(cap.getAttribute("data-start"));
+          const t1 = t0 + parseFloat(cap.getAttribute("data-duration"));
+          tl.fromTo(line, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.14, ease: "power2.out" }, t0);
+          const words = Array.from(cap.querySelectorAll(".w"));
+          words.forEach(function (wd, i) {
+            const t = parseFloat(wd.getAttribute("data-t"));
+            const bx = wd.querySelector(".bx");
+            if (style === "surlignage" && wd.classList.contains("hl")) {
+              tl.fromTo(bx, { opacity: 1, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.18, ease: "power3.out" }, Math.max(t0, t));
+            } else if (style === "karaoke") {
+              const next = i + 1 < words.length ? parseFloat(words[i + 1].getAttribute("data-t")) : t1;
+              tl.fromTo(bx, { opacity: 0, scale: 0.86 }, { opacity: 1, scale: 1, duration: 0.08, ease: "power2.out" }, Math.max(t0, t));
+              tl.to(bx, { opacity: 0, duration: 0.05, ease: "none" }, Math.max(t0, next) - 0.02);
+              if (wd.classList.contains("hl")) {  // green word turns white while it sits on the green box
+                const tx = wd.querySelector(".tx");
+                tl.set(tx, { color: "#ffffff" }, Math.max(t0, t));
+                tl.set(tx, { color: "#2EBE9B" }, Math.max(t0, next) - 0.02);
+              }
+            }
+          });
+        });
+
+        // Into the outro: a short fade to white (the outro opens on white).
+        tl.fromTo("#whiteout", { opacity: 0 }, { opacity: 1, duration: E.fadeWhite, ease: "power1.in" }, E.end - E.fadeWhite);
+        tl.set({}, {}, 35.917);
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
