@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Click2Buy — outro logo 9:16</title>
+    <script src="assets/vendor/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #ffffff; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
+      /* The stage is the supplied logo (2000x1125, layers cut by tools/split_logo.py), scaled to 48 %:
+         the lockup is 868 px wide and its centre sits at (540, 915), slightly above the middle. */
+      #stage { position: absolute; left: 60px; top: 647px; width: 2000px; height: 1125px; transform: scale(0.48); transform-origin: 0 0; }
+      #lockup { position: absolute; inset: 0; }
+      .grp { position: absolute; inset: 0; }
+      .layer { position: absolute; display: block; }
+      .ring { position: absolute; border: 6px solid #e95531; border-radius: 50%; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="6.067" data-width="1080" data-height="1920" data-fps="30">
+      <div id="stage" data-layout-allow-overflow>
+        <div id="lockup">
+          <div id="ground-1" class="ring"></div>
+          <div id="ground-2" class="ring"></div>
+          <div id="beacon" class="ring"></div>
+          <div id="click" class="grp"></div>
+          <div id="buy" class="grp"></div>
+          <div id="tag" class="grp"></div>
+          <div id="pin" class="grp"></div>
+          <div id="two" class="grp"></div>
+        </div>
+      </div>
+      <audio id="outro-sfx" src="assets/sfx.wav" data-start="0" data-duration="6.067" data-track-index="1" data-volume="1"></audio>
+    </div>
+    <script>
+      // Layer positions in the source logo (written by tools/split_logo.py into assets/logo/layers.json).
+      const LAYERS = [
+        ["buy-0", 1240, 376], ["buy-1", 1444, 375], ["buy-2", 1701, 371],
+        ["click-0", 96, 372], ["click-1", 291, 372], ["click-2", 477, 372], ["click-3", 561, 372], ["click-4", 744, 372],
+        ["pin-0", 911, 334],
+        ["tag-0", 1185, 701], ["tag-1", 1229, 713], ["tag-2", 1299, 701], ["tag-3", 1364, 712], ["tag-4", 1420, 712],
+        ["tag-5", 1450, 697], ["tag-6", 1488, 712], ["tag-7", 1535, 702], ["tag-8", 1565, 700], ["tag-9", 1626, 712],
+        ["tag-10", 1679, 712], ["tag-11", 1730, 712], ["tag-12", 1777, 712], ["tag-13", 1826, 712], ["tag-14", 1873, 702],
+        ["two-0", 1016, 402]
+      ];
+      const groups = {};
+      LAYERS.forEach(function (L) {
+        const g = L[0].split("-")[0];
+        const img = document.createElement("img");
+        img.className = "layer";
+        img.src = "assets/logo/" + L[0] + ".png";
+        img.alt = "";
+        img.style.left = L[1] + "px";
+        img.style.top = L[2] + "px";
+        document.getElementById(g).appendChild(img);
+        (groups[g] = groups[g] || []).push(img);
+      });
+    </script>
+    <script>
+      (function () {
+        const tl = gsap.timeline({ paused: true });
+        const pin = groups.pin[0], two = groups.two[0];
+        const TIP = { x: 1074, y: 731 };      // point of the pin
+        const HEAD = { x: 1073.5, y: 492 };   // centre of the pin's ring (outer radius 159)
+
+        // 1. The pin drops onto the map (whoosh), lands on the impact with a short squash and settles.
+        tl.fromTo(pin, { y: -260 }, { y: 0, duration: 0.36, ease: "power2.in" }, 0);
+        tl.fromTo(pin, { opacity: 0 }, { opacity: 1, duration: 0.14, ease: "none" }, 0);
+        tl.fromTo(pin, { scaleX: 1, scaleY: 1 }, { scaleX: 1.07, scaleY: 0.9, duration: 0.07, ease: "power1.out", transformOrigin: "50% 100%",
+          immediateRender: false }, 0.36);
+        tl.to(pin, { scaleX: 1, scaleY: 1, duration: 0.55, ease: "back.out(3)" }, 0.43);
+
+        // Landing ripples on the ground, under the point of the pin (width/height tweened so the line stays thin).
+        function ripple(el, at, w0, w1, op) {
+          tl.set(el, { left: TIP.x, top: TIP.y, xPercent: -50, yPercent: -50 }, 0);
+          // set + to (not fromTo): a visible start state must not show before the ring's own start.
+          tl.set(el, { width: w0, height: w0 * 0.22, opacity: op }, at);
+          tl.to(el, { width: w1, height: w1 * 0.22, opacity: 0, duration: 0.95, ease: "power2.out" }, at);
+        }
+        ripple("#ground-1", 0.36, 70, 520, 0.55);
+        ripple("#ground-2", 0.47, 50, 330, 0.4);
+
+        // 2. The "2" pops inside the pin.
+        tl.fromTo(two, { scale: 0, rotation: -14, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 0.55, ease: "back.out(2.2)",
+          transformOrigin: "50% 55%" }, 0.6);
+
+        // 3. CLICK opens out of the pin to the left, BUY to the right: a wipe from the pin, letters sliding behind it.
+        tl.fromTo("#click", { clipPath: "inset(0px 1088px 0px 912px)" }, { clipPath: "inset(0px 1088px 0px 60px)", duration: 0.8, ease: "expo.out" }, 0.8);
+        tl.fromTo(groups.click.slice().reverse(), { x: 90, opacity: 0 }, { x: 0, opacity: 1, duration: 0.85, ease: "expo.out", stagger: 0.045 }, 0.8);
+        tl.fromTo("#buy", { clipPath: "inset(0px 764px 0px 1236px)" }, { clipPath: "inset(0px 60px 0px 1236px)", duration: 0.8, ease: "expo.out" }, 0.84);
+        tl.fromTo(groups.buy, { x: -90, opacity: 0 }, { x: 0, opacity: 1, duration: 0.85, ease: "expo.out", stagger: 0.06 }, 0.84);
+
+        // 4. Signature: letters converge and come into focus, locking in on the click.
+        const tag = groups.tag, mid = (tag.length - 1) / 2;
+        tag.forEach(function (c, i) {
+          tl.fromTo(c, { opacity: 0, x: (i - mid) * 22, filter: "blur(14px)" },
+            { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }, 1.3);
+        });
+
+        // 5. Hold: one quiet location ping around the pin, and a very slow push for life.
+        tl.set("#beacon", { left: HEAD.x, top: HEAD.y, xPercent: -50, yPercent: -50 }, 0);
+        tl.set("#beacon", { width: 330, height: 330, opacity: 0.45 }, 2.4);
+        tl.to("#beacon", { width: 560, height: 560, opacity: 0, duration: 1.5, ease: "power2.out" }, 2.4);
+        tl.fromTo("#lockup", { scale: 1 }, { scale: 1.025, duration: 4.4, ease: "sine.inOut", transformOrigin: "1000px 557px" }, 1.6);
+
+        tl.set({}, {}, 6.067);
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
