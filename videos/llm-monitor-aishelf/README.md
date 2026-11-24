@@ -29,3 +29,8 @@ bash tools/render_all.sh     # les 4 rendus
 (document `montage/courant` de l'artefact) peut être recopié dans `edit.json` puis rendu ici.
 Médias de travail : `../_source2/` (non versionné) — `work_1440.mp4` (rendu) et `web_1080.mp4` (éditeur),
 voix nettoyée, normalisée à -16 LUFS.
+
+## Réutiliser pour une autre vidéo
+
+Ce projet a servi de base au modèle `../_modele-montage-9x16/` (mêmes scripts, rendus identiques sur cette
+vidéo, coupes automatiques par phrase) et à la procédure `.claude/skills/montage-video-9x16/SKILL.md`.

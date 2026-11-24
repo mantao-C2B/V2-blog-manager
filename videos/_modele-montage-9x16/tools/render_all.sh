@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Render the delivered versions (run from the project root, after tools/build.py has written the soundtracks).
+set -euo pipefail
+HF="npx --yes hyperframes@0.8.181"
+out=renders
+SLUG=$(python3 -c "import json;print(json.load(open('project.json'))['slug'])")
+python3 tools/build.py --no-audio
+$HF render --quality high -o $out/${SLUG}_9x16_musique.mp4
+$HF render --quality high --variables '{"captionStyle":"surlignage"}' -o $out/${SLUG}_9x16_musique_style-surlignage.mp4
+$HF render --quality high --variables '{"captionStyle":"karaoke"}' -o $out/${SLUG}_9x16_musique_style-mot-actif.mp4
+python3 tools/build.py --no-audio --sans-musique
+$HF render --quality high -o $out/${SLUG}_9x16_sans-musique.mp4
+python3 tools/build.py --no-audio
+echo "renders done"

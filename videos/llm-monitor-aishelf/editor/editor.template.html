@@ -494,7 +494,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
   function selectCap(gi, scroll) {
     selCap = gi; showPane("p-caps");
     const g = edit.captions[gi]; const o = M.caps.find((c) => c.gi === gi);
-    if (o) { if (playing) pause(); seek(o.start + 0.02); }
+    if (o) { if (playing) pause(); seek(Math.min(o.start + 0.2, o.end - 0.02)); }
     renderCaps(); renderTimeline();
     if (scroll) { const el = document.querySelector('[data-gi="' + gi + '"]'); if (el) el.scrollIntoView({ block: "nearest" }); }
     void g;
