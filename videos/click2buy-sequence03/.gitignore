@@ -1,0 +1,14 @@
+assets/footage.mp4
+assets/web.mp4
+assets/*.wav
+assets/music.mp3
+assets/music_spec.json
+tools/audio16k.wav
+index.html
+renders/
+snapshots/
+.hyperframes/
+node_modules/
+tools/__pycache__/
+editor/index.html
+editor/media/

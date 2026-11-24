@@ -1,0 +1,53 @@
+{
+ "slug": "Click2Buy_Tech4Retail",
+ "title": "Montage Tech4Retail",
+ "subtitle": "Vidéo 9:16 · Click2Buy · invitation Tech4Retail, stand V19",
+ "source": "../_sources/c2b-sequence03/raw.mp4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 25
+ },
+ "keywords": [
+  "tech4retail",
+  "llm",
+  "monitor",
+  "innovations",
+  "ia",
+  "invitations",
+  "v19"
+ ],
+ "bound": [
+  [
+   "LLM",
+   "Monitor"
+  ],
+  [
+   "stand",
+   "V19"
+  ]
+ ],
+ "focal": [
+  50,
+  30
+ ],
+ "zooms": [
+  1.0,
+  1.12,
+  1.0,
+  1.15
+ ],
+ "pushes": [
+  0.04,
+  0.03
+ ],
+ "max_chars": 24,
+ "segments": null,
+ "end": null,
+ "caption_style": "surlignage",
+ "caption_size": 70,
+ "caption_y": 0.665,
+ "music_volume": 0.14,
+ "outro": true,
+ "brand": "click2buy"
+}

@@ -1,0 +1,548 @@
+{
+ "version": 1,
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 25
+ },
+ "segments": [
+  {
+   "in": 0.0,
+   "out": 7.07,
+   "zoom": 1.0,
+   "push": 0.04,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 7.07,
+   "out": 13.12,
+   "zoom": 1.12,
+   "push": 0.03,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 13.12,
+   "out": 18.62,
+   "zoom": 1.0,
+   "push": 0.04,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 18.62,
+   "out": 22.34,
+   "zoom": 1.15,
+   "push": 0.03,
+   "fx": 50,
+   "fy": 30
+  },
+  {
+   "in": 22.34,
+   "out": 23.09,
+   "zoom": 1.0,
+   "push": 0.04,
+   "fx": 50,
+   "fy": 30
+  }
+ ],
+ "captions": [
+  {
+   "start": 0.0,
+   "end": 0.44,
+   "words": [
+    {
+     "w": "Hello",
+     "t": 0.0,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 0.44,
+   "end": 2.34,
+   "words": [
+    {
+     "w": "Lundi",
+     "t": 0.44,
+     "hl": false
+    },
+    {
+     "w": "et",
+     "t": 0.98,
+     "hl": false
+    },
+    {
+     "w": "mardi",
+     "t": 1.14,
+     "hl": false
+    },
+    {
+     "w": "prochain",
+     "t": 1.74,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 2.34,
+   "end": 3.3,
+   "words": [
+    {
+     "w": "nous",
+     "t": 2.34,
+     "hl": false
+    },
+    {
+     "w": "serons",
+     "t": 2.44,
+     "hl": false
+    },
+    {
+     "w": "avec",
+     "t": 2.9,
+     "hl": false
+    },
+    {
+     "w": "une",
+     "t": 3.12,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 3.3,
+   "end": 4.2,
+   "words": [
+    {
+     "w": "partie",
+     "t": 3.3,
+     "hl": false
+    },
+    {
+     "w": "de",
+     "t": 3.56,
+     "hl": false
+    },
+    {
+     "w": "l'équipe",
+     "t": 3.64,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 4.2,
+   "end": 5.66,
+   "words": [
+    {
+     "w": "à",
+     "t": 4.2,
+     "hl": false
+    },
+    {
+     "w": "Tech4Retail",
+     "t": 4.42,
+     "hl": true
+    },
+    {
+     "w": "pour",
+     "t": 5.32,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 5.66,
+   "end": 7.14,
+   "words": [
+    {
+     "w": "accompagner",
+     "t": 5.66,
+     "hl": false
+    },
+    {
+     "w": "LLM",
+     "t": 6.22,
+     "hl": true
+    },
+    {
+     "w": "Monitor",
+     "t": 6.72,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 7.2,
+   "end": 7.94,
+   "words": [
+    {
+     "w": "Ce",
+     "t": 7.2,
+     "hl": false
+    },
+    {
+     "w": "sera",
+     "t": 7.42,
+     "hl": false
+    },
+    {
+     "w": "l'occasion",
+     "t": 7.56,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 7.94,
+   "end": 8.54,
+   "words": [
+    {
+     "w": "pour",
+     "t": 7.94,
+     "hl": false
+    },
+    {
+     "w": "nous",
+     "t": 8.1,
+     "hl": false
+    },
+    {
+     "w": "de",
+     "t": 8.24,
+     "hl": false
+    },
+    {
+     "w": "vous",
+     "t": 8.36,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 8.54,
+   "end": 9.64,
+   "words": [
+    {
+     "w": "présenter",
+     "t": 8.54,
+     "hl": false
+    },
+    {
+     "w": "nos",
+     "t": 9.02,
+     "hl": false
+    },
+    {
+     "w": "dernières",
+     "t": 9.22,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 9.64,
+   "end": 10.82,
+   "words": [
+    {
+     "w": "innovations",
+     "t": 9.64,
+     "hl": true
+    },
+    {
+     "w": "et",
+     "t": 9.8,
+     "hl": false
+    },
+    {
+     "w": "notamment",
+     "t": 10.54,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 10.82,
+   "end": 12.18,
+   "words": [
+    {
+     "w": "comment",
+     "t": 10.82,
+     "hl": false
+    },
+    {
+     "w": "mieux",
+     "t": 11.22,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 12.18,
+   "end": 13.16,
+   "words": [
+    {
+     "w": "remonter",
+     "t": 12.18,
+     "hl": false
+    },
+    {
+     "w": "dans",
+     "t": 12.58,
+     "hl": false
+    },
+    {
+     "w": "les",
+     "t": 12.72,
+     "hl": false
+    },
+    {
+     "w": "IA",
+     "t": 12.82,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 13.16,
+   "end": 13.84,
+   "words": [
+    {
+     "w": "N'hésitez",
+     "t": 13.16,
+     "hl": false
+    },
+    {
+     "w": "pas",
+     "t": 13.56,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 13.84,
+   "end": 14.92,
+   "words": [
+    {
+     "w": "à",
+     "t": 13.84,
+     "hl": false
+    },
+    {
+     "w": "cliquer",
+     "t": 13.92,
+     "hl": false
+    },
+    {
+     "w": "sur",
+     "t": 14.2,
+     "hl": false
+    },
+    {
+     "w": "le",
+     "t": 14.34,
+     "hl": false
+    },
+    {
+     "w": "lien",
+     "t": 14.54,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 14.92,
+   "end": 16.32,
+   "words": [
+    {
+     "w": "qu'on",
+     "t": 14.92,
+     "hl": false
+    },
+    {
+     "w": "mettra",
+     "t": 15.38,
+     "hl": false
+    },
+    {
+     "w": "en",
+     "t": 15.72,
+     "hl": false
+    },
+    {
+     "w": "dessous",
+     "t": 15.86,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 16.32,
+   "end": 17.28,
+   "words": [
+    {
+     "w": "on",
+     "t": 16.32,
+     "hl": false
+    },
+    {
+     "w": "a",
+     "t": 16.54,
+     "hl": false
+    },
+    {
+     "w": "des",
+     "t": 16.68,
+     "hl": false
+    },
+    {
+     "w": "invitations",
+     "t": 16.78,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 17.28,
+   "end": 18.14,
+   "words": [
+    {
+     "w": "et",
+     "t": 17.28,
+     "hl": false
+    },
+    {
+     "w": "on",
+     "t": 17.46,
+     "hl": false
+    },
+    {
+     "w": "serait",
+     "t": 17.5,
+     "hl": false
+    },
+    {
+     "w": "ravis",
+     "t": 17.64,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 18.14,
+   "end": 18.7,
+   "words": [
+    {
+     "w": "de",
+     "t": 18.14,
+     "hl": false
+    },
+    {
+     "w": "vous",
+     "t": 18.16,
+     "hl": false
+    },
+    {
+     "w": "voir",
+     "t": 18.28,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 18.7,
+   "end": 20.36,
+   "words": [
+    {
+     "w": "Nous",
+     "t": 18.7,
+     "hl": false
+    },
+    {
+     "w": "serons",
+     "t": 18.82,
+     "hl": false
+    },
+    {
+     "w": "au",
+     "t": 19.12,
+     "hl": false
+    },
+    {
+     "w": "stand",
+     "t": 19.2,
+     "hl": false
+    },
+    {
+     "w": "V19",
+     "t": 19.38,
+     "hl": true
+    }
+   ]
+  },
+  {
+   "start": 20.44,
+   "end": 22.38,
+   "words": [
+    {
+     "w": "donc",
+     "t": 20.44,
+     "hl": false
+    },
+    {
+     "w": "à",
+     "t": 20.7,
+     "hl": false
+    },
+    {
+     "w": "lundi",
+     "t": 21.06,
+     "hl": false
+    },
+    {
+     "w": "ou",
+     "t": 21.44,
+     "hl": false
+    },
+    {
+     "w": "à",
+     "t": 21.68,
+     "hl": false
+    },
+    {
+     "w": "mardi",
+     "t": 22.04,
+     "hl": false
+    }
+   ]
+  },
+  {
+   "start": 22.38,
+   "end": 23.09,
+   "words": [
+    {
+     "w": "Salut",
+     "t": 22.38,
+     "hl": false
+    }
+   ]
+  }
+ ],
+ "style": {
+  "captions": "surlignage",
+  "size": 70,
+  "y": 0.665,
+  "green": "#F39134",
+  "box": "#E95531"
+ },
+ "music": {
+  "enabled": false,
+  "volume": 0.14
+ },
+ "outro": {
+  "enabled": true,
+  "duration": 6.067
+ }
+}

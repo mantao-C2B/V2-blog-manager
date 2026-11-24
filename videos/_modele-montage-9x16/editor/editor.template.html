@@ -2,44 +2,10 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Sora:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="__UI_FONTS_LINK__">
 <script src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.1.3/build/mp4-muxer.js"></script>
 <style>
-/* Layout: editing desk — vertical preview on the left, the edit's controls on the right, timeline under both.
-   Palette from the LLM Monitor guide: ink, sable, product green on light; mint only on dark. */
-:root {
-  --bg: #eceeeb;           /* sable */
-  --panel: #ffffff;
-  --panel-2: #f5f6f3;
-  --ink: #0e1a17;
-  --ink-soft: #4e5a56;
-  --ink-faint: #75807c;
-  --line: #dfe3df;
-  --accent: #117d67;       /* vert produit */
-  --accent-ink: #ffffff;
-  --accent-soft: #e4f3ee;
-  --warn: #b5532f;
-  --stage: #0e1a17;
-  --clip-a: #c8e6dc;
-  --clip-b: #a9d8c8;
-  --cap: #117d67;
-  --font-ui: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-title: "Sora", "Instrument Sans", sans-serif;
-  --font-data: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  --r: 12px;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #0b1412; --panel: #13201d; --panel-2: #182824; --ink: #eef3f1; --ink-soft: #b4c2bd; --ink-faint: #82918c;
-    --line: #26372f; --accent: #2ebe9b; --accent-ink: #0e1a17; --accent-soft: #173a31; --warn: #e88a66; --stage: #060b0a;
-    --clip-a: #1f4a3e; --clip-b: #2a5f50; --cap: #2ebe9b; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #0b1412; --panel: #13201d; --panel-2: #182824; --ink: #eef3f1; --ink-soft: #b4c2bd; --ink-faint: #82918c;
-  --line: #26372f; --accent: #2ebe9b; --accent-ink: #0e1a17; --accent-soft: #173a31; --warn: #e88a66; --stage: #060b0a;
-  --clip-a: #1f4a3e; --clip-b: #2a5f50; --cap: #2ebe9b; color-scheme: dark;
-}
+__PALETTE_CSS__
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.45;
@@ -52,7 +18,7 @@ button { cursor: pointer; }
 header.top { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; max-width: 1320px; margin: 0 auto 16px; }
 .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
 .brand svg { width: 34px; height: 34px; flex: none; color: var(--accent); }
-.brand h1 { font-family: var(--font-title); font-weight: 600; letter-spacing: -0.035em; font-size: 22px; margin: 0; text-wrap: balance; }
+.brand h1 { font-family: var(--font-title); font-weight: 600; letter-spacing: var(--title-spacing); font-size: 22px; margin: 0; text-wrap: balance; }
 .brand p { margin: 0; color: var(--ink-faint); font-size: 13px; }
 .top-actions { margin-left: auto; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
 .status { font-size: 13px; color: var(--ink-faint); display: inline-flex; align-items: center; gap: 6px; }
@@ -135,9 +101,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
 .style-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--panel); text-align: left; display: grid; gap: 8px; }
 .style-card[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
 .style-card .demo { background: #8c8073; border-radius: 6px; padding: 14px 8px; text-align: center; font-weight: 700; font-size: 15px; color: #fff; }
-.demo .k { color: #2ebe9b; -webkit-text-stroke: 0.6px rgba(14,26,23,.6); }
-.demo .b { background: #117d67; border-radius: 4px; padding: 1px 4px; }
-.demo span { -webkit-text-stroke: 0.6px rgba(14,26,23,.5); }
+__DEMO_CSS__
 .style-card b { font-size: 14px; }
 .style-card small { color: var(--ink-faint); font-size: 12px; }
 .field { display: grid; gap: 6px; margin-bottom: 14px; max-width: 420px; }
@@ -161,7 +125,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
 
 <header class="top">
   <div class="brand">
-    <svg viewBox="0 0 100 100" fill="none" aria-hidden="true"><rect x="20" y="20" width="60" height="60" rx="8" transform="rotate(45 50 50)" stroke="currentColor" stroke-width="7.2" stroke-linecap="round" stroke-dasharray="34.6 21.885" stroke-dashoffset="-4.7"/><circle cx="50" cy="50" r="10.6" fill="currentColor"/></svg>
+    __LOGO_SVG__
     <div>
       <h1>__TITLE__</h1>
       <p>__SUBTITLE__</p>
@@ -196,12 +160,12 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
       <button class="tab" role="tab" aria-selected="true" data-pane="p-caps" id="tab-caps">Sous-titres</button>
       <button class="tab" role="tab" aria-selected="false" data-pane="p-clips" id="tab-clips">Coupes et zooms</button>
       <button class="tab" role="tab" aria-selected="false" data-pane="p-style" id="tab-style">Style</button>
-      <button class="tab" role="tab" aria-selected="false" data-pane="p-sound" id="tab-sound">Musique et outro</button>
+      <button class="tab" role="tab" aria-selected="false" data-pane="p-sound" id="tab-sound">__SOUND_TAB__</button>
     </div>
 
     <div class="pane on" id="p-caps" role="tabpanel">
       <h3>Sous-titres</h3>
-      <p class="hint">Corrigez le texte directement. Cliquez sur un mot pour le passer en vert (ou le remettre en blanc). « Début au curseur » cale une ligne sur la position de lecture.</p>
+      <p class="hint">Corrigez le texte directement. Cliquez sur un mot pour le passer en __HL_WORD__ (ou le remettre en blanc). « Début au curseur » cale une ligne sur la position de lecture.</p>
       <div class="toolbar">
         <button id="cap-add" class="btn small">Ajouter une ligne au curseur</button>
       </div>
@@ -219,24 +183,29 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
 
     <div class="pane" id="p-style" role="tabpanel">
       <h3>Style des sous-titres</h3>
-      <p class="hint">Instrument Sans, la police de texte de la charte. Le vert menthe est réservé aux fonds sombres : il est posé ici avec un contour foncé pour rester lisible sur la vidéo.</p>
+      <p class="hint">__STYLE_HINT__</p>
       <div class="styles" id="styles">
-        <button class="style-card" data-style="ligne"><div class="demo"><span>votre</span> <span class="k">marque</span></div><b>Ligne blanche</b><small>Mots clés en vert menthe</small></button>
-        <button class="style-card" data-style="surlignage"><div class="demo"><span>votre</span> <span class="b">marque</span></div><b>Surlignage</b><small>Mots clés sur un aplat vert</small></button>
-        <button class="style-card" data-style="karaoke"><div class="demo"><span class="b">votre</span> <span class="k">marque</span></div><b>Mot prononcé</b><small>Le mot dit suit un aplat vert</small></button>
+        <button class="style-card" data-style="ligne"><div class="demo"><span>votre</span> <span class="k">marque</span></div><b>Ligne blanche</b><small>__CARD_LIGNE__</small></button>
+        <button class="style-card" data-style="surlignage"><div class="demo"><span>votre</span> <span class="b">marque</span></div><b>Surlignage</b><small>__CARD_SURLIGNAGE__</small></button>
+        <button class="style-card" data-style="karaoke"><div class="demo"><span class="b">votre</span> <span class="k">marque</span></div><b>Mot prononcé</b><small>__CARD_KARAOKE__</small></button>
       </div>
       <div class="field"><label for="st-size">Taille du texte</label><div class="row"><input id="st-size" type="range" min="48" max="96" step="1"><span id="st-size-v" class="mono"></span></div></div>
       <div class="field"><label for="st-y">Hauteur à l'écran</label><div class="row"><input id="st-y" type="range" min="0.45" max="0.86" step="0.005"><span id="st-y-v" class="mono"></span></div></div>
-      <div class="field"><label for="st-green">Vert des mots clés</label>
-        <select id="st-green" class="sel"><option value="#2EBE9B">Vert menthe #2EBE9B</option><option value="#117D67">Vert produit #117D67</option><option value="#FFFFFF">Blanc (aucun mot en couleur)</option></select></div>
+      <div class="field"><label for="st-box">__BOX_COLOR_LABEL__</label>
+        <select id="st-box" class="sel">__BOX_COLOR_OPTIONS__</select></div>
+      <div class="field"><label for="st-green">__TEXT_COLOR_LABEL__</label>
+        <select id="st-green" class="sel">__TEXT_COLOR_OPTIONS__</select></div>
     </div>
 
     <div class="pane" id="p-sound" role="tabpanel">
-      <h3>Musique et outro</h3>
+      <h3>__SOUND_TAB__</h3>
+      <div id="music-ctl"__MUSIC_HIDDEN__>
       <p class="hint">Une musique légère, composée pour cette vidéo, passe sous la voix et s'efface au début de l'outro.</p>
       <label class="switch"><input id="mu-on" type="checkbox"> Musique de fond</label>
       <div class="field"><label for="mu-vol">Volume de la musique</label><div class="row"><input id="mu-vol" type="range" min="0" max="0.4" step="0.01"><span id="mu-vol-v" class="mono"></span></div></div>
-      <label class="switch"><input id="ou-on" type="checkbox"> Outro logo LLM Monitor (6 s, fond blanc)</label>
+      </div>
+      <p class="hint">L'outro enchaîne après un court fondu blanc, avec ses effets sonores.</p>
+      <label class="switch"><input id="ou-on" type="checkbox"> __OUTRO_LABEL__</label>
     </div>
   </section>
 
@@ -272,10 +241,12 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
 
 <script type="application/json" id="edit-default">__EDIT_JSON__</script>
 <script type="application/json" id="project-config">__CONFIG_JSON__</script>
+<script type="application/json" id="brand-config">__BRAND_JSON__</script>
 <script>
 (function () {
   "use strict";
   const CONFIG = JSON.parse(document.getElementById("project-config").textContent);
+  const BRAND = JSON.parse(document.getElementById("brand-config").textContent);
   const ORIGIN = JSON.parse(document.getElementById("edit-default").textContent);
   const W = ORIGIN.canvas.w, H = ORIGIN.canvas.h, FPS = ORIGIN.canvas.fps, FADE_WHITE = 0.3, MUSIC_TAIL = 1.4;
   const KEYWORDS = new Set(CONFIG.keywords.map((k) => k.toLowerCase()));
@@ -321,11 +292,13 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
     ctx.drawImage(el, sx, sy, sw, sh, 0, 0, W, H);
   }
   function rr(ctx, x, y, w, h, r) { ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else ctx.rect(x, y, w, h); ctx.fill(); }
+  // consecutive key words share one highlight in the "surlignage" style (square inner corners, box over the space)
+  function joined(cap, i, style) { return style === "surlignage" && cap.words[i].hl && i + 1 < cap.words.length && cap.words[i + 1].hl; }
 
   function drawCaption(ctx, cap, t) {
     const st = edit.style, size = st.size, style = st.captions;
     ctx.save();
-    ctx.font = "700 " + size + "px 'Instrument Sans', sans-serif";
+    ctx.font = BRAND.weight + " " + size + "px '" + BRAND.font + "', sans-serif";
     ctx.textBaseline = "middle";
     ctx.lineJoin = "round";
     const pad = 0.1 * size, gap = 0.1 * size;
@@ -352,12 +325,13 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
       if (box > 0) {
         ctx.save(); ctx.globalAlpha = a * (style === "karaoke" ? box : 1); ctx.fillStyle = st.box;
         const s = style === "karaoke" ? 0.86 + 0.14 * box : 1;
-        const bwS = bw * (style === "surlignage" ? boxScaleX : s), bhS = boxH * (style === "karaoke" ? s : 1);
+        const jr = joined(cap, i, style), jl = i > 0 && joined(cap, i - 1, style), r = 0.18 * size;
+        const bwS = (bw + (jr ? gap : 0)) * (style === "surlignage" ? boxScaleX : s), bhS = boxH * (style === "karaoke" ? s : 1);
         const bx = style === "surlignage" ? x : x + (bw - bwS) / 2;
-        rr(ctx, bx, -bhS / 2 + 0.02 * size, bwS, bhS, 0.18 * size); ctx.restore();
+        rr(ctx, bx, -bhS / 2 + 0.02 * size, bwS, bhS, (jl || jr) ? [jl ? 0 : r, jr ? 0 : r, jr ? 0 : r, jl ? 0 : r] : r); ctx.restore();
       }
       const tx = x + pad;
-      if (!plain) {
+      if (!plain && BRAND.outline) {
         ctx.strokeStyle = "rgba(14,26,23,0.62)"; ctx.lineWidth = 0.09 * size;
         ctx.shadowColor = "rgba(14,26,23,0.35)"; ctx.shadowBlur = 0.5 * size; ctx.strokeText(w.w, tx, 0);
         ctx.shadowColor = "rgba(14,26,23,0.5)"; ctx.shadowBlur = 0.12 * size; ctx.shadowOffsetY = 0.04 * size; ctx.strokeText(w.w, tx, 0);
@@ -393,7 +367,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
   /* ---------------------------------------------------------------- preview player */
   let T = 0, playing = false, curClip = 0, raf = 0;
   function srcAt(t) { const c = M.clips.find((c) => t >= c.start && t < c.start + c.dur); return c ? { c, src: c.in + (t - c.start) } : null; }
-  function musicVolumeAt(t) { if (!edit.music.enabled) return 0; const fin = Math.min(1, t / 0.6); const fout = Math.min(1, Math.max(0, (M.end + MUSIC_TAIL - t) / MUSIC_TAIL)); return edit.music.volume * fin * fout; }
+  function musicVolumeAt(t) { if (!(BRAND.music && edit.music.enabled)) return 0; const fin = Math.min(1, t / 0.6); const fout = Math.min(1, Math.max(0, (M.end + MUSIC_TAIL - t) / MUSIC_TAIL)); return edit.music.volume * fin * fout; }
   function seek(t) {
     T = Math.min(Math.max(0, t), M.total - 0.001);
     const s = srcAt(T);
@@ -408,7 +382,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
     playing = true; $("play-icon").setAttribute("d", "M6 4h4v16H6zM14 4h4v16h-4z"); $("btn-play").setAttribute("aria-label", "Pause");
     vFoot.muted = false; vOutro.muted = false;
     if (T < M.end) vFoot.play().catch(() => {}); else if (edit.outro.enabled) vOutro.play().catch(() => {});
-    aMusic.volume = musicVolumeAt(T); if (edit.music.enabled) aMusic.play().catch(() => {});
+    aMusic.volume = musicVolumeAt(T); if (BRAND.music && edit.music.enabled) aMusic.play().catch(() => {});
     tick();
   }
   function pause() {
@@ -434,7 +408,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
       T = M.end + vOutro.currentTime;
       if (vOutro.ended || T >= M.total - 0.03) { pause(); return; }
     }
-    if (edit.music.enabled) {
+    if (BRAND.music && edit.music.enabled) {
       aMusic.volume = Math.min(1, musicVolumeAt(T));
       if (Math.abs(aMusic.currentTime - T) > 0.25 && T < (aMusic.duration || 0)) aMusic.currentTime = T;
     }
@@ -523,7 +497,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
       const txt = document.createElement("input"); txt.className = "cap-text"; txt.value = g.words.map((w) => w.w).join(" "); txt.setAttribute("aria-label", "Texte de la ligne " + (gi + 1));
       txt.addEventListener("change", () => { retext(g, txt.value); changed(true); });
       const chips = document.createElement("div"); chips.className = "chips";
-      g.words.forEach((w) => { const c = document.createElement("button"); c.className = "chip" + (w.hl ? " hl" : ""); c.textContent = w.w; c.title = w.hl ? "Remettre en blanc" : "Passer en vert"; c.addEventListener("click", () => { w.hl = !w.hl; changed(true); }); chips.appendChild(c); });
+      g.words.forEach((w) => { const c = document.createElement("button"); c.className = "chip" + (w.hl ? " hl" : ""); c.textContent = w.w; c.title = w.hl ? "Remettre en blanc" : "Passer en " + BRAND.hlWord; c.addEventListener("click", () => { w.hl = !w.hl; changed(true); }); chips.appendChild(c); });
       row.append(top, txt, chips);
       row.addEventListener("focusin", () => { if (selCap !== gi) { selCap = gi; document.querySelectorAll(".cap-row").forEach((r) => r.classList.toggle("sel", r === row)); renderTimeline(); } });
       box.appendChild(row);
@@ -586,7 +560,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
     document.querySelectorAll(".style-card").forEach((c) => c.setAttribute("aria-pressed", String(c.dataset.style === edit.style.captions)));
     $("st-size").value = edit.style.size; $("st-size-v").textContent = edit.style.size + " px";
     $("st-y").value = edit.style.y; $("st-y-v").textContent = Math.round(edit.style.y * 100) + " %";
-    $("st-green").value = edit.style.green.toUpperCase();
+    $("st-green").value = edit.style.green.toUpperCase(); $("st-box").value = edit.style.box.toUpperCase();
     $("mu-on").checked = edit.music.enabled; $("mu-vol").value = edit.music.volume; $("mu-vol-v").textContent = Math.round(edit.music.volume * 100) + " %";
     $("mu-vol").disabled = !edit.music.enabled;
     $("ou-on").checked = edit.outro.enabled;
@@ -595,6 +569,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
   $("st-size").addEventListener("input", (e) => { edit.style.size = parseInt(e.target.value, 10); changed(); });
   $("st-y").addEventListener("input", (e) => { edit.style.y = parseFloat(e.target.value); changed(); });
   $("st-green").addEventListener("change", (e) => { edit.style.green = e.target.value; changed(); });
+  $("st-box").addEventListener("change", (e) => { edit.style.box = e.target.value; changed(); });
   $("mu-on").addEventListener("change", (e) => { edit.music.enabled = e.target.checked; if (!edit.music.enabled) aMusic.pause(); else if (playing) aMusic.play().catch(() => {}); changed(); });
   $("mu-vol").addEventListener("input", (e) => { edit.music.volume = parseFloat(e.target.value); changed(); });
   $("ou-on").addEventListener("change", (e) => { edit.outro.enabled = e.target.checked; changed(true); });
@@ -662,7 +637,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
   $("m-close").addEventListener("click", () => { cancelExport = true; modal.hidden = true; });
   $("m-save").addEventListener("click", async () => {
     if (!exportBlob) return;
-    const name = CONFIG.slug + "_9x16" + (edit.music.enabled ? "" : "_sans-musique") + ".mp4";
+    const name = CONFIG.slug + "_9x16" + (BRAND.music && !edit.music.enabled ? "_sans-musique" : "") + ".mp4";
     try {
       const dl = window.claude && window.claude.use ? await window.claude.use("downloads") : null;
       if (!dl) { mText("L'enregistrement n'est pas disponible dans cette vue. Ouvrez la page dans un navigateur sur ordinateur."); return; }
@@ -722,7 +697,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
         g.gain.setValueAtTime(1, c.start + c.dur - 0.008); g.gain.linearRampToValueAtTime(0, c.start + c.dur);
         s.connect(g).connect(master); s.start(c.start, c.in, c.dur);
       });
-      if (edit.music.enabled) {
+      if (BRAND.music && edit.music.enabled) {
         const mus = await decodeAudio("music", off);
         const s = off.createBufferSource(); s.buffer = mus; const g = off.createGain();
         g.gain.setValueAtTime(0, 0); g.gain.linearRampToValueAtTime(edit.music.volume, 0.6);
@@ -795,7 +770,8 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
   });
 
   /* ---------------------------------------------------------------- media (loaded whole, so seeking never depends on the server) */
-  const MEDIA = { foot: "media/footage.mp4", outro: "media/outro.mp4", music: "media/music.mp3" };
+  const MEDIA = { foot: "media/footage.mp4", outro: "media/outro.mp4" };
+  if (BRAND.music) MEDIA.music = "media/music.mp3";
   const blobs = {};
   async function loadMedia() {
     const els = { foot: vFoot, outro: vOutro, music: aMusic };
@@ -808,7 +784,7 @@ select.sel { padding: 5px 6px; border: 1px solid var(--line); border-radius: 6px
   }
 
   /* ---------------------------------------------------------------- boot */
-  document.fonts && document.fonts.load("700 70px 'Instrument Sans'").then(requestDraw, () => {});
+  document.fonts && document.fonts.load(BRAND.weight + " 70px '" + BRAND.font + "'").then(requestDraw, () => {});
   renderTimeline(); renderCaps(); renderClips(); renderSettings(); updateTime(); requestDraw();
   initStore();
   loadMedia().catch(() => { $("loading").textContent = "La vidéo n'a pas pu être chargée. Rechargez la page."; });

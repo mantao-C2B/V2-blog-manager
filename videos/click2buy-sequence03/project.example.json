@@ -1,0 +1,52 @@
+{
+ "brand": "llm-monitor",
+ "slug": "LLM-Monitor_Nom-du-sujet",
+ "title": "Montage Nom du sujet",
+ "subtitle": "Vidéo 9:16 · intervenant · contexte",
+ "source": "../_sources/nom-du-sujet/raw.mp4",
+ "canvas": {
+  "w": 1080,
+  "h": 1920,
+  "fps": 25
+ },
+ "keywords": [
+  "llm",
+  "monitor",
+  "ia",
+  "chatgpt",
+  "gemini",
+  "claude",
+  "perplexity",
+  "visibilité",
+  "marque",
+  "concurrents"
+ ],
+ "bound": [
+  [
+   "LLM",
+   "Monitor"
+  ]
+ ],
+ "focal": [
+  50,
+  30
+ ],
+ "zooms": [
+  1.0,
+  1.12,
+  1.0,
+  1.15
+ ],
+ "pushes": [
+  0.04,
+  0.03
+ ],
+ "max_chars": 24,
+ "segments": null,
+ "end": null,
+ "caption_style": "ligne",
+ "caption_size": 70,
+ "caption_y": 0.665,
+ "music_volume": 0.14,
+ "outro": true
+}

@@ -5,9 +5,10 @@
 Writes:
   index.html               the composition (npx hyperframes render); with --sans-musique it plays the
                            voice + outro sound effects only
-  assets/music.wav         light music bed (tools/songs.py, style "light")
+  assets/music.wav         light music bed (tools/songs.py, style "light"), only for a brand with music
   assets/soundtrack.wav, assets/soundtrack-voix.wav   premixed audio, -14 LUFS / -1 dBTP
 The caption look is a composition variable: captionStyle = ligne | surlignage | karaoke.
+Fonts, colours, outline, outro and music come from the project's brand (project.json "brand", tools/brands.json).
 """
 
 import json
@@ -21,6 +22,7 @@ import soundfile as sf
 ROOT = Path(__file__).resolve().parent.parent
 SONGS = ROOT / "tools" / "songs.py"
 PROJECT = json.load(open(ROOT / "project.json"))
+BRAND = json.load(open(ROOT / "tools" / "brands.json"))[PROJECT.get("brand", "llm-monitor")]
 SR = 48000
 
 
@@ -55,10 +57,18 @@ def captions_out(edit, clips, end):
     return out
 
 
-FONTS = """
-@font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin-ext.woff2") format("woff2"); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; src: url("assets/fonts/InstrumentSans-normal-400-700-latin.woff2") format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-"""
+RANGES = {
+    "latin-ext": "U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF",
+    "latin": "U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD",
+}
+CAPTION_FONT = BRAND["caption_font"]
+FONTS = "\n".join(
+    f'@font-face {{ font-family: "{CAPTION_FONT['family']}"; font-style: normal; font-weight: {w}; '
+    f'src: url("assets/fonts/{f}") format("woff2"); unicode-range: {RANGES[r]}; }}'
+    for f, w, r in CAPTION_FONT["files"])
+# White captions: LLM Monitor keeps a dark outline (mint is only legible on dark); Click2Buy has none.
+TEXT_CSS = ("-webkit-text-stroke: 0.09em rgba(14, 26, 23, 0.62); paint-order: stroke fill; "
+            "text-shadow: 0 0.04em 0.12em rgba(14, 26, 23, 0.5), 0 0 0.5em rgba(14, 26, 23, 0.35);") if BRAND["outline"] else ""
 
 
 def write_html(edit, clips, end, total, soundtrack, path):
@@ -84,12 +94,11 @@ def write_html(edit, clips, end, total, soundtrack, path):
         )
     outro = ""
     if edit["outro"]["enabled"]:
-        outro = (f'      <video id="outro" class="clip" src="assets/outro.mp4" data-start="{end}" '
+        outro = (f'      <video id="outro" class="clip" src="{BRAND["outro"]}" data-start="{end}" '
                  f'data-duration="{edit["outro"]["duration"]}" data-track-index="1" muted playsinline></video>')
     variables = json.dumps([{"id": "captionStyle", "type": "enum", "label": "Style des sous-titres", "default": st["captions"],
-                             "options": [{"value": "ligne", "label": "Ligne blanche, mots clés en vert"},
-                                         {"value": "surlignage", "label": "Mots clés surlignés en vert"},
-                                         {"value": "karaoke", "label": "Mot prononcé surligné"}]}], ensure_ascii=False)
+                             "options": [{"value": k, "label": BRAND["styles"][k][0]} for k in ("ligne", "surlignage", "karaoke")]}],
+                           ensure_ascii=False)
     html = f"""<!doctype html>
 <html lang="fr" data-composition-variables='{variables}'>
   <head>
@@ -101,23 +110,25 @@ def write_html(edit, clips, end, total, soundtrack, path):
 {FONTS}
       * {{ margin: 0; padding: 0; box-sizing: border-box; }}
       html, body {{ width: {W}px; height: {H}px; overflow: hidden; background: #0e1a17; }}
-      #root {{ position: relative; width: 100%; height: 100%; overflow: hidden; background: #0e1a17; font-family: "Instrument Sans", sans-serif; }}
+      #root {{ position: relative; width: 100%; height: 100%; overflow: hidden; background: #0e1a17; font-family: "{CAPTION_FONT["family"]}", sans-serif; }}
       .shot {{ position: absolute; inset: 0; overflow: hidden; }}
       .shot .inner {{ position: absolute; inset: 0; }}
       .shot video {{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }}
       #outro {{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }}
       #whiteout {{ position: absolute; inset: 0; background: #ffffff; opacity: 0; }}
-      /* Captions: one line, Instrument Sans (brand text face), white; key words in brand green. */
+      /* Captions: one line, brand text face, white; key words in the brand colour. */
       .cap {{ position: absolute; left: 0; right: 0; top: {round(st["y"] * H)}px; height: 0; }}
       .cap-fit {{ position: absolute; left: 0; right: 0; top: 0; display: flex; justify-content: center; }}
       .cap-line {{ display: flex; gap: 0 0.1em; align-items: center; transform-origin: 50% 50%; white-space: nowrap;
-                  font-weight: 700; font-size: {st["size"]}px; line-height: 1; letter-spacing: -0.005em; color: #ffffff; margin-top: -0.6em; }}
+                  font-weight: {CAPTION_FONT["weight"]}; font-size: {st["size"]}px; line-height: 1; letter-spacing: -0.005em; color: #ffffff; margin-top: -0.6em; }}
       .w {{ position: relative; display: inline-block; padding: 0.08em 0.1em 0.12em; }}
-      .w .tx {{ position: relative; -webkit-text-stroke: 0.09em rgba(14, 26, 23, 0.62); paint-order: stroke fill;
-                text-shadow: 0 0.04em 0.12em rgba(14, 26, 23, 0.5), 0 0 0.5em rgba(14, 26, 23, 0.35); }}
+      .w .tx {{ position: relative; {TEXT_CSS} }}
       .w .bx {{ position: absolute; inset: 0; border-radius: 0.18em; background: {st["box"]}; opacity: 0; transform-origin: 0% 50%; }}
       .s-ligne .w.hl .tx, .s-karaoke .w.hl .tx {{ color: {st["green"]}; }}
       .s-surlignage .w.hl .tx {{ -webkit-text-stroke: 0; text-shadow: none; }}
+      /* consecutive key words ("LLM Monitor") share one highlight: the box bridges the space between them */
+      .s-surlignage .w.hl:has(+ .w.hl) .bx {{ right: -0.1em; border-top-right-radius: 0; border-bottom-right-radius: 0; }}
+      .s-surlignage .w.hl + .w.hl .bx {{ border-top-left-radius: 0; border-bottom-left-radius: 0; }}
       .s-karaoke .w .tx {{ -webkit-text-stroke-color: rgba(14, 26, 23, 0.62); }}
     </style>
   </head>
@@ -164,7 +175,7 @@ def write_html(edit, clips, end, total, soundtrack, path):
               const next = i + 1 < words.length ? parseFloat(words[i + 1].getAttribute("data-t")) : t1;
               tl.fromTo(bx, {{ opacity: 0, scale: 0.86 }}, {{ opacity: 1, scale: 1, duration: 0.08, ease: "power2.out" }}, Math.max(t0, t));
               tl.to(bx, {{ opacity: 0, duration: 0.05, ease: "none" }}, Math.max(t0, next) - 0.02);
-              if (wd.classList.contains("hl")) {{  // green word turns white while it sits on the green box
+              if (wd.classList.contains("hl")) {{  // coloured word turns white while it sits on the box
                 const tx = wd.querySelector(".tx");
                 tl.set(tx, {{ color: "#ffffff" }}, Math.max(t0, t));
                 tl.set(tx, {{ color: "{st["green"]}" }}, Math.max(t0, next) - 0.02);
@@ -220,10 +231,16 @@ def audio(edit, clips, end, total):
     sfx = np.zeros((n, 2), np.float32)
     if edit["outro"]["enabled"]:
         # the outro's sound effects ride on its own audio track
-        subprocess.run(["ffmpeg", "-hide_banner", "-v", "error", "-y", "-i", str(a / "outro.mp4"), "-vn", "-ac", "2", "-ar", str(SR),
+        subprocess.run(["ffmpeg", "-hide_banner", "-v", "error", "-y", "-i", str(ROOT / BRAND["outro"]), "-vn", "-ac", "2", "-ar", str(SR),
                         str(a / "_outro_sfx.wav")], check=True)
         x = load(a / "_outro_sfx.wav")
         sfx[i_end:i_end + len(x)] += x[: n - i_end]
+    if not BRAND["music"]:
+        sf.write(a / "_premix.wav", voice + sfx, SR, subtype="FLOAT")
+        loudnorm(a / "_premix.wav", a / "soundtrack-voix.wav")
+        for f in ("_premix.wav", "_voice_src.wav", "_outro_sfx.wav"):
+            (a / f).unlink(missing_ok=True)
+        return
     # music bed: light, under the voice, gone by 1.4 s into the outro
     spec = {"style": "light", "duration": round(end + 1.4, 3), "sections": [[0.0, round(end + 1.4, 3), 1]],
             "impacts": [], "risers": [], "stops": [], "fills": [], "fade_out": 1.6}
@@ -238,7 +255,7 @@ def audio(edit, clips, end, total):
         sf.write(a / "_premix.wav", mix, SR, subtype="FLOAT")
         loudnorm(a / "_premix.wav", a / name)
     for f in ("_premix.wav", "_voice_src.wav", "_outro_sfx.wav"):
-        (a / f).unlink()
+        (a / f).unlink(missing_ok=True)
 
 
 def main():

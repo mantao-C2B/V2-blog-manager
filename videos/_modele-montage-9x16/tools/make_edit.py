@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 P = json.load(open(ROOT / "project.json"))
+BRAND = json.load(open(ROOT / "tools" / "brands.json"))[P.get("brand", "llm-monitor")]
 KEYWORDS = {k.lower() for k in P["keywords"]}
 BOUND = [tuple(b) for b in P.get("bound", [])]
 MAX_CHARS = P.get("max_chars", 24)
@@ -26,9 +27,10 @@ def words():
     for seg in json.load(open(ROOT / "tools" / "transcript.json")):
         for w in seg["words"]:
             t = w["w"].strip()
-            if not t or w["e"] - w["s"] < 0.02:  # zero-length words are Whisper ghosts
+            if not t or w["e"] - w["s"] < 0.01:  # zero-length words are Whisper ghosts
                 continue
-            if out and (t[0] in "'’-" or out[-1]["w"].endswith("'")):
+            # glue elisions (l' + 'équipe) and lone punctuation ("Hello" + "!") to the word before
+            if out and (t[0] in "'’-" or out[-1]["w"].endswith("'") or all(ch in "!?.,;:…" for ch in t)):
                 out[-1]["w"] += t
                 out[-1]["e"] = w["e"]
                 continue
@@ -37,7 +39,7 @@ def words():
 
 
 def clean(t):
-    return t.rstrip(".,;:")
+    return t.rstrip(".,;:!… ")
 
 
 def auto_segments(ws):
@@ -57,7 +59,7 @@ def auto_segments(ws):
 
 
 def phrases(ws):
-    """Split at punctuation, then fold one-word stubs ("Salut,") into the next phrase."""
+    """Split at punctuation, then fold one-word stubs ("Salut,") into the next phrase ("Hello !" stays alone)."""
     out, cur = [], []
     for w in ws:
         cur.append(w)
@@ -68,7 +70,7 @@ def phrases(ws):
         out.append(cur)
     merged = []
     for ph in out:
-        if merged and len(merged[-1]) == 1 and len(clean(merged[-1][0]["w"])) <= 8:
+        if merged and len(merged[-1]) == 1 and len(clean(merged[-1][0]["w"])) <= 8 and merged[-1][0]["w"][-1] not in "!?":
             merged[-1] = merged[-1] + ph
         else:
             merged.append(ph)
@@ -86,23 +88,32 @@ def tokens(ph):
     return out
 
 
+# Words a caption line should not end on (they belong with the word after them).
+STOP = {"à", "a", "au", "aux", "de", "du", "des", "d'", "le", "la", "les", "l'", "un", "une", "et", "ou", "pour", "avec",
+        "sur", "dans", "en", "par", "qu'on", "que", "qui", "nos", "vos", "notre", "votre", "ce", "cette", "son", "sa",
+        "ses", "mon", "ma", "mes", "comment", "on", "nous", "vous", "je", "tu", "il", "elle", "ils", "très", "plus"}
+
+
 def lines(toks):
-    """Balanced split of a phrase into lines of at most MAX_CHARS."""
+    """Split a phrase into lines of at most MAX_CHARS: fewest lines, even lengths, no line ending on a small word."""
     text = lambda ts: " ".join(clean(p["w"]) for t in ts for p in t["parts"])
-    total = len(text(toks))
-    n = max(1, -(-total // MAX_CHARS))
-    while True:
-        target = total / n
-        res, cur = [], []
-        for t in toks:
-            if cur and len(text(cur + [t])) > target + 4 and len(res) < n - 1:
-                res.append(cur)
-                cur = []
-            cur.append(t)
-        res.append(cur)
-        if all(len(text(r)) <= MAX_CHARS for r in res) or n > 6:
-            return res
-        n += 1
+    n = len(toks)
+    best, prev = [0.0] + [float("inf")] * n, [0] * (n + 1)
+    for j in range(1, n + 1):
+        for i in range(j - 1, -1, -1):
+            L = len(text(toks[i:j]))
+            if L > MAX_CHARS and j - i > 1:
+                break
+            cost = 400 + (MAX_CHARS - L) ** 2
+            if j < n and clean(toks[j - 1]["parts"][-1]["w"]).lower() in STOP:
+                cost += 300
+            if best[i] + cost < best[j]:
+                best[j], prev[j] = best[i] + cost, i
+    out, j = [], n
+    while j > 0:
+        out.append(toks[prev[j]:j])
+        j = prev[j]
+    return out[::-1]
 
 
 def main():
@@ -131,8 +142,8 @@ def main():
                      for i, (a, b) in enumerate(segs)],
         "captions": caps,
         "style": {"captions": P.get("caption_style", "ligne"), "size": P.get("caption_size", 70), "y": P.get("caption_y", 0.665),
-                  "green": "#2EBE9B", "box": "#117D67"},
-        "music": {"enabled": True, "volume": P.get("music_volume", 0.14)},
+                  "green": BRAND["text_color"], "box": BRAND["box_color"]},
+        "music": {"enabled": BRAND["music"], "volume": P.get("music_volume", 0.14)},
         "outro": {"enabled": bool(P.get("outro", True)), "duration": 6.067},
     }
     json.dump(edit, open(ROOT / "edit.json", "w"), ensure_ascii=False, indent=1)

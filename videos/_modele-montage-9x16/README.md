@@ -1,13 +1,25 @@
-# Modèle de montage 9:16 — face caméra LLM Monitor
+# Modèle de montage 9:16 — face caméra LLM Monitor / Click2Buy
 
-Modèle réutilisable tiré du montage « AI Shelf » (`../llm-monitor-aishelf/`). Pour une vidéo verticale
-face caméra, il produit :
+Modèle réutilisable tiré du montage « AI Shelf » (`../llm-monitor-aishelf/`), décliné pour Click2Buy
+(`../click2buy-sequence03/`). La marque se choisit dans `project.json` (`"brand"`) ; tout ce qui en dépend
+(police, couleurs, contour, outro, musique, couleurs et logo de l'interface) est dans `tools/brands.json`.
+
+| | `llm-monitor` | `click2buy` |
+| --- | --- | --- |
+| Sous-titres | Instrument Sans, blanc avec contour foncé | Poppins (police de « By MarketConnect »), blanc sans contour |
+| Mots clés | vert menthe #2EBE9B, surlignage vert produit #117D67 | surlignage orange BUY #E95531 (orange CLICK #F39134 au choix) |
+| Musique | oui (versions avec et sans) | non : voix + sons de l'outro |
+| Outro | `assets/outro.mp4` | `assets/outro-click2buy.mp4` |
+| Rendus | 4 (musique, sans musique, surlignage, mot prononcé) | 1 (style du montage) |
+
+Pour une vidéo verticale face caméra, il produit :
 
 - un montage propre : un plan par phrase avec cadrages alternés (100 / 112 / 115 %) et zooms lents ;
-- des sous-titres sur une ligne en Instrument Sans (police de texte de la charte), mots clés en vert menthe
-  avec un contour foncé, et deux autres styles (surlignage vert produit, mot prononcé) ;
-- une musique légère originale sous la voix (`tools/songs.py`, style `light`), versions avec et sans musique ;
-- l'outro logo 9:16 sur fond blanc, avec ses effets sonores (`assets/outro.mp4`) ;
+- des sous-titres sur une ligne aux couleurs de la marque, trois styles (ligne, surlignage, mot prononcé) ;
+  deux mots clés qui se suivent (« LLM Monitor ») partagent un seul surlignage ;
+- pour LLM Monitor, une musique légère originale sous la voix (`tools/songs.py`, style `light`), versions
+  avec et sans musique ;
+- l'outro logo 9:16 de la marque sur fond blanc, avec ses effets sonores ;
 - **l'interface de montage** (`editor/`) : une page publiée comme artefact claude.ai où l'on corrige les
   sous-titres, passe des mots en vert, ajuste coupes et zooms, change le style, la musique et l'outro,
   avec enregistrement automatique et export MP4 dans le navigateur.
@@ -18,25 +30,26 @@ face caméra, il produit :
 cd videos
 cp -r _modele-montage-9x16 llm-monitor-<sujet>
 cd llm-monitor-<sujet>
-cp project.example.json project.json          # titre, slug, mots clés, noms à ne pas couper…
+cp project.example.json project.json          # marque, titre, slug, mots clés, noms à ne pas couper…
 mkdir -p ../_sources/<sujet> && echo '*' > ../_sources/<sujet>/.gitignore
 # rushes dans ../_sources/<sujet>/raw.mp4 (Drive : curl "https://drive.usercontent.google.com/download?id=<ID>&export=download&confirm=t")
 bash tools/prepare.sh ../_sources/<sujet>/raw.mp4     # copies de travail + transcription (large-v3)
 python3 tools/make_edit.py                    # edit.json : coupes + sous-titres ; relire la liste imprimée
 python3 tools/build.py                        # index.html + musique + bandes-son (-14 LUFS)
 npx hyperframes check                         # 0 erreur attendue (avertissements de structure normaux)
-bash tools/render_all.sh                      # 4 MP4 dans renders/
+bash tools/render_all.sh                      # MP4 dans renders/ (4 pour LLM Monitor, 1 pour Click2Buy)
 python3 tools/make_editor.py                  # editor/index.html + editor/media/
 ```
 
 Puis publier l'interface (outil Artifact) : `file_path` = `editor/index.html`, `files` =
-`media/footage.mp4`, `media/outro.mp4`, `media/music.mp3` (depuis `editor/media/`),
+`media/footage.mp4`, `media/outro.mp4` et, pour une marque avec musique, `media/music.mp3` (depuis `editor/media/`),
 `capabilities` = `{"db": {}, "user": {}, "downloads": true}`, `icon` = `film`.
 
 ## Réglages (`project.json`)
 
 | Clé | Rôle |
 | --- | --- |
+| `brand` | `llm-monitor` ou `click2buy` (voir `tools/brands.json`) |
 | `slug`, `title`, `subtitle` | noms des fichiers exportés, titre de l'interface |
 | `keywords` | mots passés en vert (minuscules, sans ponctuation) |
 | `bound` | paires de mots jamais séparées sur deux lignes (`["AI","Shelf"]`, `["stand","V19"]`) |
@@ -45,7 +58,7 @@ Puis publier l'interface (outil Artifact) : `file_path` = `editor/index.html`, `
 | `zooms`, `pushes`, `focal` | cadrages successifs, zoom lent par plan, point de zoom (% de l'image, visage) |
 | `max_chars` | longueur max d'une ligne de sous-titre (24 pour 1080 px de large) |
 | `caption_style`, `caption_size`, `caption_y` | style par défaut (`ligne`, `surlignage`, `karaoke`), taille, hauteur |
-| `music_volume`, `outro` | niveau de la musique (0,14 ≈ -12 dB sous la voix), outro oui/non |
+| `music_volume`, `outro` | niveau de la musique (0,14 ≈ -12 dB sous la voix, marques avec musique), outro oui/non |
 
 ## Ce qui est déjà réglé (et pourquoi)
 

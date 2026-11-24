@@ -1,0 +1,74 @@
+{
+ "llm-monitor": {
+  "name": "LLM Monitor",
+  "outro": "assets/outro.mp4",
+  "outro_label": "Outro logo LLM Monitor (6 s, fond blanc)",
+  "music": true,
+  "caption_font": {"family": "Instrument Sans", "weight": 700, "files": [
+   ["InstrumentSans-normal-400-700-latin-ext.woff2", "400 700", "latin-ext"],
+   ["InstrumentSans-normal-400-700-latin.woff2", "400 700", "latin"]]},
+  "outline": true,
+  "hl_word": "vert",
+  "text_color": "#2EBE9B",
+  "box_color": "#117D67",
+  "text_colors": [["#2EBE9B", "Vert menthe #2EBE9B"], ["#117D67", "Vert produit #117D67"], ["#FFFFFF", "Blanc (aucun mot en couleur)"]],
+  "box_colors": [["#117D67", "Vert produit #117D67"], ["#2EBE9B", "Vert menthe #2EBE9B"]],
+  "text_color_label": "Vert des mots clés",
+  "box_color_label": "Vert du surlignage",
+  "styles": {
+   "ligne": ["Ligne blanche, mots clés en vert", "Mots clés en vert menthe"],
+   "surlignage": ["Mots clés surlignés en vert", "Mots clés sur un aplat vert"],
+   "karaoke": ["Mot prononcé surligné", "Le mot dit suit un aplat vert"]},
+  "style_hint": "Instrument Sans, la police de texte de la charte. Le vert menthe est réservé aux fonds sombres : il est posé ici avec un contour foncé pour rester lisible sur la vidéo.",
+  "ui": {
+   "fonts_link": "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Sora:wght@600&family=IBM+Plex+Mono:wght@400;500&display=swap",
+   "comment": "Palette from the LLM Monitor guide: ink, sable, product green on light; mint only on dark.",
+   "font_ui": "\"Instrument Sans\", \"Helvetica Neue\", Arial, sans-serif",
+   "font_title": "\"Sora\", \"Instrument Sans\", sans-serif",
+   "title_spacing": "-0.035em",
+   "light": {"bg": "#eceeeb", "panel": "#ffffff", "panel-2": "#f5f6f3", "ink": "#0e1a17", "ink-soft": "#4e5a56", "ink-faint": "#75807c",
+             "line": "#dfe3df", "accent": "#117d67", "accent-ink": "#ffffff", "accent-soft": "#e4f3ee", "warn": "#b5532f", "stage": "#0e1a17",
+             "clip-a": "#c8e6dc", "clip-b": "#a9d8c8", "cap": "#117d67"},
+   "dark": {"bg": "#0b1412", "panel": "#13201d", "panel-2": "#182824", "ink": "#eef3f1", "ink-soft": "#b4c2bd", "ink-faint": "#82918c",
+            "line": "#26372f", "accent": "#2ebe9b", "accent-ink": "#0e1a17", "accent-soft": "#173a31", "warn": "#e88a66", "stage": "#060b0a",
+            "clip-a": "#1f4a3e", "clip-b": "#2a5f50", "cap": "#2ebe9b"},
+   "logo_svg": "<svg viewBox=\"0 0 100 100\" fill=\"none\" aria-hidden=\"true\"><rect x=\"20\" y=\"20\" width=\"60\" height=\"60\" rx=\"8\" transform=\"rotate(45 50 50)\" stroke=\"currentColor\" stroke-width=\"7.2\" stroke-linecap=\"round\" stroke-dasharray=\"34.6 21.885\" stroke-dashoffset=\"-4.7\"/><circle cx=\"50\" cy=\"50\" r=\"10.6\" fill=\"currentColor\"/></svg>"
+  }
+ },
+ "click2buy": {
+  "name": "Click2Buy",
+  "outro": "assets/outro-click2buy.mp4",
+  "outro_label": "Outro logo Click2Buy (6 s, fond blanc)",
+  "music": false,
+  "caption_font": {"family": "Poppins", "weight": 700, "files": [
+   ["Poppins-700-latin-ext.woff2", "700", "latin-ext"],
+   ["Poppins-700-latin.woff2", "700", "latin"]]},
+  "outline": false,
+  "hl_word": "orange",
+  "text_color": "#F39134",
+  "box_color": "#E95531",
+  "text_colors": [["#F39134", "Orange CLICK #F39134"], ["#E95531", "Orange BUY #E95531"], ["#FFFFFF", "Blanc (aucun mot en couleur)"]],
+  "box_colors": [["#E95531", "Orange BUY #E95531"], ["#F39134", "Orange CLICK #F39134"]],
+  "text_color_label": "Orange des mots clés (style ligne)",
+  "box_color_label": "Orange du surlignage",
+  "styles": {
+   "ligne": ["Ligne blanche, mots clés en orange", "Mots clés en orange"],
+   "surlignage": ["Mots clés surlignés en orange", "Mots clés sur un aplat orange"],
+   "karaoke": ["Mot prononcé surligné", "Le mot dit suit un aplat orange"]},
+  "style_hint": "Poppins, la police de « By MarketConnect ». Texte blanc sans contour ; les mots clés sont surlignés avec un orange du logo Click2Buy.",
+  "ui": {
+   "fonts_link": "https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap",
+   "comment": "Palette from the Click2Buy logo: orange CLICK #F39134 and orange BUY #E95531 on warm neutrals.",
+   "font_ui": "\"Poppins\", \"Helvetica Neue\", Arial, sans-serif",
+   "font_title": "\"Poppins\", \"Helvetica Neue\", Arial, sans-serif",
+   "title_spacing": "-0.02em",
+   "light": {"bg": "#f3efeb", "panel": "#ffffff", "panel-2": "#f8f5f2", "ink": "#221a16", "ink-soft": "#5b4f48", "ink-faint": "#7d716a",
+             "line": "#e6ded7", "accent": "#d9481f", "accent-ink": "#ffffff", "accent-soft": "#fbe6dc", "warn": "#b0331a", "stage": "#221a16",
+             "clip-a": "#fbd9bd", "clip-b": "#f7c29c", "cap": "#e95531"},
+   "dark": {"bg": "#141010", "panel": "#1e1816", "panel-2": "#251e1b", "ink": "#f6f0eb", "ink-soft": "#c9bbb1", "ink-faint": "#9a8c83",
+            "line": "#3a2f2a", "accent": "#f39134", "accent-ink": "#221a16", "accent-soft": "#3d2618", "warn": "#f08a6c", "stage": "#0b0807",
+            "clip-a": "#5a3322", "clip-b": "#6e3d27", "cap": "#f39134"},
+   "logo_svg": "<svg viewBox=\"0 0 100 100\" aria-hidden=\"true\"><path fill=\"#e95531\" fill-rule=\"evenodd\" d=\"M50 97 25.5 72.5A34 34 0 1 1 74.5 72.5ZM50 24a25 25 0 1 0 0 50 25 25 0 0 0 0-50Z\"/><text x=\"50\" y=\"51\" text-anchor=\"middle\" dominant-baseline=\"middle\" font-family=\"Poppins, sans-serif\" font-weight=\"600\" font-size=\"30\" fill=\"#f39134\">2</text></svg>"
+  }
+ }
+}
