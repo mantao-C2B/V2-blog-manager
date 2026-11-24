@@ -15,16 +15,12 @@
       #lockup { position: absolute; inset: 0; }
       .grp { position: absolute; inset: 0; }
       .layer { position: absolute; display: block; }
-      .ring { position: absolute; border: 6px solid #e95531; border-radius: 50%; opacity: 0; }
     </style>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="6.067" data-width="1080" data-height="1920" data-fps="30">
       <div id="stage" data-layout-allow-overflow>
         <div id="lockup">
-          <div id="ground-1" class="ring"></div>
-          <div id="ground-2" class="ring"></div>
-          <div id="beacon" class="ring"></div>
           <div id="click" class="grp"></div>
           <div id="buy" class="grp"></div>
           <div id="tag" class="grp"></div>
@@ -62,8 +58,6 @@
       (function () {
         const tl = gsap.timeline({ paused: true });
         const pin = groups.pin[0], two = groups.two[0];
-        const TIP = { x: 1074, y: 731 };      // point of the pin
-        const HEAD = { x: 1073.5, y: 492 };   // centre of the pin's ring (outer radius 159)
 
         // 1. The pin drops onto the map (whoosh), lands on the impact with a short squash and settles.
         tl.fromTo(pin, { y: -260 }, { y: 0, duration: 0.36, ease: "power2.in" }, 0);
@@ -71,16 +65,6 @@
         tl.fromTo(pin, { scaleX: 1, scaleY: 1 }, { scaleX: 1.07, scaleY: 0.9, duration: 0.07, ease: "power1.out", transformOrigin: "50% 100%",
           immediateRender: false }, 0.36);
         tl.to(pin, { scaleX: 1, scaleY: 1, duration: 0.55, ease: "back.out(3)" }, 0.43);
-
-        // Landing ripples on the ground, under the point of the pin (width/height tweened so the line stays thin).
-        function ripple(el, at, w0, w1, op) {
-          tl.set(el, { left: TIP.x, top: TIP.y, xPercent: -50, yPercent: -50 }, 0);
-          // set + to (not fromTo): a visible start state must not show before the ring's own start.
-          tl.set(el, { width: w0, height: w0 * 0.22, opacity: op }, at);
-          tl.to(el, { width: w1, height: w1 * 0.22, opacity: 0, duration: 0.95, ease: "power2.out" }, at);
-        }
-        ripple("#ground-1", 0.36, 70, 520, 0.55);
-        ripple("#ground-2", 0.47, 50, 330, 0.4);
 
         // 2. The "2" pops inside the pin.
         tl.fromTo(two, { scale: 0, rotation: -14, opacity: 0 }, { scale: 1, rotation: 0, opacity: 1, duration: 0.55, ease: "back.out(2.2)",
@@ -99,10 +83,7 @@
             { opacity: 1, x: 0, filter: "blur(0px)", duration: 1.0, ease: "power3.out" }, 1.3);
         });
 
-        // 5. Hold: one quiet location ping around the pin, and a very slow push for life.
-        tl.set("#beacon", { left: HEAD.x, top: HEAD.y, xPercent: -50, yPercent: -50 }, 0);
-        tl.set("#beacon", { width: 330, height: 330, opacity: 0.45 }, 2.4);
-        tl.to("#beacon", { width: 560, height: 560, opacity: 0, duration: 1.5, ease: "power2.out" }, 2.4);
+        // 5. Hold: a very slow push for life.
         tl.fromTo("#lockup", { scale: 1 }, { scale: 1.025, duration: 4.4, ease: "sine.inOut", transformOrigin: "1000px 557px" }, 1.6);
 
         tl.set({}, {}, 6.067);

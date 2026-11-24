@@ -9,11 +9,11 @@ Rendu : `renders/Click2Buy_outro-logo_fond-blanc_9x16_sfx.mp4` (non versionné).
 
 | Temps | Image | Son |
 | --- | --- | --- |
-| 0,00 → 0,36 s | l'épingle tombe et se pose (léger écrasement, ondes au sol) | whoosh, impact grave à 0,36 s |
+| 0,00 → 0,36 s | l'épingle tombe et se pose (léger écrasement) | whoosh, impact grave à 0,36 s |
 | 0,60 s | le « 2 » apparaît dans l'épingle | pop |
 | 0,80 s | CLICK s'ouvre vers la gauche, BUY vers la droite, depuis l'épingle | deux whooshs courts, gauche / droite |
 | 1,30 s | « By MarketConnect » : les lettres se rassemblent et deviennent nettes | whoosh inversé, clic à 1,55 s |
-| 2,40 s | une onde discrète autour de l'épingle, puis lent zoom avant jusqu'à la fin | — |
+| 1,60 s → fin | lent zoom avant | — |
 
 ## Refaire
 
